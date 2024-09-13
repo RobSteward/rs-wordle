@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <style>
+    @keyframes moveLeftRight {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(-30px); }
+    }
+    .move {
+      animation: moveLeftRight 2s ease-in-out infinite;
+    }
+  </style>
+  
+  <!-- Static U-shape made of rounded squares -->
+  <rect x="10" y="10" width="60" height="30" rx="10" fill="#4285F4" />
+  <rect x="10" y="10" width="30" height="90" rx="10" fill="#4285F4" />
+  <rect x="10" y="76" width="60" height="30" rx="10" fill="#4285F4" />
+  
+  <!-- Moving square -->
+  <rect x="70" y="43" width="30" height="30" rx="10" fill="#4285F4" class="move" />
+</svg>
