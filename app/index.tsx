@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, useColorScheme } from 'react-native'
 import IconLight from '@/assets/images/wordle-icon-light.svg'
 import IconDark from '@/assets/images/wordle-icon-dark.svg'
 import { Button } from 'react-native-paper'
-import { Link } from 'expo-router'
+import { Link, useRouter } from 'expo-router'
 import { useState, useRef } from 'react'
 import { format } from 'date-fns'
 import { Colors } from '@/constants/Colors'
@@ -10,7 +10,7 @@ import ThemedText from '@/components/ThemedText'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import LearnMoreModal from '@/components/LearnMoreModal'
 import ThemedButton from '@/components/ThemedButton'
-import { useAuth } from '@clerk/clerk-expo'
+import { SignedIn, SignedOut, useAuth } from '@clerk/clerk-expo'
 
 export default function Index() {
   const [isLoading, setIsLoading] = useState(false)
@@ -19,7 +19,8 @@ export default function Index() {
   const textColor = Colors[colorScheme ?? 'light'].text
   const buttonTextColor = Colors[colorScheme ?? 'light'].buttonText
   const learnMoreModalRef = useRef<BottomSheetModal>(null)
-  const { signOut, isSignedIn } = useAuth()
+  const router = useRouter()
+  const { signOut } = useAuth()
 
   const handlePresentModal = () => {
     learnMoreModalRef.current?.present()
@@ -49,7 +50,7 @@ export default function Index() {
 
       <View style={styles.menu}>
         <Link
-          href={'/game'}
+          href={'/(authenticated)/(tabs)/game'}
           asChild
         >
           <Button
@@ -61,19 +62,23 @@ export default function Index() {
             Play
           </Button>
         </Link>
-        {isSignedIn ? (
+        <SignedOut>
           <ThemedButton
             title='Sign in'
-            onPress={signOut}
+            onPress={() => {
+              router.push('/(authentication)/')
+            }}
           />
-        ) : (
-          <Link
-            href={'/(authentication)'}
-            asChild
-          >
-            <ThemedButton title='Sign in' />
-          </Link>
-        )}
+        </SignedOut>
+        <SignedIn>
+          <ThemedButton
+            title='Sign out'
+            onPress={() => {
+              signOut()
+            }}
+          />
+        </SignedIn>
+
         <ThemedButton
           title='Learn more'
           onPress={handlePresentModal}

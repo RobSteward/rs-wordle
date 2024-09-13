@@ -1,4 +1,4 @@
-import { Stack } from 'expo-router'
+import { Stack, useRouter } from 'expo-router'
 import {
   FrankRuhlLibre_500Medium,
   FrankRuhlLibre_800ExtraBold,
@@ -18,8 +18,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo'
 import { tokenCache } from '@/utils/cache'
-
-SplashScreen.preventAutoHideAsync()
+import { MD3Colors, IconButton } from 'react-native-paper'
+import * as React from 'react'
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
 
@@ -29,6 +29,8 @@ if (!publishableKey) {
   )
 }
 
+SplashScreen.preventAutoHideAsync()
+
 export default function RootLayout() {
   const colorScheme = useColorScheme()
   const [fontsLoaded, fontsLoadedError] = useFonts({
@@ -36,6 +38,7 @@ export default function RootLayout() {
     FrankRuhlLibre_800ExtraBold,
     FrankRuhlLibre_900Black,
   })
+  const router = useRouter()
 
   useEffect(() => {
     if (fontsLoaded || fontsLoadedError) {
@@ -73,6 +76,23 @@ export default function RootLayout() {
                 }}
               >
                 <Stack.Screen name='index' />
+                <Stack.Screen
+                  name='(authentication)'
+                  options={{
+                    presentation: 'modal',
+                    headerShadowVisible: false,
+                    headerShown: true,
+                    headerTitle: 'Authentication',
+                    headerLeft: () => (
+                      <IconButton
+                        icon='close'
+                        iconColor={MD3Colors.primary20}
+                        size={20}
+                        onPress={() => router.back()}
+                      />
+                    ),
+                  }}
+                />
               </Stack>
             </BottomSheetModalProvider>
           </GestureHandlerRootView>
