@@ -114,7 +114,8 @@ const learnMoreModal = forwardRef<Ref>((props, ref) => {
             style={styles.image}
           /> */}
 
-          <View style={{ marginVertical: 20 }}>
+          <View>
+            <Text style={styles.header}>Tech Stack</Text>
             <MarkedList
               counterRenderer={disc}
               lineStyle={{ paddingHorizontal: 40, gap: 10, marginVertical: 10 }}
@@ -129,21 +130,25 @@ const learnMoreModal = forwardRef<Ref>((props, ref) => {
               ))}
             </MarkedList>
           </View>
+          <Text style={styles.header}>Disclaimer</Text>
           <Text style={styles.disclaimer}>
             <Text>This interview submission app is based on a </Text>
             <Text
               onPress={() =>
                 Linking.openURL('https://www.youtube.com/watch?v=pTonpjmKtiE')
               }
+              style={styles.link}
             >
               YouTube tutorial by Simon Grimm
             </Text>
             <Text>
-              . No code was copied from the GitHub repository. Any styling and
-              design changes are my own. The app is not intended to be used as a
-              Wordle clone and does not intent to infringe on the Wordle
-              trademark. I'm surprised you're reading this far. Now that I have
-              your attention: Did you know that the
+              . No code was copied from the GitHub repository. Any errors,
+              mistakes and bugs are my own. All correctly used patterns,
+              stuctures, design principles and business logic credit is due to
+              the resources I consulted in making this project. The app is not
+              intended to be used as a Wordle clone and does not intent to
+              infringe on the Wordle trademark. I'm surprised you're reading
+              this far. Now that I have your attention: Did you know that the{' '}
             </Text>
             <Text
               onPress={() =>
@@ -151,8 +156,8 @@ const learnMoreModal = forwardRef<Ref>((props, ref) => {
                   'https://meetings-eu1.hubspot.com/joris-heikamp/'
                 )
               }
+              style={styles.link}
             >
-              {' '}
               callback CTA on your homepage
             </Text>
             <Text> is missing utm parameters?</Text>
@@ -202,6 +207,13 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: 'bold',
   },
+  header: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#4f4f4f',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
   listText: {
     fontSize: 14,
     flexShrink: 1,
@@ -230,6 +242,11 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 5,
     paddingTop: 20,
+  },
+  link: {
+    color: '#000',
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
   },
 })
 
