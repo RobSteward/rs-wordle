@@ -1,15 +1,21 @@
-import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo'
+import { View, Text } from 'react-native'
+import { SignedIn, SignedOut, useAuth, useUser } from '@clerk/clerk-expo'
 import { Link } from 'expo-router'
-import { Text, View } from 'react-native'
-import React from 'react'
+import ThemedButton from '@/components/ThemedButton'
 
-export default function Page() {
+const TabsScreen = () => {
   const { user } = useUser()
+  const { signOut } = useAuth()
 
   return (
     <View>
       <SignedIn>
         <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>
+        <ThemedButton
+          onPress={() => signOut()}
+          title='Sign out'
+          primary
+        />
       </SignedIn>
       <SignedOut>
         <View
@@ -24,3 +30,4 @@ export default function Page() {
     </View>
   )
 }
+export default TabsScreen

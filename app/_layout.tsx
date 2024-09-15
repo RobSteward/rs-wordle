@@ -7,19 +7,19 @@ import {
 } from '@expo-google-fonts/frank-ruhl-libre'
 import * as SplashScreen from 'expo-splash-screen'
 import { useEffect } from 'react'
-import { useColorScheme, View, Text, Image } from 'react-native'
+import { useColorScheme, View, Text, Image, Appearance } from 'react-native'
 import {
   ThemeProvider,
   DarkTheme,
   DefaultTheme,
 } from '@react-navigation/native'
-import { Appearance } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo'
 import { tokenCache } from '@/utils/cache'
 import { MD3Colors, IconButton } from 'react-native-paper'
 import * as React from 'react'
+import { ToastProvider } from 'react-native-toast-notifications'
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
 
@@ -64,39 +64,41 @@ export default function RootLayout() {
       tokenCache={tokenCache}
     >
       <ClerkLoaded>
-        <ThemeProvider
-          value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-        >
-          <GestureHandlerRootView>
-            <BottomSheetModalProvider>
-              <Stack
-                initialRouteName={'/index'}
-                screenOptions={{
-                  headerShown: false,
-                }}
-              >
-                <Stack.Screen name='index' />
-                <Stack.Screen
-                  name='(authentication)'
-                  options={{
-                    presentation: 'modal',
-                    headerShadowVisible: false,
-                    headerShown: true,
-                    headerTitle: 'Authentication',
-                    headerLeft: () => (
-                      <IconButton
-                        icon='close'
-                        iconColor={MD3Colors.primary20}
-                        size={20}
-                        onPress={() => router.back()}
-                      />
-                    ),
+        <ToastProvider>
+          <ThemeProvider
+            value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+          >
+            <GestureHandlerRootView>
+              <BottomSheetModalProvider>
+                <Stack
+                  initialRouteName={'/index'}
+                  screenOptions={{
+                    headerShown: false,
                   }}
-                />
-              </Stack>
-            </BottomSheetModalProvider>
-          </GestureHandlerRootView>
-        </ThemeProvider>
+                >
+                  <Stack.Screen name='index' />
+                  <Stack.Screen
+                    name='(authentication)'
+                    options={{
+                      presentation: 'modal',
+                      headerShadowVisible: false,
+                      headerShown: true,
+                      headerTitle: 'Authentication',
+                      headerLeft: () => (
+                        <IconButton
+                          icon='close'
+                          iconColor={MD3Colors.primary20}
+                          size={20}
+                          onPress={() => router.back()}
+                        />
+                      ),
+                    }}
+                  />
+                </Stack>
+              </BottomSheetModalProvider>
+            </GestureHandlerRootView>
+          </ThemeProvider>
+        </ToastProvider>
       </ClerkLoaded>
     </ClerkProvider>
   )

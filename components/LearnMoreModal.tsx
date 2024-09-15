@@ -37,6 +37,9 @@ const TECH_STACK = [
   'Firestore',
   'Clerk',
   'Typescript',
+  'Formik/Yup',
+  'validator',
+  'React Native Toast Notification',
   'Jest',
   'Google Fonts',
   'Date FNS',
@@ -80,7 +83,7 @@ const learnMoreModal = forwardRef<Ref>((props, ref) => {
       <View style={styles.contentContainer}>
         <View style={styles.modalBtns}>
           <Link
-            href={'/(authentication)'}
+            href={'/(authenticated)/'}
             asChild
           >
             <TouchableOpacity

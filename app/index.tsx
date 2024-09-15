@@ -20,7 +20,7 @@ export default function Index() {
   const buttonTextColor = Colors[colorScheme ?? 'light'].buttonText
   const learnMoreModalRef = useRef<BottomSheetModal>(null)
   const router = useRouter()
-  const { signOut } = useAuth()
+  const { signOut, isSignedIn } = useAuth()
 
   const handlePresentModal = () => {
     learnMoreModalRef.current?.present()
@@ -50,7 +50,7 @@ export default function Index() {
 
       <View style={styles.menu}>
         <Link
-          href={'/(authenticated)/(tabs)/game'}
+          href={'/(authenticated)/(tabs)'}
           asChild
         >
           <Button

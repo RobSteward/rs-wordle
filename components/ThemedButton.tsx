@@ -7,9 +7,19 @@ interface ButtonProps {
   title: string
   onPress?: () => void
   loading?: boolean
+  disabled?: boolean
+  styles?: object
+  primary?: boolean
 }
 
-const ThemedButton: React.FC<ButtonProps> = ({ title, onPress, loading }) => {
+const ThemedButton: React.FC<ButtonProps> = ({
+  title,
+  onPress,
+  loading,
+  disabled,
+  styles,
+  primary,
+}) => {
   const colorScheme = useColorScheme()
   const buttonTextColor = Colors[colorScheme ?? 'light'].buttonText
 
@@ -17,11 +27,27 @@ const ThemedButton: React.FC<ButtonProps> = ({ title, onPress, loading }) => {
     <>
       <View style={{ alignItems: 'center' }}>
         <Button
+          style={styles}
           mode={colorScheme === 'dark' ? 'outlined' : 'contained'}
-          buttonColor={colorScheme === 'dark' ? '#212547' : '#1180ff'}
-          textColor={buttonTextColor}
+          buttonColor={
+            primary
+              ? colorScheme === 'dark'
+                ? '#212547'
+                : '#1180ff'
+              : colorScheme === 'dark'
+              ? '#444444'
+              : '#cccccc'
+          }
+          textColor={
+            primary
+              ? buttonTextColor
+              : colorScheme === 'dark'
+              ? '#ffffff'
+              : '#000000'
+          }
           onPress={onPress}
           loading={loading}
+          disabled={disabled}
         >
           {title}
         </Button>
