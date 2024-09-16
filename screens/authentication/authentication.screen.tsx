@@ -12,7 +12,6 @@ import ThemedLinearGradient from '@/components/ThemedLinearGradient'
 import SignUpScreen from './sign-up.screen'
 import SignInScreen from './sign-in.screen'
 import { useLocalSearchParams } from 'expo-router'
-import { useOAuth } from '@clerk/clerk-expo'
 import { useRouter } from 'expo-router'
 import IconLight from '@/assets/images/wordle-icon-light-variant.svg'
 import IconDark from '@/assets/images/wordle-icon-dark.svg'
@@ -22,28 +21,12 @@ interface AuthenticationScreenProps {
   authenticationType?: 'sign-in' | 'sign-up'
 }
 
-enum AuthenticationStrategy {
-  Apple = 'oauth_apple',
-  Google = 'oauth_google',
-  Microsoft = 'oauth_microsoft',
-}
+
 
 const AuthenticationScreen: React.FC<AuthenticationScreenProps> = () => {
   const router = useRouter()
   const colorScheme = useColorScheme()
-  const { startOAuthFlow: appleAuthFlow } = useOAuth({
-    strategy: AuthenticationStrategy.Apple,
-  })
-  const { startOAuthFlow: googleAuthFlow } = useOAuth({
-    strategy: AuthenticationStrategy.Google,
-  })
-  const { startOAuthFlow: microsoftAuthFlow } = useOAuth({
-    strategy: AuthenticationStrategy.Microsoft,
-  })
-
-  const onSelectAuth = async (strategy: AuthenticationStrategy) => {
-    console.log('Starting OAuth flow...', strategy)
-  }
+  
   const { authenticationType } = useLocalSearchParams()
   const [isSignUp, setIsSignUp] = useState<boolean>(
     authenticationType === 'sign-up'

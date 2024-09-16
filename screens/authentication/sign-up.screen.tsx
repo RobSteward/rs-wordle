@@ -20,6 +20,7 @@ import { useSignUp } from '@clerk/clerk-expo'
 import { useRouter } from 'expo-router'
 import ThemedButton from '@/components/ThemedButton'
 import VerifyAccountModal from '@/components/VerifyAccountModal'
+import SocialAuthentication from '@/components/SocialAuthentication'
 
 interface SignUpFormProps {
   email: string
@@ -91,7 +92,7 @@ export default function SignUpScreen() {
         await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
         setPendingVerification(true)
         updateToast('Account created!', 'success')
-        if (signUp && isVerified) router.replace('/(authenticated)/(tabs)/game')
+        if (signUp && isVerified) router.replace('/(authenticated)/(tabs)')
       } catch (err: any) {
         console.error(JSON.stringify(err, null, 2))
         updateToast(`Registration failed. Please try again`, 'danger')
@@ -227,14 +228,15 @@ export default function SignUpScreen() {
                       rippleColor={MD3Colors.error0}
                     />
                   }
-                />
+                />{' '}
+                <SocialAuthentication />
                 <Animated.View
                   style={{
                     marginTop: 20,
                     transform: [{ translateX: shakeAnimationValue }],
                   }}
                 >
-                  <ThemedFormSubmit buttonAction='Sign up'/>
+                  <ThemedFormSubmit buttonAction='Sign up' />
                 </Animated.View>
               </View>
             )}

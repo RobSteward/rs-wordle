@@ -1,4 +1,4 @@
-import { Redirect, router, Stack } from 'expo-router'
+import { router, Stack } from 'expo-router'
 import React from 'react'
 import { useAuth } from '@clerk/clerk-expo'
 
@@ -10,5 +10,12 @@ export default function AuthenticatedRoutesLayout() {
     router.replace('/(authentication)/')
   }
 
-  return <Stack initialRouteName='/(tabs)/index' />
+  return (
+    <Stack
+      initialRouteName='/(tabs)/'
+      screenOptions={{
+        headerShown: false,
+      }}
+    />
+  )
 }

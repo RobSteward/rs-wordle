@@ -21,39 +21,45 @@ const TabsLayout = () => {
             height: 60,
             paddingBottom: 5,
           },
-          tabBarActiveTintColor: Colors.light.text,
+          tabBarActiveTintColor: Colors.light.tint,
           tabBarInactiveTintColor: Colors.light.gray,
           tabBarLabelStyle: {
             fontSize: 12,
-            fontWeight: 'bold',
             marginBottom: 5,
           },
           tabBarIconStyle: {
             marginTop: 5,
           },
-          headerStyle: {
-            backgroundColor: Colors.light.background,
-          },
-          headerTintColor: '#FFFFFF',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
           headerShown: false,
         }}
-        initialRouteName='game'
+        initialRouteName='index'
       >
         <Tabs.Screen
           name='index'
           options={{
             tabBarIcon: ({ focused, color, size }) => (
               <MaterialCommunityIcons
-                name='dice-1'
+                name='dice-3'
                 size={size}
                 color={color}
               />
             ),
-            tabBarLabel: 'Game',
-            title: 'Game',
+            tabBarLabel: 'Play',
+            title: 'Play',
+          }}
+        />
+        <Tabs.Screen
+          name='settings'
+          options={{
+            tabBarIcon: ({ focused, color, size }) => (
+              <MaterialCommunityIcons
+                name='cog'
+                size={size}
+                color={color}
+              />
+            ),
+            tabBarLabel: 'Settings',
+            title: 'Settings',
           }}
         />
       </Tabs>

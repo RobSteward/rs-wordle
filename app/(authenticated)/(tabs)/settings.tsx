@@ -1,25 +1,21 @@
 import { View, Text } from 'react-native'
-import { SignedIn, SignedOut, useAuth, useUser } from '@clerk/clerk-expo'
 import { Link } from 'expo-router'
-import ThemedButton from '@/components/ThemedButton'
+import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo'
 
-const TabsScreen = () => {
+const settings = () => {
   const { user } = useUser()
-  const { signOut } = useAuth()
-
   return (
     <View>
       <SignedIn>
         <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>
-        <ThemedButton
-          onPress={() => signOut()}
-          title='Sign out'
-          primary
-        />
       </SignedIn>
       <SignedOut>
         <View
-          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
         >
           <Text>Looks like you should not be here...</Text>
           <Link href='/(authentication)/'>
@@ -30,4 +26,4 @@ const TabsScreen = () => {
     </View>
   )
 }
-export default TabsScreen
+export default settings

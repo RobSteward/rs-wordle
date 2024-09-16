@@ -28,8 +28,7 @@ const ThemedButton: React.FC<ButtonProps> = ({
       <View style={{ alignItems: 'center' }}>
         <Button
           style={styles}
-          mode={colorScheme === 'dark' ? 'outlined' : 'contained'}
-          buttonColor={
+w          buttonColor={
             primary
               ? colorScheme === 'dark'
                 ? '#212547'

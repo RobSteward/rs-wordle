@@ -1,9 +1,9 @@
-import TabsScreen from '@/screens/authenticated/tabs.screen'
+import GameScreen from '@/screens/authenticated/game.screen'
 
 const TabsRoute = () => {
   return (
     <>
-      <TabsScreen />
+      <GameScreen />
     </>
   )
 }

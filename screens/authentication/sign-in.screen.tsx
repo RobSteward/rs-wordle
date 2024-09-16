@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react'
-import { View, Text, Animated, StyleSheet } from 'react-native'
+import { View, Text, Animated, StyleSheet, useColorScheme } from 'react-native'
 import { TextInput, Button, MD3Colors, IconButton } from 'react-native-paper'
 import { Toast } from 'react-native-toast-notifications'
 import { router } from 'expo-router'
@@ -19,6 +19,8 @@ import ThemedButton from '@/components/ThemedButton'
 import VerifyAccountModal from '@/components/VerifyAccountModal'
 import { useSignIn } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
+import { Colors } from '@/constants/Colors'
+import SocialAuthentication from '@/components/SocialAuthentication'
 
 interface SignInFormProps {
   email: string
@@ -42,6 +44,7 @@ export default function SignInScreen() {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const colorScheme = useColorScheme()
 
   const handleSubmit = async (values: FormikValues) => {
     setIsLoading(true)
@@ -193,6 +196,7 @@ export default function SignInScreen() {
                   />
                 }
               />
+              <SocialAuthentication />
               <Animated.View
                 style={{
                   marginTop: 20,
