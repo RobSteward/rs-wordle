@@ -7,7 +7,7 @@ import {
 } from '@expo-google-fonts/frank-ruhl-libre'
 import * as SplashScreen from 'expo-splash-screen'
 import { useEffect } from 'react'
-import { useColorScheme, View, Text, Image, Appearance } from 'react-native'
+import { useColorScheme, View, Text, Image, StyleSheet } from 'react-native'
 import {
   ThemeProvider,
   DarkTheme,
@@ -20,6 +20,8 @@ import { tokenCache } from '@/utils/cache'
 import { MD3Colors, IconButton } from 'react-native-paper'
 import * as React from 'react'
 import { ToastProvider } from 'react-native-toast-notifications'
+// import LottieView from 'lottie-react-native'
+import ThemedLinearGradient from '@/components/ThemedLinearGradient'
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
 
@@ -48,13 +50,15 @@ export default function RootLayout() {
 
   if (!fontsLoaded && !fontsLoadedError) {
     return (
-      <View>
-        <Image
-          source={require('@/assets/images/splash.png')}
-          style={{ width: '100%', height: '100%' }}
-          resizeMode='cover'
-        />
-      </View>
+      <ThemedLinearGradient>
+        <Text style={styles.text}>Loading...</Text>
+        {/* <LottieView
+          source={require('@/assets/animations/LoaderIcon.json')}
+          autoPlay
+          loop
+          style={{ width: '25%', height: '25%' }}
+        /> */}
+      </ThemedLinearGradient>
     )
   }
 
@@ -103,3 +107,16 @@ export default function RootLayout() {
     </ClerkProvider>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    fontFamily: 'FrankRuhlLibre_800ExtraBold',
+    fontSize: 30,
+    color: '#fff',
+  },
+})
