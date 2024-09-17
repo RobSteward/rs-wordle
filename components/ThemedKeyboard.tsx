@@ -64,16 +64,16 @@ const ThemedKeyboard = ({
                   backgroundColor: '#DDDDDD',
                 },
                 isSpecialKey(key) && { width: keyWidth * 1.5 },
-                pressed && { backgroundColor: '#AAAAAA' },
                 {
                   backgroundColor: correctLetters.includes(key)
-                    ? Colors[colorScheme ?? 'light'].correctKey
+                    ? Colors[colorScheme ?? 'light'].correct
                     : presentLetters.includes(key)
-                    ? Colors[colorScheme ?? 'light'].presentKey
+                    ? Colors[colorScheme ?? 'light'].present
                     : wrongLetters.includes(key)
-                    ? Colors[colorScheme ?? 'light'].wrongKey
-                    : Colors[colorScheme ?? 'light'].defaultKey,
+                    ? Colors[colorScheme ?? 'light'].wrong
+                    : Colors[colorScheme ?? 'light'].default,
                 },
+                pressed && { backgroundColor: '#AAAAAA' },
               ]}
             >
               <View>

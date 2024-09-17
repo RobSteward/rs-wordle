@@ -16,6 +16,15 @@ export default function AuthenticatedRoutesLayout() {
       screenOptions={{
         headerShown: false,
       }}
-    />
+    >
+      <Stack.Screen
+        name='(tabs)'
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name='end'
+        options={{ headerShown: false }}
+      />
+    </Stack>
   )
 }
