@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     width: '100%',
     paddingHorizontal: 20,
+    maxWidth: 500,
   },
   authenticationContainer: {
     marginBottom: 5,

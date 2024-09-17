@@ -37,7 +37,7 @@ const ThemedKeyboard = ({
 }: ThemedKeyboardProps) => {
   const colorScheme = useColorScheme()
   const { width } = useWindowDimensions()
-  const keyWidth = (width - 50) / keys[0].length
+  const keyWidth = (width - 100) / keys[0].length
   const keyHeight = 50
 
   const isSpecialKey = (key: string) => [ENTER, BACKSPACE].includes(key)
