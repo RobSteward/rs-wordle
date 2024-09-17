@@ -91,11 +91,11 @@ export default function SignUpScreen() {
         })
         await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
         setPendingVerification(true)
-        updateToast('Account created!', 'success')
+        updateToast('Temporary account created - Please verify!', 'success')
         if (signUp && isVerified) router.replace('/(authenticated)/(tabs)')
       } catch (err: any) {
-        console.error(JSON.stringify(err, null, 2))
-        updateToast(`Registration failed. Please try again`, 'danger')
+        // console.error(JSON.stringify(err, null, 2))
+        updateToast('Registration failed. Please try again', 'danger')
         console.log(err.message)
       } finally {
         setIsLoading(false)
@@ -228,7 +228,7 @@ export default function SignUpScreen() {
                       rippleColor={MD3Colors.error0}
                     />
                   }
-                />{' '}
+                />
                 <SocialAuthentication />
                 <Animated.View
                   style={{

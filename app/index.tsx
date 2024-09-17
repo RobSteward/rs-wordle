@@ -56,7 +56,7 @@ export default function Index() {
           <Button
             mode='elevated'
             buttonColor={colorScheme === 'dark' ? '#1180ff' : '#212547'}
-            textColor={buttonTextColor}
+            textColor='white'
             style={{ marginBottom: 20 }}
           >
             Play

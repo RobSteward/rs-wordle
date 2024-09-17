@@ -28,22 +28,14 @@ const ThemedButton: React.FC<ButtonProps> = ({
       <View style={{ alignItems: 'center' }}>
         <Button
           style={styles}
-w          buttonColor={
+          buttonColor={
             primary
-              ? colorScheme === 'dark'
-                ? '#212547'
-                : '#1180ff'
+              ? Colors[colorScheme ?? 'light'].buttonPrimaryColor
               : colorScheme === 'dark'
-              ? '#444444'
+              ? '#555555'
               : '#cccccc'
           }
-          textColor={
-            primary
-              ? buttonTextColor
-              : colorScheme === 'dark'
-              ? '#ffffff'
-              : '#000000'
-          }
+          textColor={Colors[colorScheme ?? 'light'].buttonText}
           onPress={onPress}
           loading={loading}
           disabled={disabled}

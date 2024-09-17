@@ -20,8 +20,9 @@ import { tokenCache } from '@/utils/cache'
 import { MD3Colors, IconButton } from 'react-native-paper'
 import * as React from 'react'
 import { ToastProvider } from 'react-native-toast-notifications'
-// import LottieView from 'lottie-react-native'
+import LottieView from 'lottie-react-native'
 import ThemedLinearGradient from '@/components/ThemedLinearGradient'
+import { Platform } from 'react-native'
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
 
@@ -42,6 +43,12 @@ export default function RootLayout() {
   })
   const router = useRouter()
 
+  const title = (text: string) =>
+    Platform.select({
+      web: `The Selection Lab Wordle | ${text}`,
+      default: text,
+    })
+
   useEffect(() => {
     if (fontsLoaded || fontsLoadedError) {
       SplashScreen.hideAsync()
@@ -51,13 +58,15 @@ export default function RootLayout() {
   if (!fontsLoaded && !fontsLoadedError) {
     return (
       <ThemedLinearGradient>
-        <Text style={styles.text}>Loading...</Text>
-        {/* <LottieView
-          source={require('@/assets/animations/LoaderIcon.json')}
-          autoPlay
-          loop
-          style={{ width: '25%', height: '25%' }}
-        /> */}
+        <View style={{ gap: 20 }}>
+          <Text style={styles.text}>Loading...</Text>
+          <LottieView
+            source={require('@/assets/animations/LoaderIcon.json')}
+            autoPlay
+            loop
+            style={{ width: '25%', height: '25%' }}
+          />
+        </View>
       </ThemedLinearGradient>
     )
   }
@@ -80,11 +89,16 @@ export default function RootLayout() {
                     headerShown: false,
                   }}
                 >
-                  <Stack.Screen name='index' />
+                  <Stack.Screen
+                    name='index'
+                    options={{
+                      title: title('Home'),
+                    }}
+                  />
                   <Stack.Screen
                     name='(authentication)'
                     options={{
-                      presentation: 'modal',
+                      // presentation: 'modal',
                       headerShadowVisible: false,
                       headerShown: true,
                       headerTitle: 'Authentication',
@@ -96,6 +110,7 @@ export default function RootLayout() {
                           onPress={() => router.back()}
                         />
                       ),
+                      title: title('Authentication'),
                     }}
                   />
                 </Stack>

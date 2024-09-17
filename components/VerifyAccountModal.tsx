@@ -1,5 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { View, Animated, Platform, StyleSheet } from 'react-native'
+import {
+  View,
+  Animated,
+  Platform,
+  StyleSheet,
+  useColorScheme,
+} from 'react-native'
 import { Text, Icon } from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { router } from 'expo-router'
@@ -54,6 +60,7 @@ const animateCell = ({ hasValue, index, isFocused }: AnimateCellProps) => {
 }
 
 const VerifyAccountModal: React.FC = () => {
+  const colorScheme = useColorScheme()
   const { dismissAll: dismissAllModals } = useBottomSheetModal()
   const { signUp, isLoaded, setActive } = useSignUp()
   const [code, setCode] = useState<string>('')
@@ -87,21 +94,27 @@ const VerifyAccountModal: React.FC = () => {
       backgroundColor: hasValue
         ? animationsScale[index].interpolate({
             inputRange: [0, 1],
-            outputRange: ['gray', Colors.light.icon],
+            outputRange: [
+              Colors[colorScheme ?? 'light'].gameBackground,
+              Colors.light.primary,
+            ],
           })
         : animationsColor[index].interpolate({
             inputRange: [0, 1],
-            outputRange: ['gray', Colors.light.icon],
+            outputRange: [
+              Colors[colorScheme ?? 'light'].gameBackground,
+              Colors.light.primary,
+            ],
           }),
       borderRadius: animationsScale[index].interpolate({
         inputRange: [0, 1],
-        outputRange: [80, 10],
+        outputRange: [80, 15],
       }),
       transform: [
         {
           scale: animationsScale[index].interpolate({
             inputRange: [0, 1],
-            outputRange: [0.4, 1],
+            outputRange: [0.5, 1],
           }),
         },
       ],
@@ -116,7 +129,12 @@ const VerifyAccountModal: React.FC = () => {
         onLayout={getCellOnLayoutHandler(index)}
         style={[styles.cell, animatedCellStyle]}
       >
-        <AnimatedText style={styles.cellText}>
+        <AnimatedText
+          style={[
+            styles.cellText,
+            { color: Colors[colorScheme ?? 'light'].text },
+          ]}
+        >
           {symbol || (isFocused ? <Cursor /> : null)}
         </AnimatedText>
       </Animated.View>
@@ -170,19 +188,15 @@ const VerifyAccountModal: React.FC = () => {
         })
         dismissAllModals()
       } else {
-        console.error(JSON.stringify(completeSignUp, null, 2))
+        console.log(JSON.stringify(completeSignUp, null, 2))
       }
     } catch (error: any) {
       // See https://clerk.com/docs/custom-flows/error-handling
       // for more info on error handling
-      console.error(JSON.stringify(error, null, 2))
-      buttonShakeAnimation(shakeAnimationValue)
-      console.error('Error is ', error)
+      console.log(JSON.stringify(error, null, 2))
       let errorMessage = 'An unknown error occurred'
-      if (error instanceof Error) {
-        errorMessage = error.message
-      } else if (typeof error === 'string') {
-        errorMessage = error
+      if (error.errors && error.errors.length > 0) {
+        errorMessage = error.errors[0].longMessage
       }
       Toast.update(toastId, `Verification failed: ${errorMessage}`, {
         type: 'danger',
@@ -277,17 +291,15 @@ const VerifyAccountModal: React.FC = () => {
             <ThemedButton
               onPress={handleSubmit}
               title='Verify account'
-              disabled={code.length < 6 || isLoading}
+              disabled={isLoading}
               loading={isLoading}
-              styles={{ marginTop: 20 }}
+              primary={true}
             />
           </Animated.View>
           <ThemedButton
             onPress={handleCancel}
             title='Cancel verification'
             disabled={isLoading}
-            loading={isLoading}
-            styles={{ marginTop: 20 }}
           />
         </View>
       </View>
@@ -297,17 +309,15 @@ const VerifyAccountModal: React.FC = () => {
 
 const styles = StyleSheet.create({
   cell: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
-    width: 20,
-    height: 40,
-    backgroundColor: 'white',
+    width: 50,
+    height: 50,
   },
   cellText: {
-    fontSize: 24,
+    fontSize: 36,
     textAlign: 'center',
+    fontFamily: 'FrankRuhlLibre_500Medium',
   },
   container: {
     marginBottom: 20,
@@ -315,8 +325,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 10,
+    justifyContent: 'center',
+    gap: 50,
+    marginTop: 50,
   },
   text: {
     color: 'white',
