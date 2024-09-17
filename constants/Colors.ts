@@ -50,7 +50,7 @@ export const Colors = {
     gray: '#484848',
     iconActive: '#212547',
     iconInactive: '#9BA1A6',
-    icon: '#212547',
+    icon: '#ECEDEE',
     tabIconDefault: '#9BA1A6',
     tabIconSelected: tintColorDark,
     gameBackground: '#212547',

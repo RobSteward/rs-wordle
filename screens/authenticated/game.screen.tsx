@@ -208,72 +208,86 @@ const GameScreen = () => {
                   onPress={() => console.log('podium')}
                   iconColor={Colors[colorScheme ?? 'light'].icon}
                 />
-                <IconButton
-                  icon='logout'
-                  onPress={() => signOut()}
-                  iconColor={Colors[colorScheme ?? 'light'].icon}
-                />
+                <SignedOut>
+                  <IconButton
+                    icon='login'
+                    iconColor={Colors[colorScheme ?? 'light'].icon}
+                    onPress={() => router.push('/(authentication)/')}
+                  />
+                </SignedOut>
+                <SignedIn>
+                  <IconButton
+                    icon='logout'
+                    onPress={() => signOut()}
+                    iconColor={Colors[colorScheme ?? 'light'].icon}
+                  />
+                </SignedIn>
               </View>
             ),
           }}
         />
-        <SignedIn>
-          <View style={styles.gameField}>
-            {rows.map((row, rowIndex) => (
-              <View
-                key={`row-${rowIndex}`}
-                style={styles.row}
-              >
-                {row.map((cell, cellIndex) => (
-                  <View
-                    key={`cell-${rowIndex}-${cellIndex}`}
-                    style={[
-                      styles.cell,
-                      {
-                        backgroundColor: getCellColor(
-                          cell,
-                          rowIndex,
-                          cellIndex
-                        ),
-                        borderColor: Colors[colorScheme ?? 'light'].border,
-                      },
-                    ]}
-                  >
-                    <Text
-                      style={[
-                        styles.cellText,
-                        { color: Colors[colorScheme ?? 'light'].text },
-                      ]}
-                    >
-                      {cell}
-                    </Text>
-                  </View>
-                ))}
-              </View>
-            ))}
-          </View>
-          <ThemedKeyboard
-            onKeyPressed={addKey}
-            onDelete={() => console.log('delete')}
-            correctLetters={correctLetters}
-            presentLetters={presentLetters}
-            wrongLetters={wrongLetters}
-          />
-        </SignedIn>
         <SignedOut>
           <View
             style={{
-              flex: 1,
               alignItems: 'center',
-              justifyContent: 'center',
+              justifyContent: 'flex-start',
             }}
           >
-            <Text>Looks like you should not be here...</Text>
-            <Link href='/(authentication)/'>
-              <Text>Authenticate</Text>
-            </Link>
+            <Text
+              style={[
+                styles.noticeText,
+                { color: Colors[colorScheme ?? 'light'].text },
+              ]}
+            >
+              You're not logged in.{' '}
+              <Link
+                href='/(authentication)/'
+                style={{ textDecorationLine: 'underline' }}
+              >
+                Authenticate
+              </Link>{' '}
+              to save your streaks!
+            </Text>
           </View>
         </SignedOut>
+        <SignedIn></SignedIn>
+        <View style={styles.gameField}>
+          {rows.map((row, rowIndex) => (
+            <View
+              key={`row-${rowIndex}`}
+              style={styles.row}
+            >
+              {row.map((cell, cellIndex) => (
+                <View
+                  key={`cell-${rowIndex}-${cellIndex}`}
+                  style={[
+                    styles.cell,
+                    {
+                      backgroundColor: getCellColor(cell, rowIndex, cellIndex),
+                      borderColor: Colors[colorScheme ?? 'light'].border,
+                    },
+                  ]}
+                >
+                  <Text
+                    style={[
+                      styles.cellText,
+                      { color: Colors[colorScheme ?? 'light'].text },
+                    ]}
+                  >
+                    {cell}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          ))}
+        </View>
+        <ThemedKeyboard
+          onKeyPressed={addKey}
+          onDelete={() => console.log('delete')}
+          correctLetters={correctLetters}
+          presentLetters={presentLetters}
+          wrongLetters={wrongLetters}
+        />
       </View>
     </>
   )
@@ -285,7 +299,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
-    paddingVertical: 50,
+    paddingVertical: 10,
   },
   gameField: {
     alignItems: 'center',
@@ -307,5 +321,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     textTransform: 'uppercase',
+  },
+  noticeText: {
+    fontSize: 12,
+    fontStyle: 'italic',
+    marginBottom: 10,
   },
 })

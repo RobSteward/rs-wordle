@@ -8,13 +8,16 @@ import { Image, StyleSheet, Text, useColorScheme, View } from 'react-native'
 import { Button, IconButton } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-const EndScreen = () => {
+const EndScreen = ({
+  win,
+  word,
+  gameField,
+}: {
+  win: string
+  word: string
+  gameField?: string
+}) => {
   const insets = useSafeAreaInsets()
-  const { win, word, gameField } = useLocalSearchParams<{
-    win: string
-    word: string
-    gameField?: string
-  }>()
 
   const colorScheme = useColorScheme()
 
@@ -34,7 +37,7 @@ const EndScreen = () => {
 
   const navigateToTabs = () => {
     router.dismissAll()
-    router.push('/(authenticated)/(tabs)/')
+    router.push('/')
   }
 
   return (
@@ -62,9 +65,7 @@ const EndScreen = () => {
             <Text style={styles.title}>
               {win ? 'Congratulations! You won.' : 'Thanks for playing today'}
             </Text>
-            <Text style={styles.text}>
-              {win ? 'Some win text' : 'Some lost text'}
-            </Text>
+            <Text style={styles.text}>{win ? `${win}` : `${win}`}</Text>
           </View>
           <SignedOut>
             <Text>Want to save your progress?</Text>
