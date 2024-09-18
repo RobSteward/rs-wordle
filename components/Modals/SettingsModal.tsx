@@ -1,13 +1,6 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  TouchableOpacity,
-  Linking,
-} from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import React, { forwardRef, useCallback, useMemo, useState } from 'react'
-import ThemedButton from './ThemedButton'
+import ThemedButton from '@/components/ThemedComponents/ThemedButton'
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
@@ -20,33 +13,10 @@ import * as WebBrowser from 'expo-web-browser'
 import { WebBrowserResult } from 'expo-web-browser'
 export type Ref = BottomSheetModal
 
-import disc from '@jsamr/counter-style/presets/disc'
-import MarkedList from '@jsamr/react-native-li'
 import { Link } from 'expo-router'
 import { Colors } from '@/constants/Colors'
 
-const TECH_STACK = [
-  'MacOs',
-  'Visual Studio Code',
-  'Cody',
-  'GitHub Copilot',
-  'GitHub',
-  'React Native',
-  'Expo',
-  'Firebase Hosting ',
-  'Firestore',
-  'Clerk',
-  'Typescript',
-  'Formik/Yup',
-  'validator',
-  'React Native Toast Notification',
-  'Jest',
-  'Google Fonts',
-  'Date FNS',
-  'Affinity Designer',
-]
-
-const learnMoreModal = forwardRef<Ref>((props, ref) => {
+const settingsModal = forwardRef<Ref>((props, ref) => {
   const snapPoints = useMemo(() => ['90%'], [])
   const { dismiss } = useBottomSheetModal()
   const { bottom } = useSafeAreaInsets()
@@ -105,65 +75,6 @@ const learnMoreModal = forwardRef<Ref>((props, ref) => {
         <BottomSheetScrollView>
           <Text style={styles.containerTitle}>
             The Selection Lab Interview Task
-          </Text>
-          <Text style={styles.containerSubtitle}>
-            Submission by Robin Scharf
-          </Text>
-          {/* <Image
-            source={require('@/assets/images/splash.png')}
-            style={styles.image}
-          /> */}
-
-          <View>
-            <Text style={styles.header}>Tech Stack</Text>
-            <MarkedList
-              counterRenderer={disc}
-              lineStyle={{ paddingHorizontal: 40, gap: 10, marginVertical: 10 }}
-            >
-              {TECH_STACK.map((value, index) => (
-                <Text
-                  key={index}
-                  style={styles.listText}
-                >
-                  {value}
-                </Text>
-              ))}
-            </MarkedList>
-          </View>
-          <Text style={styles.header}>Disclaimer</Text>
-          <Text style={styles.disclaimer}>
-            <Text>This interview submission app is based on a </Text>
-            <Text
-              onPress={() =>
-                Linking.openURL('https://www.youtube.com/watch?v=pTonpjmKtiE')
-              }
-              style={styles.link}
-            >
-              YouTube tutorial by Simon Grimm
-            </Text>
-            <Text>
-              . No code was copied from the GitHub repository. Any errors,
-              mistakes and bugs are my own. All correctly used patterns,
-              stuctures, design principles and business logic credit is due to
-              the resources I consulted in making this project. The Firebase
-              database on this project is currenly in test mode, and proper
-              security rules should be developed at some point would this be a
-              real app. The app is not intended to be used as a Wordle clone and
-              does not intent to infringe on the Wordle trademark. I'm surprised
-              you're reading this far. Now that I have your attention: Did you
-              know that the{' '}
-            </Text>
-            <Text
-              onPress={() =>
-                Linking.openURL(
-                  'https://meetings-eu1.hubspot.com/joris-heikamp/'
-                )
-              }
-              style={styles.link}
-            >
-              callback CTA on your homepage
-            </Text>
-            <Text> is missing utm parameters?</Text>
           </Text>
         </BottomSheetScrollView>
         <View style={[styles.footer, { paddingBottom: bottom }]}>
@@ -253,4 +164,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default learnMoreModal
+export default settingsModal

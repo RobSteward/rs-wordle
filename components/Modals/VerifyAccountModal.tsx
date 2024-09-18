@@ -15,7 +15,7 @@ import * as Yup from 'yup'
 import buttonShakeAnimation from '@/constants/ButtonShakeAnimation'
 import EmailClientHelper from '@/utils/emailClientHelper'
 import { useBottomSheetModal } from '@gorhom/bottom-sheet'
-import ThemedButton from '@/components/ThemedButton'
+import ThemedButton from '@/components/ThemedComponents/ThemedButton'
 import {
   CodeField,
   Cursor,

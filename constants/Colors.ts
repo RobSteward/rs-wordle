@@ -12,7 +12,7 @@ export const Colors = {
   light: {
     correct: '#6AAC64',
     present: '#FFD700',
-    wrong: MD3Colors.error50,
+    wrong: '#687076',
     default: '#F7F7F7',
     primary: '#1180FF',
     secondary: '#212547',

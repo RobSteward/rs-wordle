@@ -6,9 +6,9 @@ import { router } from 'expo-router'
 import { FormikProps, FormikValues } from 'formik'
 import * as Yup from 'yup'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import ThemedForm from '@/components/ThemedForm'
-import ThemedFormSubmit from '@/components/ThemedFormSubmit'
-import ThemedFormField from '@/components/ThemedFormField'
+import ThemedForm from '@/components/ThemedComponents/ThemedForm'
+import ThemedFormSubmit from '@/components/ThemedComponents/ThemedFormSubmit'
+import ThemedFormField from '@/components/ThemedComponents/ThemedFormField'
 import buttonShakeAnimation from '@/constants/ButtonShakeAnimation'
 import {
   validateEmail,
@@ -18,7 +18,7 @@ import {
 import isEmail from 'validator/lib/isEmail'
 import { useSignUp } from '@clerk/clerk-expo'
 import { useRouter } from 'expo-router'
-import VerifyAccountModal from '@/components/VerifyAccountModal'
+import VerifyAccountModal from '@/components/Modals/VerifyAccountModal'
 
 interface SignUpFormProps {
   email: string

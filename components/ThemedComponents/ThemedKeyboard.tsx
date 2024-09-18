@@ -13,7 +13,6 @@ import { Icon, IconButton, MD3Colors } from 'react-native-paper'
 
 type ThemedKeyboardProps = {
   onKeyPressed: (key: string) => void
-  onDelete: () => void
   correctLetters: string[]
   wrongLetters: string[]
   presentLetters: string[]
@@ -30,7 +29,6 @@ const keys = [
 
 const ThemedKeyboard = ({
   onKeyPressed,
-  onDelete,
   correctLetters,
   wrongLetters,
   presentLetters,

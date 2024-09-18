@@ -1,5 +1,5 @@
-import ThemedButton from '@/components/ThemedButton'
-import ThemedLinearGradient from '@/components/ThemedLinearGradient'
+import ThemedButton from '@/components/ThemedComponents/ThemedButton'
+import ThemedLinearGradient from '@/components/ThemedComponents/ThemedLinearGradient'
 import { Colors } from '@/constants/Colors'
 import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
@@ -120,6 +120,11 @@ const EndScreen = ({
     router.push('/')
   }
 
+  const startNewGame = () => {
+    router.dismissAll()
+    router.navigate(`/(authenticated)/(tabs)/?restart=true`)
+  }
+
   useEffect(() => {
     if (win === 'true') {
       confettiAnimationRef.current?.play(0)
@@ -143,6 +148,7 @@ const EndScreen = ({
     const documentSnapshot = await getDoc(documentRef)
     console.log('Document snapshot', documentSnapshot)
     if (documentSnapshot.exists()) {
+      const data = documentSnapshot.data()
       const res = await setDoc(
         documentRef,
         {
@@ -150,11 +156,16 @@ const EndScreen = ({
           LAST_GAME_DATE: new Date().toISOString(),
           GAME_COUNT: increment(1),
           WIN_COUNT: increment(win === 'true' ? 1 : 0),
-          CURRENT_STREAK: increment(win === 'true' ? 1 : 0),
+          CURRENT_STREAK:
+            win === 'true' && data.LAST_GAME_STATUS === 'win'
+              ? data.CURRENT_STREAK + 1
+              : win === 'true'
+              ? 1
+              : 0,
           HIGHEST_STREAK:
-            documentSnapshot.data()?.LAST_GAME_STATUS === 'win'
-              ? increment(1)
-              : increment(0),
+            data.CURRENT_STREAK > data.highestStreak
+              ? data.CURRENT_STREAK
+              : data.HIGHEST_STREAK,
         },
         {
           merge: true,
@@ -182,6 +193,8 @@ const EndScreen = ({
     }
   }
 
+  console.log('height is', height)
+
   return (
     <>
       <View
@@ -205,7 +218,7 @@ const EndScreen = ({
             <LottieView
               ref={confettiAnimationRef}
               source={require('@/assets/animations/ConfettiAnimation.json')}
-              style={[styles.confettiLottie, { top: height - 1000 }]}
+              style={[styles.confettiLottie, { top: height / 2.16, bottom: 0 }]}
               resizeMode='cover'
               loop={false}
               autoPlay={false}
@@ -354,17 +367,30 @@ const EndScreen = ({
                 </View>
               </View>
             </SignedIn>
-            <ThemedButton
-              title='Share'
-              icon='share'
-              onPress={() => {
-                shareResults()
-                console.log(
-                  `I just played ${userScores.gameCount} games of Wordle and won ${userScores.winCount} of them!`
-                )
-              }}
-              primary={true}
-            />
+            <View style={styles.shareContainer}>
+              <IconButton
+                icon='share'
+                mode='contained-tonal'
+                iconColor={Colors[colorScheme ?? 'light'].iconButtonIcon}
+                containerColor={
+                  Colors[colorScheme ?? 'light'].iconButtonBackground
+                }
+                rippleColor={
+                  Colors[colorScheme ?? 'light'].iconButtonBackground
+                }
+                animated={true}
+                size={20}
+                onPress={() => {
+                  shareResults()
+                  console.log(
+                    `I just played ${userScores.gameCount} games of Wordle and won ${userScores.winCount} of them!`
+                  )
+                }}
+              />
+              <Text style={[{ color: Colors[colorScheme ?? 'light'].text }]}>
+                Share your results with a friend!
+              </Text>
+            </View>
             <View
               style={{
                 backgroundColor: Colors[colorScheme ?? 'light'].border,
@@ -372,6 +398,16 @@ const EndScreen = ({
                 width: '100%',
                 marginVertical: 10,
               }}
+            />
+          </View>
+          <View style={styles.bottomContainer}>
+            <ThemedButton
+              title='Play again'
+              onPress={() => {
+                navigateToTabs()
+              }}
+              primary={true}
+              styles={{ width: '100%' }}
             />
           </View>
         </>
@@ -404,9 +440,9 @@ const styles = StyleSheet.create({
   },
   confettiLottie: {
     position: 'absolute',
-    width: '200%',
-    height: '200%',
-    zIndex: -100,
+    width: '100%',
+    height: '100%',
+    zIndex: -1,
     pointerEvents: 'none',
   },
   statistics: {
@@ -425,5 +461,15 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  bottomContainer: {
+    justifyContent: 'flex-end',
+    flex: 1,
+    marginBottom: 100,
+    width: '100%',
+  },
+  shareContainer: {
+    alignItems: 'center',
+    gap: 5,
   },
 })

@@ -1,12 +1,12 @@
 import { StyleSheet, View } from 'react-native'
 import { Text } from 'react-native-paper'
-import ThemedLinearGradient from '@/components/ThemedLinearGradient'
+import ThemedLinearGradient from '@/components/ThemedComponents/ThemedLinearGradient'
 import React, { forwardRef, useMemo, useCallback } from 'react'
 import { BottomSheetModal, BottomSheetBackdrop } from '@gorhom/bottom-sheet'
 
-import LearnMoreModal from '@/components/LearnMoreModal'
-import ResetPasswordModal from '@/components/ResetPasswordModal'
-import VerifyAccountModal from '@/components/VerifyAccountModal'
+import LearnMoreModal from '@/components/Modals/LearnMoreModal'
+import ResetPasswordModal from '@/components/Modals/ResetPasswordModal'
+import VerifyAccountModal from '@/components/Modals/VerifyAccountModal'
 
 import { string } from 'yup'
 
@@ -56,6 +56,7 @@ const DefaultBottomSheetModal = forwardRef<Ref, Props>((props, ref) => {
             <ResetPasswordModal prefill={prefill} />
           )}
           {type === 'verifyAccountModal' && <VerifyAccountModal />}
+          {type === 'learnMoreModal' && <LearnMoreModal />}
         </View>
       </ThemedLinearGradient>
     </BottomSheetModal>

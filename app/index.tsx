@@ -6,10 +6,10 @@ import { Link, useRouter } from 'expo-router'
 import { useState, useRef } from 'react'
 import { format } from 'date-fns'
 import { Colors } from '@/constants/Colors'
-import ThemedText from '@/components/ThemedText'
+import ThemedText from '@/components/ThemedComponents/ThemedText'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import LearnMoreModal from '@/components/LearnMoreModal'
-import ThemedButton from '@/components/ThemedButton'
+import LearnMoreModal from '@/components/Modals/LearnMoreModal'
+import ThemedButton from '@/components/ThemedComponents/ThemedButton'
 import { SignedIn, SignedOut, useAuth } from '@clerk/clerk-expo'
 
 export default function Index() {

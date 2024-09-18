@@ -8,14 +8,14 @@ import {
   useColorScheme,
 } from 'react-native'
 import { Button } from 'react-native-paper'
-import ThemedLinearGradient from '@/components/ThemedLinearGradient'
+import ThemedLinearGradient from '@/components/ThemedComponents/ThemedLinearGradient'
 import SignUpScreen from './sign-up.screen'
 import SignInScreen from './sign-in.screen'
 import { useLocalSearchParams } from 'expo-router'
 import { useRouter } from 'expo-router'
 import IconLight from '@/assets/images/wordle-icon-light.svg'
 import IconDark from '@/assets/images/wordle-icon-dark.svg'
-import ThemedText from '@/components/ThemedText'
+import ThemedText from '@/components/ThemedComponents/ThemedText'
 import { Colors } from '@/constants/Colors'
 import SocialAuthentication from '@/components/SocialAuthentication'
 

@@ -21,7 +21,7 @@ import { MD3Colors, IconButton } from 'react-native-paper'
 import * as React from 'react'
 import { ToastProvider } from 'react-native-toast-notifications'
 import LottieView from 'lottie-react-native'
-import ThemedLinearGradient from '@/components/ThemedLinearGradient'
+import ThemedLinearGradient from '@/components/ThemedComponents/ThemedLinearGradient'
 import { Platform } from 'react-native'
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!

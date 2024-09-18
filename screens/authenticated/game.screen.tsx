@@ -1,25 +1,25 @@
 import { SignedIn, SignedOut, useAuth, useUser } from '@clerk/clerk-expo'
 import { Link, Stack } from 'expo-router'
-import ThemedButton from '@/components/ThemedButton'
 import { Colors } from '@/constants/Colors'
-import { useRouter } from 'expo-router'
+import { useRouter, useLocalSearchParams } from 'expo-router'
 import { useEffect, useRef, useState } from 'react'
 import { StyleSheet, useColorScheme, View, Text, Platform } from 'react-native'
-import ThemedKeyboard from '@/components/ThemedKeyboard'
+import ThemedKeyboard from '@/components/ThemedComponents/ThemedKeyboard'
 import { IconButton } from 'react-native-paper'
-import { set } from 'date-fns'
 import { Toast } from 'react-native-toast-notifications'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import SettingsModal from '@/components/Modals/SettingsModal'
 
 const ROWS = 1
 
 const GameScreen = () => {
+  const { restart } = useLocalSearchParams()
   const { user } = useUser()
   const { signOut } = useAuth()
   const colorScheme = useColorScheme()
   const backgroundColor = Colors[colorScheme ?? 'light'].gameBackground
-  const textColor = Colors[colorScheme ?? 'light'].text
-  const grayColor = Colors[colorScheme ?? 'light'].gray
   const router = useRouter()
+  const settingsModalRef = useRef<BottomSheetModal>(null)
 
   const [rows, setRows] = useState<string[][]>(
     new Array(ROWS).fill(new Array(5).fill(''))
@@ -32,7 +32,7 @@ const GameScreen = () => {
   const [presentLetters, setPresentLetters] = useState<string[]>([''])
 
   // const [targetWord, setTargetWord] = useState<string>('')
-  const [targetWord, setTargetWord] = useState('ROBIN')
+  const [targetWord, setTargetWord] = useState('')
   const [targetLetters] = useState(targetWord.split(''))
 
   const columnStateRef = useRef(currentColumn)
@@ -41,9 +41,21 @@ const GameScreen = () => {
     _setCurrentColumn(column)
   }
 
-  const addKey = (key: string) => {
-    console.log('Current', columnStateRef.current, key)
+  const resetGame = () => {
+    setRows(new Array(ROWS).fill(new Array(5).fill('')))
+    setCurrentRow(0)
+    setCurrentColumn(0)
+    setCorrectLetters([''])
+    setWrongLetters([''])
+    setPresentLetters([''])
+    setTargetWord('')
+  }
 
+  const handlePresentSettingsModal = () => {
+    settingsModalRef.current?.present()
+  }
+
+  const processKey = (key: string) => {
     const newRows = [...rows.map((row) => [...row])]
 
     if (key === 'ENTER') {
@@ -62,7 +74,6 @@ const GameScreen = () => {
     } else if (columnStateRef.current >= newRows[currentRow].length) {
       return
     } else {
-      console.log('🚀 ~ addKey in current column', columnStateRef.current)
       newRows[currentRow][columnStateRef.current] = key
       setRows(newRows)
       setCurrentColumn(currentColumn + 1)
@@ -70,9 +81,7 @@ const GameScreen = () => {
   }
 
   const checkCurrentWord = () => {
-    console.log('checking')
     const currentWord = rows[currentRow].join('')
-    console.log(currentWord)
 
     if (currentWord.length < targetWord.length) {
       const toastId = Toast.show('Not enough letters', {
@@ -106,34 +115,35 @@ const GameScreen = () => {
     setWrongLetters([...wrongLetters, ...newWrongLetters])
 
     setTimeout(() => {
-      console.log('current row ', currentRow, rows.length)
       if (currentWord === targetWord) {
-        console.log('WIN')
         router.push(
           `/(authenticated)/end?win=true&word=${currentWord}&gameField=${JSON.stringify(
             rows
           )}`
         )
       } else if (currentRow + 1 >= rows.length) {
-        console.log('GAME OVER')
         router.push(
           `/end?win=false&word=${currentWord}&gameField=${JSON.stringify(rows)}`
         )
       }
-    }, 250)
+    }, 5000)
 
     setCurrentRow(currentRow + 1)
     setCurrentColumn(0)
   }
 
   useEffect(() => {
+    resetGame()
+  }, [restart])
+
+  useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Enter') {
-        addKey('ENTER')
+        processKey('ENTER')
       } else if (event.key === 'Backspace') {
-        addKey('BACKSPACE')
+        processKey('BACKSPACE')
       } else if (event.key.length === 1) {
-        addKey(event.key)
+        processKey(event.key)
       }
     }
 
@@ -159,10 +169,11 @@ const GameScreen = () => {
     setRows(newRows)
   }
 
-  console.log(rows)
+  console.log(restart)
 
   const getCellColor = (cell: string, row: number, cellIndex: number) => {
     if (currentRow > row) {
+      console.log(cell, targetLetters[cellIndex])
       if (cell === targetLetters[cellIndex]) {
         return Colors[colorScheme ?? 'light'].correct
       } else if (targetWord.includes(cell)) {
@@ -183,6 +194,7 @@ const GameScreen = () => {
   return (
     <>
       <View style={[styles.container, { backgroundColor }]}>
+        <SettingsModal ref={settingsModalRef} />
         <Stack.Screen
           options={{
             headerShown: true,
@@ -199,13 +211,15 @@ const GameScreen = () => {
                 }}
               >
                 <IconButton
-                  icon='help-circle-outline'
-                  onPress={() => console.log('help')}
+                  icon='cog'
+                  onPress={() => handlePresentSettingsModal}
                   iconColor={Colors[colorScheme ?? 'light'].icon}
                 />
                 <IconButton
-                  icon='podium'
-                  onPress={() => console.log('podium')}
+                  icon='refresh'
+                  onPress={() => {
+                    resetGame()
+                  }}
                   iconColor={Colors[colorScheme ?? 'light'].icon}
                 />
                 <SignedOut>
@@ -282,8 +296,7 @@ const GameScreen = () => {
           ))}
         </View>
         <ThemedKeyboard
-          onKeyPressed={addKey}
-          onDelete={() => console.log('delete')}
+          onKeyPressed={processKey}
           correctLetters={correctLetters}
           presentLetters={presentLetters}
           wrongLetters={wrongLetters}

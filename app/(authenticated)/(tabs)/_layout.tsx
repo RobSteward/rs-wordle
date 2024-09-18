@@ -48,20 +48,6 @@ const TabsLayout = () => {
             title: 'Play',
           }}
         />
-        <Tabs.Screen
-          name='settings'
-          options={{
-            tabBarIcon: ({ focused, color, size }) => (
-              <MaterialCommunityIcons
-                name='cog'
-                size={size}
-                color={color}
-              />
-            ),
-            tabBarLabel: 'Settings',
-            title: 'Settings',
-          }}
-        />
       </Tabs>
     </>
   )
