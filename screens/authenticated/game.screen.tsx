@@ -32,8 +32,8 @@ const GameScreen = () => {
   const [presentLetters, setPresentLetters] = useState<string[]>([''])
 
   // const [targetWord, setTargetWord] = useState<string>('')
-  const [targetWord, setTargetWord] = useState('')
-  const [targetLetters] = useState(targetWord.split(''))
+  const [targetWord, setTargetWord] = useState('ROBIN')
+  const [targetLetters] = targetWord.split('')
 
   const columnStateRef = useRef(currentColumn)
   const setCurrentColumn = (column: number) => {
@@ -168,8 +168,6 @@ const GameScreen = () => {
     })
     setRows(newRows)
   }
-
-  console.log(restart)
 
   const getCellColor = (cell: string, row: number, cellIndex: number) => {
     if (currentRow > row) {

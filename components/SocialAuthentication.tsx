@@ -24,7 +24,6 @@ const SocialAuthentication = () => {
   })
 
   const onSelectAuth = async (strategy: AuthenticationStrategy) => {
-    console.log('Starting OAuth flow...', strategy)
     const selectedAuth = {
       [AuthenticationStrategy.Apple]: appleAuthFlow,
       [AuthenticationStrategy.Google]: googleAuthFlow,

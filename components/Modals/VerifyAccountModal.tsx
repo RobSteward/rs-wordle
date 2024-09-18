@@ -188,12 +188,13 @@ const VerifyAccountModal: React.FC = () => {
         })
         dismissAllModals()
       } else {
-        console.log(JSON.stringify(completeSignUp, null, 2))
+        Toast.update(toastId, 'Verification failed', {
+          type: 'danger',
+        })
       }
     } catch (error: any) {
       // See https://clerk.com/docs/custom-flows/error-handling
       // for more info on error handling
-      console.log(JSON.stringify(error, null, 2))
       let errorMessage = 'An unknown error occurred'
       if (error.errors && error.errors.length > 0) {
         errorMessage = error.errors[0].longMessage
@@ -230,8 +231,9 @@ const VerifyAccountModal: React.FC = () => {
         }
       )
     } catch (e) {
-      console.log(e)
-      throw new Error()
+      Toast.update(toastId, `Failed to resent verification email: ${e}`, {
+        type: 'danger',
+      })
     } finally {
       setTimeout(() => {
         setTokenSentAgain(false)

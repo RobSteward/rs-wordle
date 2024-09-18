@@ -31,7 +31,6 @@ const EndScreen = ({
   word: string
   gameField?: string
 }) => {
-  console.log('Received props', win, word, gameField)
   const { width, height } = useWindowDimensions()
   const insets = useSafeAreaInsets()
   const winAnimationRef = useRef<LottieView>(null)
@@ -138,15 +137,12 @@ const EndScreen = ({
   }, [user])
 
   const setUserData = async (data: any, userId: string) => {
-    console.log('Updating user data', data, userId)
-
     if (!user) {
       throw new Error('User is not defined. Cannot update user data.')
     }
 
     const documentRef = doc(FIREBASE_DB, `scores/${userId}`)
     const documentSnapshot = await getDoc(documentRef)
-    console.log('Document snapshot', documentSnapshot)
     if (documentSnapshot.exists()) {
       const data = documentSnapshot.data()
       const res = await setDoc(
@@ -179,7 +175,6 @@ const EndScreen = ({
           ],
         }
       )
-      console.log('Document updated!', res)
     } else {
       const res = await setDoc(documentRef, {
         LAST_GAME_STATUS: win === 'true' ? 'win' : 'lose',
@@ -189,11 +184,8 @@ const EndScreen = ({
         CURRENT_STREAK: increment(win === 'true' ? 1 : 0),
         HIGHEST_STREAK: win === 'true' ? increment(1) : increment(0),
       })
-      console.log('Document created!', res)
     }
   }
-
-  console.log('height is', height)
 
   return (
     <>
@@ -382,9 +374,6 @@ const EndScreen = ({
                 size={20}
                 onPress={() => {
                   shareResults()
-                  console.log(
-                    `I just played ${userScores.gameCount} games of Wordle and won ${userScores.winCount} of them!`
-                  )
                 }}
               />
               <Text style={[{ color: Colors[colorScheme ?? 'light'].text }]}>

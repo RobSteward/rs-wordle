@@ -53,7 +53,6 @@ const ResetPasswordModal: React.FC<{ prefill?: string }> = ({ prefill }) => {
   }
 
   const handleResetPassword = async (email: string) => {
-    console.log('Sending password reset link..')
     const toastId = Toast.show('Sending password reset link...', {
       type: 'normal',
       placement: 'top',

@@ -56,7 +56,6 @@ export default function SignUpScreen() {
   }
 
   const handleSignUp = async (values: FormikValues) => {
-    console.log(`Signing up with email ${values.email}...`)
     setIsExpired(false)
     setIsVerified(false)
     setPendingVerification(false)
@@ -81,7 +80,6 @@ export default function SignUpScreen() {
       }
 
       updateToast('Creating account...', 'normal')
-      console.log('Creating account with password...')
       try {
         await signUp.create({
           emailAddress: values.email,
@@ -92,9 +90,7 @@ export default function SignUpScreen() {
         updateToast('Temporary account created - Please verify!', 'success')
         if (signUp && isVerified) router.replace('/(authenticated)/(tabs)')
       } catch (err: any) {
-        // console.error(JSON.stringify(err, null, 2))
         updateToast('Registration failed. Please try again', 'danger')
-        console.log(err.message)
       } finally {
         setIsLoading(false)
       }

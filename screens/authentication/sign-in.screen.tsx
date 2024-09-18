@@ -52,8 +52,6 @@ export default function SignInScreen() {
   }
 
   const handleSignIn = async (values: FormikValues) => {
-    console.log(`Signing in with email ${values.email}...`)
-
     const toastId = Toast.show('Signing in...', {
       type: 'normal',
       placement: 'top',
@@ -74,7 +72,6 @@ export default function SignInScreen() {
       }
 
       updateToast('Signing in...', 'normal')
-      console.log('Signing in with password...')
       try {
         const signInAttempt = await signIn.create({
           identifier: values.email,
@@ -86,14 +83,10 @@ export default function SignInScreen() {
           updateToast('Signed in!', 'success')
           router.replace('/(authenticated)/')
         } else {
-          // See https://clerk.com/docs/custom-flows/error-handling
-          // for more info on error handling
-          console.error(JSON.stringify(signInAttempt, null, 2))
+          throw new Error('Sign in failed')
         }
       } catch (err: any) {
-        console.error(JSON.stringify(err, null, 2))
         updateToast(`Registration failed. Please try again`, 'danger')
-        console.log(err.message)
       } finally {
         setIsLoading(false)
       }
