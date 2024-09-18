@@ -8,6 +8,7 @@ const settings = () => {
     <View>
       <SignedIn>
         <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>
+        
       </SignedIn>
       <SignedOut>
         <View

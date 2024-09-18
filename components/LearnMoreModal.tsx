@@ -145,10 +145,13 @@ const learnMoreModal = forwardRef<Ref>((props, ref) => {
               . No code was copied from the GitHub repository. Any errors,
               mistakes and bugs are my own. All correctly used patterns,
               stuctures, design principles and business logic credit is due to
-              the resources I consulted in making this project. The app is not
-              intended to be used as a Wordle clone and does not intent to
-              infringe on the Wordle trademark. I'm surprised you're reading
-              this far. Now that I have your attention: Did you know that the{' '}
+              the resources I consulted in making this project. The Firebase
+              database on this project is currenly in test mode, and proper
+              security rules should be developed at some point would this be a
+              real app. The app is not intended to be used as a Wordle clone and
+              does not intent to infringe on the Wordle trademark. I'm surprised
+              you're reading this far. Now that I have your attention: Did you
+              know that the{' '}
             </Text>
             <Text
               onPress={() =>

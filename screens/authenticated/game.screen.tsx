@@ -120,7 +120,7 @@ const GameScreen = () => {
           `/end?win=false&word=${currentWord}&gameField=${JSON.stringify(rows)}`
         )
       }
-    }, 1000)
+    }, 250)
 
     setCurrentRow(currentRow + 1)
     setCurrentColumn(0)

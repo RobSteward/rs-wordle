@@ -13,20 +13,20 @@ import SignUpScreen from './sign-up.screen'
 import SignInScreen from './sign-in.screen'
 import { useLocalSearchParams } from 'expo-router'
 import { useRouter } from 'expo-router'
-import IconLight from '@/assets/images/wordle-icon-light-variant.svg'
+import IconLight from '@/assets/images/wordle-icon-light.svg'
 import IconDark from '@/assets/images/wordle-icon-dark.svg'
 import ThemedText from '@/components/ThemedText'
+import { Colors } from '@/constants/Colors'
+import SocialAuthentication from '@/components/SocialAuthentication'
 
 interface AuthenticationScreenProps {
   authenticationType?: 'sign-in' | 'sign-up'
 }
 
-
-
 const AuthenticationScreen: React.FC<AuthenticationScreenProps> = () => {
   const router = useRouter()
   const colorScheme = useColorScheme()
-  
+
   const { authenticationType } = useLocalSearchParams()
   const [isSignUp, setIsSignUp] = useState<boolean>(
     authenticationType === 'sign-up'
@@ -78,8 +78,14 @@ const AuthenticationScreen: React.FC<AuthenticationScreenProps> = () => {
         </View>
         {/* {!keyboardVisible && <SocialLogins isSignUp={isSignUp} />} */}
 
+        <SocialAuthentication />
         <View style={styles.authenticationToggleContainer}>
-          <Text style={styles.authenticationToggleText}>
+          <Text
+            style={[
+              styles.authenticationToggleText,
+              { color: Colors[colorScheme ?? 'light'].text },
+            ]}
+          >
             {isSignUp ? 'Existing' : 'No'} account?
           </Text>
           <Button
@@ -87,7 +93,7 @@ const AuthenticationScreen: React.FC<AuthenticationScreenProps> = () => {
             onPress={() => {
               toggleAuthenticationMode()
             }}
-            textColor='white'
+            textColor={Colors[colorScheme ?? 'light'].text}
           >
             {isSignUp ? 'Sign in' : 'Sign up'}
           </Button>
@@ -111,7 +117,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: 'white',
     paddingHorizontal: 50,
     textAlign: 'center',
   },
@@ -129,7 +134,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   text: {
-    color: 'white',
     fontSize: 24,
     fontWeight: 'bold',
     alignSelf: 'flex-start',

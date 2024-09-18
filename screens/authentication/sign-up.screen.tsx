@@ -18,9 +18,7 @@ import {
 import isEmail from 'validator/lib/isEmail'
 import { useSignUp } from '@clerk/clerk-expo'
 import { useRouter } from 'expo-router'
-import ThemedButton from '@/components/ThemedButton'
 import VerifyAccountModal from '@/components/VerifyAccountModal'
-import SocialAuthentication from '@/components/SocialAuthentication'
 
 interface SignUpFormProps {
   email: string
@@ -229,7 +227,6 @@ export default function SignUpScreen() {
                     />
                   }
                 />
-                <SocialAuthentication />
                 <Animated.View
                   style={{
                     marginTop: 20,

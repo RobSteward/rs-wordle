@@ -50,31 +50,30 @@ const SocialAuthentication = () => {
       <View style={styles.seperatorView}>
         <View
           style={{
-            borderBottomColor: 'white',
+            borderBottomColor: Colors[colorScheme ?? 'light'].border,
             borderBottomWidth: StyleSheet.hairlineWidth,
             flex: 1,
           }}
-        ></View>
-        <Text style={styles.text}> or </Text>
+        />
+        <Text style={styles.text}> or use </Text>
         <View
           style={{
-            borderBottomColor: 'white',
+            borderBottomColor: Colors[colorScheme ?? 'light'].border,
             borderBottomWidth: StyleSheet.hairlineWidth,
             flex: 1,
           }}
-        ></View>
+        />
       </View>
       <View style={styles.socialButtonsContainer}>
         <IconButton
           icon='google'
-          iconColor={
-            colorScheme === 'dark' ? Colors.dark.icon : Colors.light.icon
-          }
+          iconColor={Colors[colorScheme ?? 'light'].iconButtonIcon}
           size={20}
           style={{
-            backgroundColor: 'white',
             borderRadius: 10,
             marginBottom: 10,
+            backgroundColor:
+              Colors[colorScheme ?? 'light'].iconButtonBackground,
           }}
           onPress={() => {
             onSelectAuth(AuthenticationStrategy.Google)
@@ -82,12 +81,11 @@ const SocialAuthentication = () => {
         />
         <IconButton
           icon='microsoft'
-          iconColor={
-            colorScheme === 'dark' ? Colors.dark.icon : Colors.light.icon
-          }
+          iconColor={Colors[colorScheme ?? 'light'].iconButtonIcon}
           size={20}
           style={{
-            backgroundColor: 'white',
+            backgroundColor:
+              Colors[colorScheme ?? 'light'].iconButtonBackground,
             borderRadius: 10,
             marginBottom: 10,
           }}
@@ -97,12 +95,11 @@ const SocialAuthentication = () => {
         />
         <IconButton
           icon='apple'
-          iconColor={
-            colorScheme === 'dark' ? Colors.dark.icon : Colors.light.icon
-          }
+          iconColor={Colors[colorScheme ?? 'light'].iconButtonIcon}
           size={20}
           style={{
-            backgroundColor: 'white',
+            backgroundColor:
+              Colors[colorScheme ?? 'light'].iconButtonBackground,
             borderRadius: 10,
             marginBottom: 10,
           }}

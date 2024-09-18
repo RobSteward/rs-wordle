@@ -4,26 +4,28 @@ import React, { ReactNode } from 'react'
 
 interface LinearGradientProps {
   children: ReactNode
+  justify?:
+    | 'center'
+    | 'flex-start'
+    | 'flex-end'
+    | 'space-between'
+    | 'space-around'
 }
 import { Colors } from '@/constants/Colors'
 
-const ThemedLinearGradient: React.FC<LinearGradientProps> = ({ children }) => {
+const ThemedLinearGradient: React.FC<LinearGradientProps> = ({
+  children,
+  justify = 'center',
+}) => {
   const colorScheme = useColorScheme()
 
   return (
     <LinearGradient
-      colors={
-        useColorScheme() === 'dark'
-          ? [
-              Colors.light.backgroundGradientEnd,
-              Colors.light.backgroundGradientStart,
-            ]
-          : [
-              Colors.light.backgroundGradientStart,
-              Colors.light.backgroundGradientEnd,
-            ]
-      }
-      style={styles.container}
+      colors={[
+        Colors[colorScheme ?? 'light'].backgroundGradientStart,
+        Colors[colorScheme ?? 'light'].backgroundGradientEnd,
+      ]}
+      style={[styles.container, { justifyContent: justify }]}
     >
       {children}
     </LinearGradient>
@@ -36,7 +38,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: 'orange',
   },
   background: {

@@ -58,13 +58,16 @@ export default function RootLayout() {
   if (!fontsLoaded && !fontsLoadedError) {
     return (
       <ThemedLinearGradient>
-        <View style={{ gap: 20 }}>
+        <View style={styles.container}>
           <Text style={styles.text}>Loading...</Text>
           <LottieView
-            source={require('@/assets/animations/LoaderIcon.json')}
+            source={require('@/assets/animations/LoaderAnimation.json')}
+            style={{
+              width: '20%',
+              height: '20%',
+            }}
             autoPlay
             loop
-            style={{ width: '25%', height: '25%' }}
           />
         </View>
       </ThemedLinearGradient>
@@ -128,6 +131,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
   },
   text: {
     fontFamily: 'FrankRuhlLibre_800ExtraBold',

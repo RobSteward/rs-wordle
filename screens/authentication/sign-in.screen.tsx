@@ -196,7 +196,6 @@ export default function SignInScreen() {
                   />
                 }
               />
-              <SocialAuthentication />
               <Animated.View
                 style={{
                   marginTop: 20,

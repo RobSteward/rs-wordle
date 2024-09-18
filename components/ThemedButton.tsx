@@ -10,6 +10,7 @@ interface ButtonProps {
   disabled?: boolean
   styles?: object
   primary?: boolean
+  icon?: string
 }
 
 const ThemedButton: React.FC<ButtonProps> = ({
@@ -19,6 +20,7 @@ const ThemedButton: React.FC<ButtonProps> = ({
   disabled,
   styles,
   primary,
+  icon,
 }) => {
   const colorScheme = useColorScheme()
   const buttonTextColor = Colors[colorScheme ?? 'light'].buttonText
@@ -27,7 +29,8 @@ const ThemedButton: React.FC<ButtonProps> = ({
     <>
       <View style={{ alignItems: 'center' }}>
         <Button
-          style={styles}
+          icon={icon}
+          style={[styles, { width: '50%' }]}
           buttonColor={
             primary
               ? Colors[colorScheme ?? 'light'].buttonPrimaryColor

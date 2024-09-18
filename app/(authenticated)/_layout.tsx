@@ -31,7 +31,11 @@ export default function AuthenticatedRoutesLayout() {
       />
       <Stack.Screen
         name='end'
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          presentation: 'fullScreenModal',
+          headerShadowVisible: false,
+        }}
       />
     </Stack>
   )
