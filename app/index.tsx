@@ -3,7 +3,7 @@ import IconLight from '@/assets/images/wordle-icon-light.svg'
 import IconDark from '@/assets/images/wordle-icon-dark.svg'
 import { Button } from 'react-native-paper'
 import { Link, useRouter } from 'expo-router'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { format } from 'date-fns'
 import { Colors } from '@/constants/Colors'
 import ThemedText from '@/components/ThemedComponents/ThemedText'
@@ -22,7 +22,7 @@ export default function Index() {
   const router = useRouter()
   const { signOut, isSignedIn } = useAuth()
 
-  const handlePresentModal = () => {
+  const handlePresentLearnMoreModal = () => {
     learnMoreModalRef.current?.present()
   }
 
@@ -81,7 +81,7 @@ export default function Index() {
 
         <ThemedButton
           title='Learn more'
-          onPress={handlePresentModal}
+          onPress={handlePresentLearnMoreModal}
         />
       </View>
 

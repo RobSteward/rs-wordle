@@ -21,6 +21,7 @@ import { useSignIn } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
 import { Colors } from '@/constants/Colors'
 import SocialAuthentication from '@/components/SocialAuthentication'
+import ResetPasswordModal from '@/components/Modals/ResetPasswordModal'
 
 interface SignInFormProps {
   email: string
@@ -45,6 +46,7 @@ export default function SignInScreen() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const colorScheme = useColorScheme()
+  const resetPasswordModalRef = useRef<BottomSheetModal>(null)
 
   const handleSubmit = async (values: FormikValues) => {
     setIsLoading(true)
@@ -120,10 +122,8 @@ export default function SignInScreen() {
     })
   }
 
-  const handlePresentModalPress = useCallback(() => {
-    console.log('handlePresentModalPress')
-    bottomSheetModalRef.current?.present()
-  }, [])
+  const handlePresentResetPasswordModal = () =>
+    resetPasswordModalRef.current?.present()
 
   return (
     <View style={{ flex: 1, justifyContent: 'center' }}>
@@ -140,6 +140,10 @@ export default function SignInScreen() {
             isSubmitting,
           }: FormikProps<any>) => (
             <View>
+              <ResetPasswordModal
+                ref={resetPasswordModalRef}
+                prefill={values.email}
+              />
               <Text style={styles.headerText}>Welcome Back!</Text>
               <Text style={styles.text}>
                 Enter your email and password to sign in.
@@ -189,6 +193,14 @@ export default function SignInScreen() {
                   />
                 }
               />
+              <Button
+                mode='text'
+                textColor='#FFFFFF'
+                onPress={handlePresentResetPasswordModal}
+                style={{ opacity: 0.5, alignItems: 'flex-end' }}
+              >
+                Reset password
+              </Button>
               <Animated.View
                 style={{
                   marginTop: 20,

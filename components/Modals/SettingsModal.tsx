@@ -16,7 +16,7 @@ export type Ref = BottomSheetModal
 import { Link } from 'expo-router'
 import { Colors } from '@/constants/Colors'
 
-const settingsModal = forwardRef<Ref>((props, ref) => {
+const SettingsModal = forwardRef<Ref>((props, ref) => {
   const snapPoints = useMemo(() => ['90%'], [])
   const { dismiss } = useBottomSheetModal()
   const { bottom } = useSafeAreaInsets()
@@ -55,15 +55,7 @@ const settingsModal = forwardRef<Ref>((props, ref) => {
           <Link
             href={'/(authenticated)/'}
             asChild
-          >
-            <TouchableOpacity
-              onPress={() => {
-                dismiss()
-              }}
-            >
-              <Text style={styles.buttonText}>Play</Text>
-            </TouchableOpacity>
-          </Link>
+          ></Link>
           <TouchableOpacity onPress={() => dismiss()}>
             <Ionicons
               name='close'
@@ -164,4 +156,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default settingsModal
+export default SettingsModal
