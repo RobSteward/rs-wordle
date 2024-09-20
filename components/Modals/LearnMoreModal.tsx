@@ -63,7 +63,7 @@ const learnMoreModal = forwardRef<Ref>((props, ref) => {
   const renderBackdrop = useCallback(
     (props: any) => (
       <BottomSheetBackdrop
-        opacity={0.2}
+        opacity={0.75}
         appearsOnIndex={0}
         disappearsOnIndex={-1}
         {...props}
