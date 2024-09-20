@@ -1,6 +1,5 @@
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import React, { forwardRef, useCallback, useMemo, useState } from 'react'
-import ThemedButton from '@/components/ThemedComponents/ThemedButton'
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
@@ -9,31 +8,42 @@ import {
 } from '@gorhom/bottom-sheet'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons'
-import * as WebBrowser from 'expo-web-browser'
-import { WebBrowserResult } from 'expo-web-browser'
-export type Ref = BottomSheetModal
-
+import { useColorScheme } from 'react-native'
 import { Link } from 'expo-router'
 import { Colors } from '@/constants/Colors'
+import ThemedLinearGradient from '../ThemedComponents/ThemedLinearGradient'
+import { Switch } from 'react-native-paper'
+import { useMMKVBoolean } from 'react-native-mmkv'
+import { storage } from '@/utils/storage'
+
+export type Ref = BottomSheetModal
 
 const SettingsModal = forwardRef<Ref>((props, ref) => {
-  const snapPoints = useMemo(() => ['90%'], [])
+  const snapPoints = useMemo(() => ['50%'], [])
   const { dismiss } = useBottomSheetModal()
   const { bottom } = useSafeAreaInsets()
-  const [webBrowserResult, setWebBrowserResult] =
-    useState<WebBrowserResult | null>(null)
+  const colorScheme = useColorScheme()
+  const [darkMode, setDarkMode] = useMMKVBoolean('dark-mode', storage)
+  const [hardMode, setHardMode] = useMMKVBoolean('hard-mode', storage)
+  const [notificationsEnabled, setNotificationsEnabled] = useMMKVBoolean(
+    'notifications-enabled',
+    storage
+  )
 
-  const handleButtonPress = async () => {
-    let result = await WebBrowser.openBrowserAsync(
-      'https://github.com/RobSteward/rs-wordle'
-    )
-    setWebBrowserResult(result)
+  const toggleDarkMode = () => {
+    ;(prev) => !!!prev
+  }
+  const toggleHardMode = () => {
+    ;(prev) => !!!prev
+  }
+  const toggleNotifcationsEnabled = () => {
+    ;(prev) => !!!prev
   }
 
   const renderBackdrop = useCallback(
     (props: any) => (
       <BottomSheetBackdrop
-        opacity={0.2}
+        opacity={0.75}
         appearsOnIndex={0}
         disappearsOnIndex={-1}
         {...props}
@@ -50,109 +60,153 @@ const SettingsModal = forwardRef<Ref>((props, ref) => {
       backdropComponent={renderBackdrop}
       snapPoints={snapPoints}
     >
-      <View style={styles.contentContainer}>
-        <View style={styles.modalBtns}>
-          <Link
-            href={'/(authenticated)/'}
-            asChild
-          ></Link>
-          <TouchableOpacity onPress={() => dismiss()}>
-            <Ionicons
-              name='close'
-              size={28}
-              color={Colors.light.gray}
-            />
-          </TouchableOpacity>
-        </View>
-        <BottomSheetScrollView>
-          <Text style={styles.containerTitle}>
-            The Selection Lab Interview Task
+      <ThemedLinearGradient>
+        <View style={styles.contentContainer}>
+          <View style={styles.headerRow}>
+            <Link
+              href={'/(authenticated)/'}
+              asChild
+            ></Link>
+            <TouchableOpacity onPress={() => dismiss()}>
+              <Ionicons
+                name='close'
+                size={28}
+                color={Colors.light.gray}
+              />
+            </TouchableOpacity>
+          </View>
+          <Text
+            style={[
+              styles.containerTitle,
+              { color: Colors[colorScheme ?? 'light'].text },
+            ]}
+          >
+            Settings
           </Text>
-        </BottomSheetScrollView>
-        <View style={[styles.footer, { paddingBottom: bottom }]}>
-          <ThemedButton
-            title='View GitHub repository'
-            onPress={handleButtonPress}
+          <View
+            style={{
+              borderBottomColor: Colors[colorScheme ?? 'light'].border,
+              borderBottomWidth: StyleSheet.hairlineWidth,
+              margin: 20,
+            }}
           />
+          <BottomSheetScrollView>
+            <View style={styles.row}>
+              <View style={styles.rowText}>
+                <Text
+                  style={[
+                    styles.rowTitle,
+                    { color: Colors[colorScheme ?? 'light'].text },
+                  ]}
+                >
+                  Dark mode
+                </Text>
+                <Text
+                  style={[
+                    styles.rowSubtitle,
+                    { color: Colors[colorScheme ?? 'light'].text },
+                  ]}
+                >
+                  Toggle manually between light and dark mode
+                </Text>
+              </View>
+              <Switch
+                value={darkMode}
+                onValueChange={toggleDarkMode}
+              />
+            </View>
+            <View style={styles.row}>
+              <View style={styles.rowText}>
+                <Text
+                  style={[
+                    styles.rowTitle,
+                    { color: Colors[colorScheme ?? 'light'].text },
+                  ]}
+                >
+                  Hard mode
+                </Text>
+                <Text
+                  style={[
+                    styles.rowSubtitle,
+                    { color: Colors[colorScheme ?? 'light'].text },
+                  ]}
+                >
+                  Toggle the game to hard mode
+                </Text>
+              </View>
+              <Switch
+                value={hardMode}
+                onValueChange={toggleHardMode}
+              />
+            </View>
+            <View style={styles.row}>
+              <View style={styles.rowText}>
+                <Text
+                  style={[
+                    styles.rowTitle,
+                    { color: Colors[colorScheme ?? 'light'].text },
+                  ]}
+                >
+                  Enable Notifications
+                </Text>
+                <Text
+                  style={[
+                    styles.rowSubtitle,
+                    { color: Colors[colorScheme ?? 'light'].text },
+                  ]}
+                >
+                  Toggle the game to hard mode
+                </Text>
+              </View>
+              <Switch
+                value={notificationsEnabled}
+                onValueChange={toggleNotifcationsEnabled}
+              />
+            </View>
+          </BottomSheetScrollView>
         </View>
-      </View>
+      </ThemedLinearGradient>
     </BottomSheetModal>
   )
 })
 const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   containerTitle: {
     fontSize: 30,
-    padding: 10,
     textAlign: 'center',
     fontFamily: 'FrankRuhlLibre_900Black',
   },
-  containerSubtitle: {
-    fontSize: 20,
+  headerRow: {
     padding: 10,
-    textAlign: 'center',
-    fontFamily: 'FrankRuhlLibre_500Medium',
-  },
-  image: {
-    width: '90%',
-    alignSelf: 'center',
-    height: 40,
-  },
-  modalBtns: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    alignItems: 'center',
   },
   buttonText: {
     fontSize: 14,
-    color: '#000',
     fontWeight: 'bold',
-  },
-  header: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#4f4f4f',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-  },
-  listText: {
-    fontSize: 14,
-    flexShrink: 1,
-    fontWeight: 'bold',
-    color: '#4f4f4f',
-  },
-  disclaimer: {
-    fontSize: 10,
-    fontWeight: 'thin',
-    color: '#484848',
-    marginHorizontal: 30,
-    lineHeight: 18,
-    marginBottom: 20,
-  },
-  footer: {
-    backgroundColor: '#fff',
-    marginTop: 'auto',
-    paddingHorizontal: 20,
-
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: -1,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 5,
-    paddingTop: 20,
   },
   link: {
-    color: '#000',
     fontWeight: 'bold',
     textDecorationLine: 'underline',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 10,
+    padding: 10,
+    borderBottomColor: '#ccc',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  rowText: {
+    flex: 1,
+  },
+  rowTitle: {
+    fontSize: 20,
+    fontFamily: 'FrankRuhlLibre_900Black',
+    marginBottom: 5,
+  },
+  rowSubtitle: {
+    fontSize: 12,
   },
 })
 
