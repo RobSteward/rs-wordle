@@ -204,208 +204,223 @@ const EndScreen = ({
         />
       </View>
 
-      <ThemedLinearGradient justify='flex-start'>
-        <>
-          <View style={styles.header}>
-            <LottieView
-              ref={confettiAnimationRef}
-              source={require('@/assets/animations/ConfettiAnimation.json')}
-              style={[styles.confettiLottie, { top: height / 2.16, bottom: 0 }]}
-              resizeMode='cover'
-              loop={false}
-              autoPlay={false}
-            />
-            {win === 'true' ? (
+      <View style={styles.webContainer}>
+        <ThemedLinearGradient justify='flex-start'>
+          <>
+            <View style={styles.header}>
               <LottieView
-                source={require('@/assets/animations/WinAnimation.json')}
-                autoPlay={true}
-                loop={true}
-                ref={winAnimationRef}
-                speed={1.5}
-                style={{
-                  width: 100,
-                  height: 100,
-                }}
-              />
-            ) : colorScheme === 'dark' ? (
-              <IconDark
-                width={100}
-                height={100}
-              />
-            ) : (
-              <IconLight
-                width={100}
-                height={100}
-              />
-            )}
-            <Text
-              style={[
-                styles.title,
-                { color: Colors[colorScheme ?? 'light'].text },
-              ]}
-            >
-              {win === 'true' ? 'Congratulations!' : 'Thanks for playing today'}
-            </Text>
-          </View>
-          <View style={styles.content}>
-            <SignedOut>
-              <Text
+                ref={confettiAnimationRef}
+                source={require('@/assets/animations/ConfettiAnimation.json')}
                 style={[
-                  styles.text,
-                  { color: Colors[colorScheme ?? 'light'].text },
+                  styles.confettiLottie,
+                  { top: height / 2.16, bottom: 0 },
                 ]}
-              >
-                Want to see your streaks &{'\n'}save your progress?
-              </Text>
-              <ThemedButton
-                title='Create Free Account'
-                onPress={() => {
-                  router.dismissAll()
-                  router.push('/(authentication)/?authenticationType=sign-up')
-                }}
-                primary={true}
+                resizeMode='cover'
+                loop={false}
+                autoPlay={false}
               />
-              <Text style={[{ color: Colors[colorScheme ?? 'light'].text }]}>
-                Existing account?{' '}
-                <Text
-                  style={[
-                    {
-                      color: Colors[colorScheme ?? 'light'].text,
-                      textDecorationLine: 'underline',
-                    },
-                  ]}
-                  onPress={() => {
-                    router.dismissAll()
-                    router.push('/(authentication)/?authenticationType=sign-in')
+              {win === 'true' ? (
+                <LottieView
+                  source={require('@/assets/animations/WinAnimation.json')}
+                  autoPlay={true}
+                  loop={true}
+                  ref={winAnimationRef}
+                  speed={1.5}
+                  style={{
+                    width: 100,
+                    height: 100,
                   }}
-                >
-                  Sign in.
-                </Text>
-              </Text>
-            </SignedOut>
-            <SignedIn>
+                />
+              ) : colorScheme === 'dark' ? (
+                <IconDark
+                  width={100}
+                  height={100}
+                />
+              ) : (
+                <IconLight
+                  width={100}
+                  height={100}
+                />
+              )}
               <Text
                 style={[
-                  styles.text,
+                  styles.title,
                   { color: Colors[colorScheme ?? 'light'].text },
                 ]}
               >
-                Your Statistics
-              </Text>
-              <View style={[styles.statistics]}>
-                <View style={styles.scoreContainer}>
-                  <View>
-                    <Text
-                      style={[
-                        styles.score,
-                        { color: Colors[colorScheme ?? 'light'].text },
-                      ]}
-                    >
-                      {userScores.gameCount}
-                    </Text>
-                    <Text
-                      style={[{ color: Colors[colorScheme ?? 'light'].text }]}
-                    >
-                      Games Played
-                    </Text>
-                  </View>
-                  <View>
-                    <Text
-                      style={[
-                        styles.score,
-                        { color: Colors[colorScheme ?? 'light'].text },
-                      ]}
-                    >
-                      {userScores.winCount}
-                    </Text>
-                    <Text
-                      style={[{ color: Colors[colorScheme ?? 'light'].text }]}
-                    >
-                      Games Won
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.scoreContainer}>
-                  <View>
-                    <Text
-                      style={[
-                        styles.score,
-                        { color: Colors[colorScheme ?? 'light'].text },
-                      ]}
-                    >
-                      {userScores.currentStreak}
-                    </Text>
-                    <Text
-                      style={[{ color: Colors[colorScheme ?? 'light'].text }]}
-                    >
-                      Current Streak
-                    </Text>
-                  </View>
-                  <View>
-                    <Text
-                      style={[
-                        styles.score,
-                        { color: Colors[colorScheme ?? 'light'].text },
-                      ]}
-                    >
-                      {userScores.highestStreak}
-                    </Text>
-                    <Text
-                      style={[{ color: Colors[colorScheme ?? 'light'].text }]}
-                    >
-                      Highest Streak
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </SignedIn>
-            <View style={styles.shareContainer}>
-              <IconButton
-                icon='share'
-                mode='contained-tonal'
-                iconColor={Colors[colorScheme ?? 'light'].iconButtonIcon}
-                containerColor={
-                  Colors[colorScheme ?? 'light'].iconButtonBackground
-                }
-                rippleColor={
-                  Colors[colorScheme ?? 'light'].iconButtonBackground
-                }
-                animated={true}
-                size={20}
-                onPress={() => {
-                  shareResults()
-                }}
-              />
-              <Text style={[{ color: Colors[colorScheme ?? 'light'].text }]}>
-                Share your results with a friend!
+                {win === 'true'
+                  ? 'Congratulations!'
+                  : 'Thanks for playing today'}
               </Text>
             </View>
-            <View
-              style={{
-                backgroundColor: Colors[colorScheme ?? 'light'].border,
-                height: StyleSheet.hairlineWidth,
-                width: '100%',
-                marginVertical: 10,
-              }}
-            />
-          </View>
-          <View style={styles.bottomContainer}>
-            <ThemedButton
-              title='Play again'
-              onPress={() => {
-                navigateToTabs()
-              }}
-              primary={true}
-              styles={{ width: '100%' }}
-            />
-          </View>
-        </>
-      </ThemedLinearGradient>
+            <View style={styles.content}>
+              <SignedOut>
+                <Text
+                  style={[
+                    styles.text,
+                    { color: Colors[colorScheme ?? 'light'].text },
+                  ]}
+                >
+                  Want to see your streaks &{'\n'}save your progress?
+                </Text>
+                <ThemedButton
+                  title='Create Free Account'
+                  onPress={() => {
+                    router.dismissAll()
+                    router.push('/(authentication)/?authenticationType=sign-up')
+                  }}
+                  primary={true}
+                />
+                <Text style={[{ color: Colors[colorScheme ?? 'light'].text }]}>
+                  Existing account?{' '}
+                  <Text
+                    style={[
+                      {
+                        color: Colors[colorScheme ?? 'light'].text,
+                        textDecorationLine: 'underline',
+                      },
+                    ]}
+                    onPress={() => {
+                      router.dismissAll()
+                      router.push(
+                        '/(authentication)/?authenticationType=sign-in'
+                      )
+                    }}
+                  >
+                    Sign in.
+                  </Text>
+                </Text>
+              </SignedOut>
+              <SignedIn>
+                <Text
+                  style={[
+                    styles.text,
+                    { color: Colors[colorScheme ?? 'light'].text },
+                  ]}
+                >
+                  Your Statistics
+                </Text>
+                <View style={[styles.statistics]}>
+                  <View style={styles.scoreContainer}>
+                    <View>
+                      <Text
+                        style={[
+                          styles.score,
+                          { color: Colors[colorScheme ?? 'light'].text },
+                        ]}
+                      >
+                        {userScores.gameCount}
+                      </Text>
+                      <Text
+                        style={[{ color: Colors[colorScheme ?? 'light'].text }]}
+                      >
+                        Games Played
+                      </Text>
+                    </View>
+                    <View>
+                      <Text
+                        style={[
+                          styles.score,
+                          { color: Colors[colorScheme ?? 'light'].text },
+                        ]}
+                      >
+                        {userScores.winCount}
+                      </Text>
+                      <Text
+                        style={[{ color: Colors[colorScheme ?? 'light'].text }]}
+                      >
+                        Games Won
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={styles.scoreContainer}>
+                    <View>
+                      <Text
+                        style={[
+                          styles.score,
+                          { color: Colors[colorScheme ?? 'light'].text },
+                        ]}
+                      >
+                        {userScores.currentStreak}
+                      </Text>
+                      <Text
+                        style={[{ color: Colors[colorScheme ?? 'light'].text }]}
+                      >
+                        Current Streak
+                      </Text>
+                    </View>
+                    <View>
+                      <Text
+                        style={[
+                          styles.score,
+                          { color: Colors[colorScheme ?? 'light'].text },
+                        ]}
+                      >
+                        {userScores.highestStreak}
+                      </Text>
+                      <Text
+                        style={[{ color: Colors[colorScheme ?? 'light'].text }]}
+                      >
+                        Highest Streak
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </SignedIn>
+              <View style={styles.shareContainer}>
+                <IconButton
+                  icon='share'
+                  mode='contained-tonal'
+                  iconColor={Colors[colorScheme ?? 'light'].iconButtonIcon}
+                  containerColor={
+                    Colors[colorScheme ?? 'light'].iconButtonBackground
+                  }
+                  rippleColor={
+                    Colors[colorScheme ?? 'light'].iconButtonBackground
+                  }
+                  animated={true}
+                  size={20}
+                  onPress={() => {
+                    shareResults()
+                  }}
+                />
+                <Text style={[{ color: Colors[colorScheme ?? 'light'].text }]}>
+                  Share your results with a friend!
+                </Text>
+              </View>
+              <View
+                style={{
+                  backgroundColor: Colors[colorScheme ?? 'light'].border,
+                  height: StyleSheet.hairlineWidth,
+                  width: '100%',
+                  marginVertical: 10,
+                }}
+              />
+            </View>
+            <View style={styles.bottomContainer}>
+              <ThemedButton
+                title='Play again'
+                onPress={() => {
+                  navigateToTabs()
+                }}
+                primary={true}
+                styles={{ width: '100%' }}
+              />
+            </View>
+          </>
+        </ThemedLinearGradient>
+      </View>
     </>
   )
 }
 export default EndScreen
 const styles = StyleSheet.create({
+  webContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    maxWidth: 600,
+  },
   header: {
     justifyContent: 'space-between',
     alignItems: 'center',

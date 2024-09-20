@@ -6,8 +6,15 @@ import {
   useFonts,
 } from '@expo-google-fonts/frank-ruhl-libre'
 import * as SplashScreen from 'expo-splash-screen'
-import { useEffect } from 'react'
-import { useColorScheme, View, Text, Image, StyleSheet } from 'react-native'
+import { useEffect, useState } from 'react'
+import {
+  useColorScheme,
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Appearance,
+} from 'react-native'
 import {
   ThemeProvider,
   DarkTheme,
@@ -23,6 +30,7 @@ import { ToastProvider } from 'react-native-toast-notifications'
 import LottieView from 'lottie-react-native'
 import ThemedLinearGradient from '@/components/ThemedComponents/ThemedLinearGradient'
 import { Platform } from 'react-native'
+import { getData } from '@/utils/storage'
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
 
@@ -42,12 +50,32 @@ export default function RootLayout() {
     FrankRuhlLibre_900Black,
   })
   const router = useRouter()
+  const [darkMode, setDarkMode] = useState<boolean | null>(null)
 
-  const title = (text: string) =>
-    Platform.select({
-      web: `The Selection Lab Wordle | ${text}`,
-      default: text,
-    })
+  const fetchTheme = async () => {
+    try {
+      const darkModeValue = await getData('dark-mode')
+      if (darkModeValue !== null) {
+        setDarkMode(darkModeValue)
+      } else {
+        setDarkMode(false)
+      }
+    } catch (error) {
+      console.error('Error loading settings:', error)
+    }
+  }
+
+  useEffect(() => {
+    fetchTheme()
+  }, [])
+
+  useEffect(() => {
+    if (darkMode !== null) {
+      if (Platform.OS !== 'web') {
+        Appearance.setColorScheme(darkMode ? 'dark' : 'light')
+      }
+    }
+  }, [darkMode])
 
   useEffect(() => {
     if (fontsLoaded || fontsLoadedError) {
@@ -92,12 +120,7 @@ export default function RootLayout() {
                     headerShown: false,
                   }}
                 >
-                  <Stack.Screen
-                    name='index'
-                    options={{
-                      title: title('Home'),
-                    }}
-                  />
+                  <Stack.Screen name='index' />
                   <Stack.Screen
                     name='(authentication)'
                     options={{
@@ -113,7 +136,6 @@ export default function RootLayout() {
                           onPress={() => router.back()}
                         />
                       ),
-                      title: title('Authentication'),
                     }}
                   />
                 </Stack>

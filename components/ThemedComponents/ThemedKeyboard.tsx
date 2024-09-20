@@ -2,6 +2,7 @@ import { Colors } from '@/constants/Colors'
 import { Ionicons } from '@expo/vector-icons'
 import { useState } from 'react'
 import {
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -35,7 +36,7 @@ const ThemedKeyboard = ({
 }: ThemedKeyboardProps) => {
   const colorScheme = useColorScheme()
   const { width } = useWindowDimensions()
-  const keyWidth = (width - 100) / keys[0].length
+  const keyWidth = Platform.OS === 'web' ? 58 : (width - 100) / keys[0].length
   const keyHeight = 50
 
   const isSpecialKey = (key: string) => [ENTER, BACKSPACE].includes(key)

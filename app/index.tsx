@@ -11,6 +11,8 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import LearnMoreModal from '@/components/Modals/LearnMoreModal'
 import ThemedButton from '@/components/ThemedComponents/ThemedButton'
 import { SignedIn, SignedOut, useAuth } from '@clerk/clerk-expo'
+import Animated, { FadeInDown, FadeOutUp } from 'react-native-reanimated'
+const AnimatedButton = Animated.createAnimatedComponent(Button)
 
 export default function Index() {
   const [isLoading, setIsLoading] = useState(false)
@@ -29,7 +31,10 @@ export default function Index() {
   return (
     <View style={[styles.container, { backgroundColor }]}>
       <LearnMoreModal ref={learnMoreModalRef} />
-      <View style={styles.header}>
+      <Animated.View
+        style={styles.header}
+        entering={FadeInDown}
+      >
         {colorScheme === 'dark' ? (
           <IconDark
             width={100}
@@ -43,24 +48,24 @@ export default function Index() {
         )}
         <ThemedText style={[styles.title]}>The Selection Lab wordle</ThemedText>
         <ThemedText style={styles.text}>
-          Wordle clone based on only words found on the{'\n'}The Selection Lab
-          website
+          Wordle clone based on words from the {'\n'}randomword api
         </ThemedText>
-      </View>
+      </Animated.View>
 
       <View style={styles.menu}>
         <Link
           href={'/(authenticated)/(tabs)'}
           asChild
         >
-          <Button
+          <AnimatedButton
             mode='elevated'
             buttonColor={colorScheme === 'dark' ? '#1180ff' : '#212547'}
             textColor='white'
             style={{ marginBottom: 20 }}
+            entering={FadeInDown.delay(250)}
           >
             Play
-          </Button>
+          </AnimatedButton>
         </Link>
         <SignedOut>
           <ThemedButton

@@ -32,7 +32,7 @@ const ThemedButton: React.FC<ButtonProps> = ({
       <View style={{ alignItems: 'center' }}>
         <Button
           icon={icon}
-          style={[styles, { width: '50%' }]}
+          style={styles}
           buttonColor={
             primary
               ? Colors[colorScheme ?? 'light'].buttonPrimaryColor

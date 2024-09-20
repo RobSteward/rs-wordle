@@ -1,5 +1,18 @@
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
-import React, { forwardRef, useCallback, useMemo, useState } from 'react'
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Appearance,
+  Platform,
+} from 'react-native'
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
@@ -13,8 +26,8 @@ import { Link } from 'expo-router'
 import { Colors } from '@/constants/Colors'
 import ThemedLinearGradient from '../ThemedComponents/ThemedLinearGradient'
 import { Switch } from 'react-native-paper'
-import { useMMKVBoolean } from 'react-native-mmkv'
-import { storage } from '@/utils/storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { storeData, getData } from '@/utils/storage'
 
 export type Ref = BottomSheetModal
 
@@ -23,21 +36,49 @@ const SettingsModal = forwardRef<Ref>((props, ref) => {
   const { dismiss } = useBottomSheetModal()
   const { bottom } = useSafeAreaInsets()
   const colorScheme = useColorScheme()
-  const [darkMode, setDarkMode] = useMMKVBoolean('dark-mode', storage)
-  const [hardMode, setHardMode] = useMMKVBoolean('hard-mode', storage)
-  const [notificationsEnabled, setNotificationsEnabled] = useMMKVBoolean(
-    'notifications-enabled',
-    storage
-  )
+  const [darkMode, setDarkMode] = useState<boolean>(false)
+  const [hardMode, setHardMode] = useState<boolean>(false)
+
+  const loadSettings = async () => {
+    console.log('Loading settings')
+    try {
+      const darkModeValue = await getData('dark-mode')
+      const hardModeValue = await getData('hard-mode')
+      console.log('Dark mode:', darkModeValue)
+      console.log('Hard mode:', hardModeValue)
+      setDarkMode(darkModeValue)
+      setHardMode(hardModeValue)
+    } catch (error) {
+      console.error('Error loading settings:', error)
+    }
+  }
+
+  useEffect(() => {
+    loadSettings()
+  }, [])
+
+  useEffect(() => {
+    if (darkMode !== null) {
+      if (Platform.OS !== 'web') {
+        Appearance.setColorScheme(darkMode ? 'dark' : 'light')
+      }
+    }
+  }, [darkMode])
 
   const toggleDarkMode = () => {
-    ;(prev) => !!!prev
+    setDarkMode((prev) => {
+      const newValue = !Boolean(prev)
+      storeData('dark-mode', newValue.toString())
+      return newValue
+    })
   }
+
   const toggleHardMode = () => {
-    ;(prev) => !!!prev
-  }
-  const toggleNotifcationsEnabled = () => {
-    ;(prev) => !!!prev
+    setHardMode((prev) => {
+      const newValue = !Boolean(prev)
+      storeData('hard-mode', newValue.toString())
+      return newValue
+    })
   }
 
   const renderBackdrop = useCallback(
@@ -107,12 +148,13 @@ const SettingsModal = forwardRef<Ref>((props, ref) => {
                     { color: Colors[colorScheme ?? 'light'].text },
                   ]}
                 >
-                  Toggle manually between light and dark mode
+                  Toggle between light and dark mode
                 </Text>
               </View>
               <Switch
                 value={darkMode}
                 onValueChange={toggleDarkMode}
+                color={Colors[colorScheme ?? 'light'].correct}
               />
             </View>
             <View style={styles.row}>
@@ -131,36 +173,13 @@ const SettingsModal = forwardRef<Ref>((props, ref) => {
                     { color: Colors[colorScheme ?? 'light'].text },
                   ]}
                 >
-                  Toggle the game to hard mode
+                  Toggle game to hard mode
                 </Text>
               </View>
               <Switch
                 value={hardMode}
                 onValueChange={toggleHardMode}
-              />
-            </View>
-            <View style={styles.row}>
-              <View style={styles.rowText}>
-                <Text
-                  style={[
-                    styles.rowTitle,
-                    { color: Colors[colorScheme ?? 'light'].text },
-                  ]}
-                >
-                  Enable Notifications
-                </Text>
-                <Text
-                  style={[
-                    styles.rowSubtitle,
-                    { color: Colors[colorScheme ?? 'light'].text },
-                  ]}
-                >
-                  Toggle the game to hard mode
-                </Text>
-              </View>
-              <Switch
-                value={notificationsEnabled}
-                onValueChange={toggleNotifcationsEnabled}
+                color={Colors[colorScheme ?? 'light'].correct}
               />
             </View>
           </BottomSheetScrollView>

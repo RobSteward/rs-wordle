@@ -90,6 +90,8 @@ const GameScreen = () => {
       return
     }
 
+    flipRow()
+
     const newCorrectLetters: string[] = []
     const newPresentLetters: string[] = []
     const newNotPresentLetters: string[] = []
@@ -120,7 +122,7 @@ const GameScreen = () => {
           `/end?win=false&word=${currentWord}&gameField=${JSON.stringify(rows)}`
         )
       }
-    }, 1000)
+    }, 1500)
 
     setCurrentRow(currentRow + 1)
     setCurrentColumn(0)
@@ -183,6 +185,17 @@ const GameScreen = () => {
     })
   )
 
+  const shakeRow = () => {
+    const TIME = 60
+    const OFFSET = 10
+
+    offsetShakes[currentRow].value = withSequence(
+      withTiming(-OFFSET, { duration: TIME / 2 }),
+      withRepeat(withTiming(OFFSET, { duration: TIME }), 4, true),
+      withTiming(0, { duration: TIME / 2 })
+    )
+  }
+
   const tileRotates = Array.from({ length: ROWS }, () =>
     Array.from({ length: 5 }, () => useSharedValue(0))
   )
@@ -207,19 +220,8 @@ const GameScreen = () => {
     )
   })
 
-  const shakeRow = () => {
-    const TIME = 80
-    const OFFSET = 10
-
-    offsetShakes[currentRow].value = withSequence(
-      withTiming(-OFFSET, { duration: TIME / 2 }),
-      withRepeat(withTiming(OFFSET, { duration: TIME }), 4, true),
-      withTiming(0, { duration: TIME / 2 })
-    )
-  }
-
   const flipRow = () => {
-    const TIME = 300
+    const TIME = 150
     const OFFSET = 90
 
     tileRotates[currentRow].forEach((value, index) => {
@@ -259,14 +261,23 @@ const GameScreen = () => {
     return Colors.light.gray
   }
 
-  const resetGame = () => {
+  const resetGame = async () => {
+    const newWord = await getRandomWord()
     setRows(new Array(ROWS).fill(new Array(5).fill('')))
     setCurrentRow(0)
     setCurrentColumn(0)
     setCorrectLetters([''])
     setWrongLetters([''])
     setPresentLetters([''])
-    setTargetWord('')
+    setTargetWord(newWord)
+  }
+
+  const getRandomWord = async () => {
+    const response = await fetch(
+      'https://random-word-api.herokuapp.com/word?length=5'
+    )
+    const data = await response.json()
+    return data[0]
   }
 
   const handlePresentSettingsModal = () => settingsModalRef.current?.present()
@@ -381,12 +392,12 @@ const GameScreen = () => {
         <SignedIn></SignedIn>
         <View style={styles.gameField}>
           {rows.map((row, rowIndex) => (
-            <View
+            <Animated.View
               key={`row-${rowIndex}`}
-              style={styles.row}
+              style={[styles.row, rowStyles[rowIndex]]}
             >
               {row.map((cell, cellIndex) => (
-                <View
+                <Animated.View
                   key={`cell-${rowIndex}-${cellIndex}`}
                   style={[
                     styles.cell,
@@ -394,7 +405,9 @@ const GameScreen = () => {
                       backgroundColor: getCellColor(cell, rowIndex, cellIndex),
                       borderColor: Colors[colorScheme ?? 'light'].border,
                     },
+                    tileStyles[rowIndex][cellIndex],
                   ]}
+                  entering={ZoomIn.delay(50 * cellIndex)}
                 >
                   <Text
                     style={[
@@ -404,9 +417,9 @@ const GameScreen = () => {
                   >
                     {cell}
                   </Text>
-                </View>
+                </Animated.View>
               ))}
-            </View>
+            </Animated.View>
           ))}
         </View>
         <ThemedKeyboard
