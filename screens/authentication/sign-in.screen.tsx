@@ -42,7 +42,6 @@ export default function SignInScreen() {
   const { signIn, setActive, isLoaded } = useSignIn()
   const router = useRouter()
   const shakeAnimationValue = useRef(new Animated.Value(0)).current
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const colorScheme = useColorScheme()

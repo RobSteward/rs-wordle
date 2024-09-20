@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingHorizontal: 50,
     textAlign: 'center',
+    fontFamily: 'FrankRuhlLibre_500Medium',
   },
   container: {
     flex: 1,

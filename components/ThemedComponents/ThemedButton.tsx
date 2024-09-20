@@ -11,6 +11,7 @@ interface ButtonProps {
   styles?: object
   primary?: boolean
   icon?: string
+  textColor?: string
 }
 
 const ThemedButton: React.FC<ButtonProps> = ({
@@ -21,6 +22,7 @@ const ThemedButton: React.FC<ButtonProps> = ({
   styles,
   primary,
   icon,
+  textColor,
 }) => {
   const colorScheme = useColorScheme()
   const buttonTextColor = Colors[colorScheme ?? 'light'].buttonText
@@ -34,11 +36,11 @@ const ThemedButton: React.FC<ButtonProps> = ({
           buttonColor={
             primary
               ? Colors[colorScheme ?? 'light'].buttonPrimaryColor
-              : colorScheme === 'dark'
-              ? '#555555'
-              : '#cccccc'
+              : Colors[colorScheme ?? 'light'].gray
           }
-          textColor={Colors[colorScheme ?? 'light'].buttonText}
+          textColor={
+            textColor ? textColor : Colors[colorScheme ?? 'light'].buttonText
+          }
           onPress={onPress}
           loading={loading}
           disabled={disabled}

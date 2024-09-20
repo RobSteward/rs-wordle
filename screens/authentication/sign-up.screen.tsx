@@ -42,7 +42,7 @@ export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp()
   const router = useRouter()
   const shakeAnimationValue = useRef(new Animated.Value(0)).current
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+  const verifyAccountModalRef = useRef<BottomSheetModal>(null)
   const [showPassword, setShowPassword] = useState(false)
   const [pendingVerification, setPendingVerification] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -126,7 +126,7 @@ export default function SignUpScreen() {
 
   const handlePresentModalPress = useCallback(() => {
     console.log('handlePresentModalPress')
-    bottomSheetModalRef.current?.present()
+    verifyAccountModalRef.current?.present()
   }, [])
 
   useEffect(() => {

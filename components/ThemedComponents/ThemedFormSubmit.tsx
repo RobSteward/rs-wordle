@@ -4,8 +4,12 @@ import ThemedButton from './ThemedButton'
 
 interface ThemedFormSubmitProps {
   buttonAction: string
+  textColor?: string
 }
-const DefaultFormButton = ({ buttonAction }: ThemedFormSubmitProps) => {
+const DefaultFormButton = ({
+  buttonAction,
+  textColor,
+}: ThemedFormSubmitProps) => {
   const { handleSubmit, isValid, isSubmitting } = useFormikContext()
 
   return (
@@ -15,6 +19,7 @@ const DefaultFormButton = ({ buttonAction }: ThemedFormSubmitProps) => {
       title={buttonAction}
       disabled={!isValid || isSubmitting}
       primary={true}
+      textColor={textColor}
     />
   )
 }

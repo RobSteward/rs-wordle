@@ -72,7 +72,7 @@ const VerifyAccountModal: React.FC = () => {
   })
   const shakeAnimationValue = useRef(new Animated.Value(0)).current
   const emailHelper = new EmailClientHelper()
-  const ref = useBlurOnFulfill({ value: code, cellCount: 6 })
+  const codeFieldRef = useBlurOnFulfill({ value: code, cellCount: 6 })
 
   useEffect(() => {
     if (code.length === 6) {
@@ -276,7 +276,7 @@ const VerifyAccountModal: React.FC = () => {
       </View>
       <View>
         <CodeField
-          ref={ref}
+          ref={codeFieldRef}
           {...props}
           value={code}
           onChangeText={setCode}

@@ -37,14 +37,5 @@ export default ThemedLinearGradient
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: 'orange',
-  },
-  background: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    height: 300,
   },
 })

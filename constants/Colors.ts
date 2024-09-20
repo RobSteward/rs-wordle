@@ -24,7 +24,7 @@ export const Colors = {
     backgroundGradientStart: '#F7F7F7',
     backgroundGradientEnd: '#1180FF',
     tint: tintColorLight,
-    gray: '#484848',
+    gray: '#A0A5A9',
     iconActive: '#1180FF',
     iconInactive: '#687076',
     icon: '#212547',
