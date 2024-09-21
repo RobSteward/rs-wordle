@@ -70,16 +70,16 @@ export default function RootLayout() {
   const router = useRouter()
 
   const fetchTheme = async () => {
-    console.log('Fetching theme')
     try {
       const darkModeValue = await getData('dark-mode')
+      const isDarkMode = darkModeValue === 'true'
+
       if (
         Platform.OS !== 'web' &&
-        darkModeValue !== null &&
-        darkModeValue !== undefined
+        isDarkMode !== null &&
+        isDarkMode !== undefined
       ) {
-        console.log('Setting theme to ', darkModeValue)
-        Appearance.setColorScheme(darkModeValue === 'false' ? 'light' : 'dark')
+        Appearance.setColorScheme(isDarkMode ? 'dark' : 'light')
       }
     } catch (error) {
       console.error('Error loading settings:', error)
@@ -92,10 +92,8 @@ export default function RootLayout() {
     const eventListener = EventRegister.addEventListener(
       'isDarkMode',
       (darkModeValue) => {
-        console.log('darkmode value from event is ', darkModeValue)
-        console.log('darkmode value type is ', typeof darkModeValue)
         if (Platform.OS !== 'web') {
-          Appearance.setColorScheme(darkModeValue === false ? 'light' : 'dark')
+          Appearance.setColorScheme(darkModeValue ? 'dark' : 'light')
         }
       }
     )

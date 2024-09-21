@@ -122,8 +122,7 @@ const RequestResetPasswordScreen: React.FC<RequestResetPasswordScreenProps> = ({
         }
       )
     } catch (e) {
-      console.log('Error in ResetPasswordModal', e)
-      throw new Error()
+      throw new Error(e)
     } finally {
       setTimeout(() => {
         setResetPasswordEmailSentAgain(false)

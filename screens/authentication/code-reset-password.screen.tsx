@@ -23,6 +23,7 @@ import {
   validateConfirmPassword,
 } from '@/utils/validations/formValidations'
 import { WINDOW_HEIGHT } from '@gorhom/bottom-sheet'
+import EmailHelper from '@/utils/emailClientHelper'
 
 interface AnimateCellProps {
   hasValue: boolean
@@ -66,6 +67,8 @@ const CodeResetPasswordScreen = ({
   const shakeAnimationValue = useRef(new Animated.Value(0)).current
   const { signIn, setActive } = useSignIn()
   const [secondFactor, setSecondFactor] = useState(false)
+
+  const emailHelper = new EmailHelper()
 
   const animateCell = ({ hasValue, index, isFocused }: AnimateCellProps) => {
     Animated.parallel([
@@ -181,7 +184,6 @@ const CodeResetPasswordScreen = ({
           }
         })
         .catch((err) => {
-          console.log('Error', err.errors[0].longMessage)
           throw new Error(`${err.errors[0].longMessage}`)
         })
     } catch (error) {
@@ -198,10 +200,10 @@ const CodeResetPasswordScreen = ({
   const handleOpenEmail = async () => {
     if (Platform.OS === 'ios') {
       console.log('Opening email client on iOS')
-      //emailHelper.openMailClientIOS()
+      emailHelper.openMailClientIOS()
     } else if (Platform.OS === 'android') {
       console.log('Opening email client on Android')
-      //emailHelper.openMailClientAndroid()
+      emailHelper.openMailClientAndroid()
     }
   }
   useEffect(() => {

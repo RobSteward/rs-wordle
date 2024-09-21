@@ -1,7 +1,8 @@
 import * as IntentLauncher from 'expo-intent-launcher'
 import { Linking } from 'react-native'
+import { Toast } from 'react-native-toast-notifications'
 
-class EmailClientHelper {
+class EmailHelper {
   private handleOpenMailClientErrors = (error: any) => {
     console.error('Error opening mail client:', error)
   }
@@ -10,7 +11,10 @@ class EmailClientHelper {
     Linking.canOpenURL('message:0')
       .then((supported) => {
         if (!supported) {
-          console.log('Cant handle url')
+          Toast.show('Mail client not available', {
+            type: 'danger',
+            placement: 'top',
+          })
         } else {
           return Linking.openURL('message:0').catch(
             this.handleOpenMailClientErrors
@@ -33,4 +37,4 @@ class EmailClientHelper {
   }
 }
 
-export default EmailClientHelper
+export default EmailHelper

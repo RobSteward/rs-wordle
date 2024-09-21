@@ -125,7 +125,6 @@ export default function SignUpScreen() {
   }
 
   const handlePresentModalPress = useCallback(() => {
-    console.log('handlePresentModalPress')
     verifyAccountModalRef.current?.present()
   }, [])
 

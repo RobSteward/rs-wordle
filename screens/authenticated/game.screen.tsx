@@ -280,7 +280,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ newGame = false }) => {
     const newWord = await getRandomWord()
     const isValidWord = await checkIsValidWord(newWord)
     if (isValidWord) {
-      console.log('new word is ', newWord.toUpperCase())
+      console.log('New word is ', newWord.toUpperCase())
       setTargetWord(newWord.toUpperCase())
       setCounter(0)
     } else {

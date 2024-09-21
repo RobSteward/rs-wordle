@@ -35,7 +35,8 @@ const SettingsModal = forwardRef<Ref>((props, ref) => {
   const loadSettings = async () => {
     try {
       const darkModeValue = await getData('dark-mode')
-      setDarkMode(darkModeValue)
+      const isDarkMode = darkModeValue === 'true'
+      setDarkMode(isDarkMode)
     } catch (error) {
       console.error('Error loading settings:', error)
     }
@@ -47,7 +48,6 @@ const SettingsModal = forwardRef<Ref>((props, ref) => {
 
   useEffect(() => {
     if (darkMode !== null) {
-      console.log('Dark mode change triggered with', darkMode)
       EventRegister.emit('isDarkMode', darkMode)
     }
   }, [darkMode])
