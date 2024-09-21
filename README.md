@@ -32,6 +32,16 @@ I'm aware that a username and password combination was present in the code while
 
 The firebase database is currently in testing mode and accepts all requests. This is not a secure setup and should not be used in a production environment.
 
+## Limitations
+
+* I'm aware of limitations around keyboard visibility and screen moving.
+* The app only works on portrait mode at the moment.
+* On physical Android devices, 1 font is not loading.
+* I was unable to implement mmkv storage for the user's data vs async storage. MMKV would be much faster.
+* The share functionality is just a dummy.
+* The api calls could be more robust
+* I wanted to implement Firebase functions to add the definition of the last word to the user's data, but skipped this in the interest of time.
+
 ## Author
 
 I hereby declare that I have completed this project on my own.

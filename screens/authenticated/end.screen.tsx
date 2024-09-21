@@ -146,6 +146,7 @@ const EndScreen = ({
       LAST_GAME_DATE: new Date(),
       CURRENT_STREAK: win === 'true' ? 1 : 0,
       HIGHEST_STREAK: win === 'true' ? 1 : 0,
+      LAST_GAME_WORD: word,
     }
 
     const documentRef = doc(FIREBASE_DB, `scores/${userId}`)
@@ -167,6 +168,7 @@ const EndScreen = ({
           data.CURRENT_STREAK >= data.HIGHEST_STREAK
             ? data.CURRENT_STREAK + 1
             : data.HIGHEST_STREAK,
+        LAST_GAME_WORD: word,
       }
       const res = await setDoc(documentRef, newScore, {
         merge: true,
@@ -177,6 +179,7 @@ const EndScreen = ({
           'HIGHEST_STREAK',
           'LAST_GAME_STATUS',
           'LAST_GAME_DATE',
+          'LAST_GAME_WORD',
         ],
       })
       setUserScores(newScore)
