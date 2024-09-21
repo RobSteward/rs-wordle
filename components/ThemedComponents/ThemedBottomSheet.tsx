@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, useColorScheme } from 'react-native'
 import { Text } from 'react-native-paper'
 import ThemedLinearGradient from '@/components/ThemedComponents/ThemedLinearGradient'
 import React, { forwardRef, useMemo, useCallback } from 'react'
@@ -7,6 +7,7 @@ import { BottomSheetModal, BottomSheetBackdrop } from '@gorhom/bottom-sheet'
 import LearnMoreModal from '@/components/Modals/LearnMoreModal'
 import ResetPasswordModal from '@/components/Modals/ResetPasswordModal'
 import VerifyAccountModal from '@/components/Modals/VerifyAccountModal'
+import { Colors } from '@/constants/Colors'
 
 import { string } from 'yup'
 
@@ -24,6 +25,7 @@ type Props = {
 const DefaultBottomSheetModal = forwardRef<Ref, Props>((props, ref) => {
   const { type, title, description, initialIndex, snapPoint, prefill } = props
   const snapPoints = useMemo(() => snapPoint ?? ['50%'], [])
+  const colorScheme = useColorScheme()
 
   const renderBackdrop = useCallback(
     (props: any) => (
@@ -50,8 +52,22 @@ const DefaultBottomSheetModal = forwardRef<Ref, Props>((props, ref) => {
     >
       <ThemedLinearGradient>
         <View style={styles.container}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.description}>{description}</Text>
+          <Text
+            style={[
+              styles.title,
+              { color: Colors[colorScheme ?? 'light'].text },
+            ]}
+          >
+            {title}
+          </Text>
+          <Text
+            style={[
+              styles.description,
+              { color: Colors[colorScheme ?? 'light'].text },
+            ]}
+          >
+            {description}
+          </Text>
           {type === 'resetPasswordModal' && (
             <ResetPasswordModal prefill={prefill} />
           )}
@@ -70,12 +86,10 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   title: {
-    color: 'white',
     fontSize: 24,
     fontWeight: 'bold',
   },
   description: {
-    color: 'white',
     alignSelf: 'flex-start',
   },
 })

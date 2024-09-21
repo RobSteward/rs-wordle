@@ -76,16 +76,9 @@ const AuthenticationScreen: React.FC<AuthenticationScreenProps> = () => {
         <View style={styles.authenticationContainer}>
           {isSignUp ? <SignUpScreen /> : <SignInScreen />}
         </View>
-        {/* {!keyboardVisible && <SocialLogins isSignUp={isSignUp} />} */}
-
         <SocialAuthentication />
         <View style={styles.authenticationToggleContainer}>
-          <Text
-            style={[
-              styles.authenticationToggleText,
-              { color: Colors[colorScheme ?? 'light'].text },
-            ]}
-          >
+          <Text style={{ color: Colors[colorScheme ?? 'light'].text }}>
             {isSignUp ? 'Existing' : 'No'} account?
           </Text>
           <Button
@@ -144,8 +137,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
-  },
-  authenticationToggleText: {
-    color: 'white',
   },
 })

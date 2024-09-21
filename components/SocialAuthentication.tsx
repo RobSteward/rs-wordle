@@ -56,7 +56,12 @@ const SocialAuthentication = () => {
             flex: 1,
           }}
         />
-        <Text style={styles.text}> or use </Text>
+        <Text
+          style={[styles.text, { color: Colors[colorScheme ?? 'light'].text }]}
+        >
+          {' '}
+          or use{' '}
+        </Text>
         <View
           style={{
             borderBottomColor: Colors[colorScheme ?? 'light'].border,
@@ -115,7 +120,6 @@ const SocialAuthentication = () => {
 
 const styles = StyleSheet.create({
   text: {
-    color: 'white',
     fontSize: 15,
     fontWeight: 'bold',
     alignSelf: 'flex-start',

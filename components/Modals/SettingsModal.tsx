@@ -111,7 +111,12 @@ const SettingsModal = forwardRef<Ref>((props, ref) => {
             }}
           />
           <BottomSheetScrollView>
-            <View style={styles.row}>
+            <View
+              style={[
+                styles.row,
+                { borderBottomColor: Colors[colorScheme ?? 'light'].border },
+              ]}
+            >
               <View style={styles.rowText}>
                 <Text
                   style={[
@@ -167,7 +172,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 10,
     padding: 10,
-    borderBottomColor: '#ccc',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   rowText: {

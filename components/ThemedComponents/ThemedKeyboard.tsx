@@ -60,7 +60,7 @@ const ThemedKeyboard = ({
                 {
                   width: keyWidth,
                   height: keyHeight,
-                  backgroundColor: '#DDDDDD',
+                  backgroundColor: 'gray',
                 },
                 isSpecialKey(key) && { width: keyWidth * 1.5 },
                 {
@@ -69,10 +69,10 @@ const ThemedKeyboard = ({
                     : presentLetters.includes(key)
                     ? Colors[colorScheme ?? 'light'].present
                     : wrongLetters.includes(key)
-                    ? Colors[colorScheme ?? 'light'].wrong
+                    ? Colors[colorScheme ?? 'light'].notPresent
                     : Colors[colorScheme ?? 'light'].default,
                 },
-                pressed && { backgroundColor: '#AAAAAA' },
+                pressed && { backgroundColor: 'gray' },
               ]}
             >
               <View>

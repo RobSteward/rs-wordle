@@ -7,6 +7,12 @@ const TabsRoute = () => {
     newGame: string
   }>()
 
+  useEffect(() => {
+    if (newGame === 'true') {
+      console.log('new game')
+    }
+  }, [newGame])
+
   return (
     <>
       <GameScreen newGame={newGame === 'true'} />

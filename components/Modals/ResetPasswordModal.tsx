@@ -84,7 +84,6 @@ const ResetPasswordModal = forwardRef<Ref, { prefill?: string }>(
           </ThemedLinearGradient>
         </BottomSheetModal>
       </>
-      //TODO Fix button positioning not reacting to email field error message
     )
   }
 )

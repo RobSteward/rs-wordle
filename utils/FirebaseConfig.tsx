@@ -1,6 +1,5 @@
 import { Platform } from 'react-native'
 import { initializeApp } from 'firebase/app'
-// import { initializeAuth, connectAuthEmulator } from 'firebase/auth'
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -32,13 +31,9 @@ const isRunningOnLocalhost = () => {
 }
 
 export const FIREBASE_APP = initializeApp(firebaseConfig)
-// export const FIREBASE_AUTH = initializeAuth(FIREBASE_APP, {
-//   persistence: getReactNativePersistence(ReactNativeAsyncStorage),
-// })
 export const FIREBASE_DB = getFirestore(FIREBASE_APP)
 
 if (isRunningOnLocalhost()) {
   const emulatorHost = Platform.OS === 'android' ? '10.0.2.2' : 'localhost'
-  // connectAuthEmulator(FIREBASE_AUTH, `http://${emulatorHost}:9099`)
-  //connectFirestoreEmulator(FIREBASE_DB, emulatorHost, 8080)
+  connectFirestoreEmulator(FIREBASE_DB, emulatorHost, 8080)
 }

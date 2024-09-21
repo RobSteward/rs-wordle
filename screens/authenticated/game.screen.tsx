@@ -278,16 +278,6 @@ const GameScreen: React.FC<GameScreenProps> = ({ newGame = false }) => {
       throw new Error('Could not retrieve a valid word, try again later')
     }
     try {
-      const newWord = await getRandomWord()
-      const isValidWord = await checkIsValidWord(newWord)
-      if (isValidWord) {
-        console.log('New word', newWord.toUpperCase())
-        setTargetWord(newWord.toUpperCase())
-        setCounter(0)
-      } else {
-        setCounter(counter + 1)
-        return resetGame()
-      }
       setCurrentRow(0)
       setCurrentColumn(0)
       setCorrectLetters([''])
@@ -300,11 +290,22 @@ const GameScreen: React.FC<GameScreenProps> = ({ newGame = false }) => {
           cellBorders[rowIndex][cellIndex].value = Colors.light.gray
         })
       })
+      newGame = false
+      setIsNewGame(false)
+      const newWord = await getRandomWord()
+      const isValidWord = await checkIsValidWord(newWord)
+      if (isValidWord) {
+        console.log('New word', newWord.toUpperCase())
+        setTargetWord(newWord.toUpperCase())
+        setCounter(0)
+      } else {
+        setCounter(counter + 1)
+        return resetGame()
+      }
     } catch (error) {
       throw new Error('Could not retrieve a valid word, try again later')
     } finally {
       setIsLoading(false)
-      newGame = false
     }
   }
 
@@ -313,8 +314,15 @@ const GameScreen: React.FC<GameScreenProps> = ({ newGame = false }) => {
   }, [])
 
   useEffect(() => {
+    if (newGame) {
+      setIsNewGame(true)
+    }
+  }, [newGame])
+
+  useEffect(() => {
     if (isNewGame) {
       resetGame()
+      newGame = false
     }
   }, [isNewGame])
 
@@ -333,7 +341,14 @@ const GameScreen: React.FC<GameScreenProps> = ({ newGame = false }) => {
     return (
       <ThemedLinearGradient>
         <View style={styles.loadingContainer}>
-          <Text style={styles.text}>Loading...</Text>
+          <Text
+            style={[
+              styles.text,
+              { color: Colors[colorScheme ?? 'light'].text },
+            ]}
+          >
+            Loading...
+          </Text>
           <LottieView
             source={require('@/assets/animations/LoaderAnimation.json')}
             style={{
@@ -517,6 +532,5 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'FrankRuhlLibre_800ExtraBold',
     fontSize: 30,
-    color: '#fff',
   },
 })

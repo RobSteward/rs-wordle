@@ -143,8 +143,8 @@ export default function SignInScreen() {
                 ref={resetPasswordModalRef}
                 prefill={values.email}
               />
-              <Text style={styles.headerText}>Welcome Back!</Text>
-              <Text style={styles.text}>
+              <Text style={[styles.headerText, {color: Colors[colorScheme ?? 'light'].text}]}>Welcome Back!</Text>
+              <Text style={[styles.text, {color: Colors[colorScheme ?? 'light'].text}]}>
                 Enter your email and password to sign in.
               </Text>
               <ThemedFormField
@@ -218,14 +218,12 @@ export default function SignInScreen() {
 
 const styles = StyleSheet.create({
   headerText: {
-    color: 'white',
     fontSize: 25,
     fontWeight: 'bold',
     alignSelf: 'flex-start',
     marginBottom: 10,
   },
   text: {
-    color: 'white',
     fontSize: 15,
     fontWeight: 'bold',
     alignSelf: 'flex-start',

@@ -1,5 +1,11 @@
 import React from 'react'
-import { Text, TextInput, TextInputProps, Icon } from 'react-native-paper'
+import {
+  Text,
+  TextInput,
+  TextInputProps,
+  Icon,
+  MD3Colors,
+} from 'react-native-paper'
 import { View, StyleSheet } from 'react-native'
 import { useField } from 'formik'
 
@@ -59,7 +65,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 10,
-    color: 'red',
+    color: MD3Colors.error50,
     marginLeft: 8,
   },
 })

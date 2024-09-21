@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react'
-import { View, Text, Animated, StyleSheet } from 'react-native'
+import { View, Text, Animated, StyleSheet, useColorScheme } from 'react-native'
 import { TextInput, Button, MD3Colors, IconButton } from 'react-native-paper'
 import { Toast } from 'react-native-toast-notifications'
 import { router } from 'expo-router'
@@ -19,6 +19,7 @@ import isEmail from 'validator/lib/isEmail'
 import { useSignUp } from '@clerk/clerk-expo'
 import { useRouter } from 'expo-router'
 import VerifyAccountModal from '@/components/Modals/VerifyAccountModal'
+import { Colors } from '@/constants/Colors'
 
 interface SignUpFormProps {
   email: string
@@ -49,6 +50,7 @@ export default function SignUpScreen() {
   const [isExpired, setIsExpired] = useState(false)
   const [isVerified, setIsVerified] = useState(false)
   const [code, setCode] = useState('')
+  const colorScheme = useColorScheme()
 
   const handleSubmit = async (values: FormikValues) => {
     setIsLoading(true)
@@ -150,7 +152,14 @@ export default function SignUpScreen() {
               isSubmitting,
             }: FormikProps<any>) => (
               <View>
-                <Text style={styles.headerText}>Welcome!</Text>
+                <Text
+                  style={[
+                    styles.headerText,
+                    { color: Colors[colorScheme ?? 'light'].text },
+                  ]}
+                >
+                  Welcome!
+                </Text>
                 <Text style={styles.text}>
                   Enter your email and a password to create an account.
                 </Text>
@@ -246,14 +255,12 @@ export default function SignUpScreen() {
 
 const styles = StyleSheet.create({
   headerText: {
-    color: 'white',
     fontSize: 25,
     fontWeight: 'bold',
     alignSelf: 'flex-start',
     marginBottom: 10,
   },
   text: {
-    color: 'white',
     fontSize: 15,
     fontWeight: 'bold',
     alignSelf: 'flex-start',

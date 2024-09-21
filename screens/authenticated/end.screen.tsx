@@ -114,7 +114,7 @@ const EndScreen = ({
     })
   }
 
-  const navigateToTabs = () => {
+  const returnToGame = () => {
     router.dismissAll()
     router.replace('/(tabs)')
   }
@@ -122,6 +122,9 @@ const EndScreen = ({
   const startNewGame = () => {
     router.dismissAll()
     router.navigate(`/(authenticated)/(tabs)/?newGame=true`)
+    setTimeout(() => {
+      router.replace(`/(authenticated)/(tabs)/`)
+    }, 500)
   }
 
   useEffect(() => {
@@ -200,7 +203,7 @@ const EndScreen = ({
           icon='close'
           size={30}
           iconColor={Colors[colorScheme ?? 'light'].text}
-          onPress={() => navigateToTabs()}
+          onPress={() => returnToGame()}
         />
       </View>
 

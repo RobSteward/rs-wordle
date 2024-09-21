@@ -150,7 +150,6 @@ export default function RootLayout() {
                   <Stack.Screen
                     name='(authentication)'
                     options={{
-                      // presentation: 'modal',
                       headerShadowVisible: false,
                       headerShown: true,
                       headerTitle: 'Authentication',
@@ -184,6 +183,5 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'FrankRuhlLibre_800ExtraBold',
     fontSize: 30,
-    color: '#fff',
   },
 })

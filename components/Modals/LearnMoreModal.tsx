@@ -96,12 +96,19 @@ const learnMoreModal = forwardRef<Ref>((props, ref) => {
       snapPoints={snapPoints}
       onChange={(index) => {
         if (index >= 0) {
-          fetchTechStack()
+          if (techStack.length === 0) {
+            fetchTechStack()
+          }
         }
       }}
     >
-      <View style={styles.contentContainer}>
-        <View style={styles.modalBtns}>
+      <View
+        style={[
+          styles.contentContainer,
+          { backgroundColor: Colors[colorScheme ?? 'light'].background },
+        ]}
+      >
+        <View style={styles.button}>
           <Link
             href={'/(authenticated)/'}
             asChild
@@ -111,7 +118,14 @@ const learnMoreModal = forwardRef<Ref>((props, ref) => {
                 dismiss()
               }}
             >
-              <Text style={styles.buttonText}>Play</Text>
+              <Text
+                style={[
+                  styles.buttonText,
+                  { color: Colors[colorScheme ?? 'light'].text },
+                ]}
+              >
+                Play
+              </Text>
             </TouchableOpacity>
           </Link>
           <TouchableOpacity onPress={() => dismiss()}>
@@ -123,19 +137,31 @@ const learnMoreModal = forwardRef<Ref>((props, ref) => {
           </TouchableOpacity>
         </View>
         <BottomSheetScrollView>
-          <Text style={styles.containerTitle}>
+          <Text
+            style={[
+              styles.containerTitle,
+              { color: Colors[colorScheme ?? 'light'].text },
+            ]}
+          >
             The Selection Lab Interview Task
           </Text>
-          <Text style={styles.containerSubtitle}>
+          <Text
+            style={[
+              styles.containerSubtitle,
+              { color: Colors[colorScheme ?? 'light'].text },
+            ]}
+          >
             Submission by Robin Scharf
           </Text>
-          {/* <Image
-            source={require('@/assets/images/splash.png')}
-            style={styles.image}
-          /> */}
-
           <View>
-            <Text style={styles.header}>Tech Stack</Text>
+            <Text
+              style={[
+                styles.header,
+                { color: Colors[colorScheme ?? 'light'].text },
+              ]}
+            >
+              Tech Stack
+            </Text>
             {techStack.length ? (
               <MarkedList
                 counterRenderer={disc}
@@ -144,11 +170,17 @@ const learnMoreModal = forwardRef<Ref>((props, ref) => {
                   gap: 10,
                   marginVertical: 10,
                 }}
+                markerTextStyle={{
+                  color: Colors[colorScheme ?? 'light'].text,
+                }}
               >
                 {techStack.map((value, index) => (
                   <Text
                     key={index}
-                    style={styles.listText}
+                    style={[
+                      styles.listText,
+                      { color: Colors[colorScheme ?? 'light'].text },
+                    ]}
                   >
                     {value}
                   </Text>
@@ -176,18 +208,30 @@ const learnMoreModal = forwardRef<Ref>((props, ref) => {
               </View>
             )}
           </View>
-          <Text style={styles.header}>Disclaimer</Text>
+          <Text
+            style={[
+              styles.header,
+              { color: Colors[colorScheme ?? 'light'].text },
+            ]}
+          >
+            Disclaimer
+          </Text>
           <Text style={styles.disclaimer}>
-            <Text>This interview submission app is based on a </Text>
+            <Text style={{ color: Colors[colorScheme ?? 'light'].text }}>
+              This interview submission app is based on a{' '}
+            </Text>
             <Text
               onPress={() =>
                 Linking.openURL('https://www.youtube.com/watch?v=pTonpjmKtiE')
               }
-              style={styles.link}
+              style={[
+                styles.link,
+                { color: Colors[colorScheme ?? 'light'].text },
+              ]}
             >
               YouTube tutorial by Simon Grimm
             </Text>
-            <Text>
+            <Text style={{ color: Colors[colorScheme ?? 'light'].text }}>
               . No code was copied from the GitHub repository. Any errors,
               mistakes and bugs are my own. All correctly used patterns,
               stuctures, design principles and business logic credit is due to
@@ -205,17 +249,24 @@ const learnMoreModal = forwardRef<Ref>((props, ref) => {
                   'https://meetings-eu1.hubspot.com/joris-heikamp/'
                 )
               }
-              style={styles.link}
+              style={[
+                styles.link,
+                { color: Colors[colorScheme ?? 'light'].text },
+              ]}
             >
               callback CTA on your homepage
             </Text>
-            <Text> is missing utm parameters?</Text>
+            <Text style={{ color: Colors[colorScheme ?? 'light'].text }}>
+              {' '}
+              is missing utm parameters?
+            </Text>
           </Text>
         </BottomSheetScrollView>
         <View style={[styles.footer, { paddingBottom: bottom }]}>
           <ThemedButton
             title='View GitHub repository'
             onPress={handleButtonPress}
+            primary={false}
           />
         </View>
       </View>
@@ -225,7 +276,6 @@ const learnMoreModal = forwardRef<Ref>((props, ref) => {
 const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   containerTitle: {
     fontSize: 30,
@@ -244,7 +294,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: 40,
   },
-  modalBtns: {
+  button: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: 10,
@@ -253,13 +303,11 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 14,
-    color: '#000',
     fontWeight: 'bold',
   },
   header: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: '#4f4f4f',
     paddingHorizontal: 20,
     paddingVertical: 10,
   },
@@ -267,21 +315,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
     flexShrink: 1,
     fontWeight: 'bold',
-    color: '#4f4f4f',
   },
   disclaimer: {
     fontSize: 10,
     fontWeight: 'thin',
-    color: '#484848',
     marginHorizontal: 30,
     lineHeight: 18,
     marginBottom: 20,
   },
   footer: {
-    backgroundColor: '#fff',
     marginTop: 'auto',
     paddingHorizontal: 20,
-
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -293,7 +337,6 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   link: {
-    color: '#000',
     fontWeight: 'bold',
     textDecorationLine: 'underline',
   },

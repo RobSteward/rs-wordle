@@ -193,8 +193,6 @@ const VerifyAccountModal: React.FC = () => {
         })
       }
     } catch (error: any) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
       let errorMessage = 'An unknown error occurred'
       if (error.errors && error.errors.length > 0) {
         errorMessage = error.errors[0].longMessage
@@ -244,7 +242,7 @@ const VerifyAccountModal: React.FC = () => {
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.text}>
+        <Text style={{ color: Colors[colorScheme ?? 'light'].text }}>
           A verification token has been sent to{' '}
           <Text
             style={styles.linkText}
@@ -261,10 +259,13 @@ const VerifyAccountModal: React.FC = () => {
           ></Icon>
           .
         </Text>
-        <Text style={styles.text}>
+        <Text style={{ color: Colors[colorScheme ?? 'light'].text }}>
           Enter the token below to verify your account. No token received?{' '}
           <Text
-            style={[styles.linkText, tokenSentAgain && styles.disabledText]}
+            style={[
+              styles.linkText,
+              tokenSentAgain && { color: Colors[colorScheme ?? 'light'].gray },
+            ]}
             onPress={() => {
               handleSendAgain()
             }}
@@ -331,15 +332,8 @@ const styles = StyleSheet.create({
     gap: 50,
     marginTop: 50,
   },
-  text: {
-    color: 'white',
-  },
   linkText: {
-    color: 'white',
     textDecorationLine: 'underline',
-  },
-  disabledText: {
-    color: '#6b7280',
   },
 })
 
