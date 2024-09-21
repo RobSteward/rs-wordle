@@ -26,6 +26,12 @@ This is an interview submission project for the position of [Internship Frontend
 
 You can get the values from the private gist link and password that I've submitted via email.
 
+## Security
+
+I'm aware that a username and password combination was present in the code while I was developing the app. This was a dummy combination I used to test the authentication flow and does not represent a valid authentication for any other service I use.
+
+The firebase database is currently in testing mode and accepts all requests. This is not a secure setup and should not be used in a production environment.
+
 ## Author
 
 I hereby declare that I have completed this project on my own.
