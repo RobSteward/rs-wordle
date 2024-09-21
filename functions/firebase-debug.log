@@ -1,0 +1,482 @@
+[debug] [2024-09-21T14:03:55.815Z] ----------------------------------------------------------------------
+[debug] [2024-09-21T14:03:55.818Z] Command:       /opt/homebrew/Cellar/node/22.8.0/bin/node /opt/homebrew/bin/firebase deploy --only functions
+[debug] [2024-09-21T14:03:55.819Z] CLI Version:   13.17.0
+[debug] [2024-09-21T14:03:55.819Z] Platform:      darwin
+[debug] [2024-09-21T14:03:55.819Z] Node Version:  v22.8.0
+[debug] [2024-09-21T14:03:55.819Z] Time:          Sat Sep 21 2024 16:03:55 GMT+0200 (Central European Summer Time)
+[debug] [2024-09-21T14:03:55.820Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-09-21T14:03:55.874Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-09-21T14:03:55.875Z] > authorizing via signed-in user (robinscharf@gmail.com)
+[debug] [2024-09-21T14:03:55.875Z] [iam] checking project rs-wordle-da8c4 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2024-09-21T14:03:55.876Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/rs-wordle-da8c4:testIamPermissions [none]
+[debug] [2024-09-21T14:03:55.876Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/rs-wordle-da8c4:testIamPermissions x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:03:55.877Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/rs-wordle-da8c4:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2024-09-21T14:03:56.558Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/rs-wordle-da8c4:testIamPermissions 200
+[debug] [2024-09-21T14:03:56.558Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/rs-wordle-da8c4:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2024-09-21T14:03:56.559Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/rs-wordle-da8c4/serviceAccounts/rs-wordle-da8c4@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2024-09-21T14:03:56.559Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/rs-wordle-da8c4/serviceAccounts/rs-wordle-da8c4@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-09-21T14:03:57.238Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/rs-wordle-da8c4/serviceAccounts/rs-wordle-da8c4@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2024-09-21T14:03:57.238Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/rs-wordle-da8c4/serviceAccounts/rs-wordle-da8c4@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'rs-wordle-da8c4'...
+[info] 
+[info] i  deploying functions 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] Running command: npm --prefix "$RESOURCE_DIR" run build
+[info] ✔  functions: Finished running predeploy script. 
+[debug] [2024-09-21T14:04:05.954Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/rs-wordle-da8c4 [none]
+[debug] [2024-09-21T14:04:06.180Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/rs-wordle-da8c4 200
+[debug] [2024-09-21T14:04:06.180Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/rs-wordle-da8c4 {"projectId":"rs-wordle-da8c4","projectNumber":"244095975634","displayName":"rs-wordle","name":"projects/rs-wordle-da8c4","resources":{"hostingSite":"rs-wordle-da8c4","storageBucket":"rs-wordle-da8c4.appspot.com","locationId":"europe-west"},"state":"ACTIVE","etag":"1_867b5372-a90d-4658-87bc-e688db48b27b"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2024-09-21T14:04:06.181Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/cloudfunctions.googleapis.com [none]
+[debug] [2024-09-21T14:04:06.181Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:04:06.182Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/runtimeconfig.googleapis.com [none]
+[debug] [2024-09-21T14:04:06.182Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:04:06.183Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/cloudbuild.googleapis.com [none]
+[debug] [2024-09-21T14:04:06.183Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/cloudbuild.googleapis.com x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:04:06.183Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/artifactregistry.googleapis.com [none]
+[debug] [2024-09-21T14:04:06.183Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/artifactregistry.googleapis.com x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:04:07.072Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/runtimeconfig.googleapis.com 200
+[debug] [2024-09-21T14:04:07.072Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2024-09-21T14:04:07.072Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/cloudbuild.googleapis.com 200
+[debug] [2024-09-21T14:04:07.073Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/cloudbuild.googleapis.com [omitted]
+[warn] ⚠  functions: missing required API cloudbuild.googleapis.com. Enabling now... 
+[debug] [2024-09-21T14:04:07.073Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/cloudbuild.googleapis.com:enable [none]
+[debug] [2024-09-21T14:04:07.073Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/cloudbuild.googleapis.com:enable x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:04:07.074Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/cloudfunctions.googleapis.com 200
+[debug] [2024-09-21T14:04:07.074Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/cloudfunctions.googleapis.com [omitted]
+[info] ✔  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2024-09-21T14:04:07.075Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/artifactregistry.googleapis.com 200
+[debug] [2024-09-21T14:04:07.075Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/artifactregistry.googleapis.com [omitted]
+[warn] ⚠  artifactregistry: missing required API artifactregistry.googleapis.com. Enabling now... 
+[debug] [2024-09-21T14:04:07.076Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/artifactregistry.googleapis.com:enable [none]
+[debug] [2024-09-21T14:04:07.076Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/artifactregistry.googleapis.com:enable x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:04:07.888Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/cloudbuild.googleapis.com:enable 200
+[debug] [2024-09-21T14:04:07.888Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/cloudbuild.googleapis.com:enable [omitted]
+[debug] [2024-09-21T14:04:08.218Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/artifactregistry.googleapis.com:enable 200
+[debug] [2024-09-21T14:04:08.218Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/artifactregistry.googleapis.com:enable [omitted]
+[debug] [2024-09-21T14:04:17.891Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/cloudbuild.googleapis.com [none]
+[debug] [2024-09-21T14:04:17.891Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/cloudbuild.googleapis.com x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:04:18.221Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/artifactregistry.googleapis.com [none]
+[debug] [2024-09-21T14:04:18.221Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/artifactregistry.googleapis.com x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:04:18.747Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/cloudbuild.googleapis.com 200
+[debug] [2024-09-21T14:04:18.747Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/cloudbuild.googleapis.com [omitted]
+[info] ✔  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2024-09-21T14:04:19.059Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/artifactregistry.googleapis.com 200
+[debug] [2024-09-21T14:04:19.060Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/artifactregistry.googleapis.com [omitted]
+[info] ✔  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2024-09-21T14:04:19.061Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/rs-wordle-da8c4/adminSdkConfig [none]
+[debug] [2024-09-21T14:04:19.562Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/rs-wordle-da8c4/adminSdkConfig 200
+[debug] [2024-09-21T14:04:19.562Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/rs-wordle-da8c4/adminSdkConfig {"projectId":"rs-wordle-da8c4","storageBucket":"rs-wordle-da8c4.appspot.com","locationId":"europe-west"}
+[debug] [2024-09-21T14:04:19.564Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/rs-wordle-da8c4/configs [none]
+[debug] [2024-09-21T14:04:19.831Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/rs-wordle-da8c4/configs 200
+[debug] [2024-09-21T14:04:19.831Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/rs-wordle-da8c4/configs {}
+[debug] [2024-09-21T14:04:19.832Z] Validating nodejs source
+[debug] [2024-09-21T14:04:20.338Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "^12.1.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2024-09-21T14:04:20.338Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2024-09-21T14:04:20.339Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-09-21T14:04:20.344Z] Found firebase-functions binary at '/Users/rob/code/rs-wordle/functions/node_modules/.bin/firebase-functions'
+[info] Serving at port 8953
+
+[debug] [2024-09-21T14:04:20.848Z] Got response from /__/functions.yaml {"endpoints":{"helloWorld":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"helloWorld"},"processWord":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"eventTrigger":{"eventType":"google.cloud.firestore.document.v1.created","eventFilters":{"database":"(default)","namespace":"(default)"},"eventFilterPathPatterns":{"document":"scores/{documentId}"},"retry":false},"entryPoint":"processWord"},"processWordUpdate":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"eventTrigger":{"eventType":"google.cloud.firestore.document.v1.updated","eventFilters":{"database":"(default)","namespace":"(default)"},"eventFilterPathPatterns":{"document":"scores/{documentId}"},"retry":false},"entryPoint":"processWordUpdate"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[info] i  functions: preparing functions directory for uploading... 
+[info] i  functions: packaged /Users/rob/code/rs-wordle/functions (87.66 KB) for uploading 
+[debug] [2024-09-21T14:04:25.914Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/rs-wordle-da8c4/locations/-/functions [none]
+[debug] [2024-09-21T14:04:26.511Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/rs-wordle-da8c4/locations/-/functions 200
+[debug] [2024-09-21T14:04:26.511Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/rs-wordle-da8c4/locations/-/functions {}
+[debug] [2024-09-21T14:04:26.512Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/-/functions filter=environment%3D%22GEN_2%22
+[debug] [2024-09-21T14:04:27.544Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/-/functions 200
+[debug] [2024-09-21T14:04:27.544Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/-/functions {}
+[debug] [2024-09-21T14:04:27.545Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/rs-wordle-da8c4/databases/(default) [none]
+[debug] [2024-09-21T14:04:27.547Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/rs-wordle-da8c4/databases/(default) [none]
+[debug] [2024-09-21T14:04:27.665Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/rs-wordle-da8c4/databases/(default) 200
+[debug] [2024-09-21T14:04:27.665Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/rs-wordle-da8c4/databases/(default) {"name":"projects/rs-wordle-da8c4/databases/(default)","uid":"d981e975-6716-485c-bec6-12f124df28f3","createTime":"2024-09-13T08:09:15.984436Z","updateTime":"2024-09-13T08:09:15.984436Z","locationId":"eur3","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2024-09-21T13:04:27.683942Z","appEngineIntegrationMode":"DISABLED","keyPrefix":"e","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","etag":"INi6jpKa1IgDMKiCgs+PzYgD"}
+[debug] [2024-09-21T14:04:27.723Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/rs-wordle-da8c4/databases/(default) 200
+[debug] [2024-09-21T14:04:27.723Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/rs-wordle-da8c4/databases/(default) {"name":"projects/rs-wordle-da8c4/databases/(default)","uid":"d981e975-6716-485c-bec6-12f124df28f3","createTime":"2024-09-13T08:09:15.984436Z","updateTime":"2024-09-13T08:09:15.984436Z","locationId":"eur3","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2024-09-21T13:04:27.741167Z","appEngineIntegrationMode":"DISABLED","keyPrefix":"e","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","etag":"ILb7kZKa1IgDMKiCgs+PzYgD"}
+[info] i  functions: ensuring required API run.googleapis.com is enabled... 
+[info] i  functions: ensuring required API eventarc.googleapis.com is enabled... 
+[info] i  functions: ensuring required API pubsub.googleapis.com is enabled... 
+[info] i  functions: ensuring required API storage.googleapis.com is enabled... 
+[debug] [2024-09-21T14:04:27.726Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/run.googleapis.com [none]
+[debug] [2024-09-21T14:04:27.726Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/run.googleapis.com x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:04:27.728Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/eventarc.googleapis.com [none]
+[debug] [2024-09-21T14:04:27.728Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/eventarc.googleapis.com x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:04:27.730Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/pubsub.googleapis.com [none]
+[debug] [2024-09-21T14:04:27.730Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/pubsub.googleapis.com x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:04:27.732Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/storage.googleapis.com [none]
+[debug] [2024-09-21T14:04:27.732Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/storage.googleapis.com x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:04:28.576Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/pubsub.googleapis.com 200
+[debug] [2024-09-21T14:04:28.576Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/pubsub.googleapis.com [omitted]
+[info] ✔  functions: required API pubsub.googleapis.com is enabled 
+[debug] [2024-09-21T14:04:28.577Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/eventarc.googleapis.com 200
+[debug] [2024-09-21T14:04:28.577Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/eventarc.googleapis.com [omitted]
+[warn] ⚠  functions: missing required API eventarc.googleapis.com. Enabling now... 
+[debug] [2024-09-21T14:04:28.577Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/eventarc.googleapis.com:enable [none]
+[debug] [2024-09-21T14:04:28.577Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/eventarc.googleapis.com:enable x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:04:28.578Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/run.googleapis.com 200
+[debug] [2024-09-21T14:04:28.579Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/run.googleapis.com [omitted]
+[warn] ⚠  functions: missing required API run.googleapis.com. Enabling now... 
+[debug] [2024-09-21T14:04:28.579Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/run.googleapis.com:enable [none]
+[debug] [2024-09-21T14:04:28.579Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/run.googleapis.com:enable x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:04:28.580Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/storage.googleapis.com 200
+[debug] [2024-09-21T14:04:28.581Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/storage.googleapis.com [omitted]
+[info] ✔  functions: required API storage.googleapis.com is enabled 
+[debug] [2024-09-21T14:04:29.186Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/eventarc.googleapis.com:enable 200
+[debug] [2024-09-21T14:04:29.186Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/eventarc.googleapis.com:enable [omitted]
+[debug] [2024-09-21T14:04:29.793Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/run.googleapis.com:enable 200
+[debug] [2024-09-21T14:04:29.793Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/run.googleapis.com:enable [omitted]
+[debug] [2024-09-21T14:04:39.187Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/eventarc.googleapis.com [none]
+[debug] [2024-09-21T14:04:39.187Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/eventarc.googleapis.com x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:04:39.795Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/run.googleapis.com [none]
+[debug] [2024-09-21T14:04:39.795Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/run.googleapis.com x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:04:40.021Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/eventarc.googleapis.com 200
+[debug] [2024-09-21T14:04:40.021Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/eventarc.googleapis.com [omitted]
+[info] ✔  functions: required API eventarc.googleapis.com is enabled 
+[debug] [2024-09-21T14:04:40.759Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/run.googleapis.com 200
+[debug] [2024-09-21T14:04:40.759Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/rs-wordle-da8c4/services/run.googleapis.com [omitted]
+[info] ✔  functions: required API run.googleapis.com is enabled 
+[info] i  functions: generating the service identity for pubsub.googleapis.com... 
+[info] i  functions: generating the service identity for eventarc.googleapis.com... 
+[debug] [2024-09-21T14:04:40.760Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/244095975634/services/pubsub.googleapis.com:generateServiceIdentity [none]
+[debug] [2024-09-21T14:04:40.760Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/244095975634/services/eventarc.googleapis.com:generateServiceIdentity [none]
+[debug] [2024-09-21T14:04:41.819Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/244095975634/services/eventarc.googleapis.com:generateServiceIdentity 200
+[debug] [2024-09-21T14:04:41.819Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/244095975634/services/eventarc.googleapis.com:generateServiceIdentity {"name":"operations/finished.DONE_OPERATION","done":true,"response":{"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-244095975634@gcp-sa-eventarc.iam.gserviceaccount.com","uniqueId":"111606954862606268682"}}
+[debug] [2024-09-21T14:04:41.824Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/244095975634/services/pubsub.googleapis.com:generateServiceIdentity 200
+[debug] [2024-09-21T14:04:41.824Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/244095975634/services/pubsub.googleapis.com:generateServiceIdentity {"name":"operations/finished.DONE_OPERATION","done":true,"response":{"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-244095975634@gcp-sa-pubsub.iam.gserviceaccount.com","uniqueId":"104971136603831326996"}}
+[debug] [2024-09-21T14:04:41.826Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/244095975634:getIamPolicy [none]
+[debug] [2024-09-21T14:04:42.601Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/244095975634:getIamPolicy 200
+[debug] [2024-09-21T14:04:42.601Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/244095975634:getIamPolicy {"version":1,"etag":"BwYioaKODP4=","bindings":[{"role":"roles/cloudbuild.builds.builder","members":["serviceAccount:244095975634@cloudbuild.gserviceaccount.com"]},{"role":"roles/cloudbuild.serviceAgent","members":["serviceAccount:service-244095975634@gcp-sa-cloudbuild.iam.gserviceaccount.com"]},{"role":"roles/cloudfunctions.serviceAgent","members":["serviceAccount:service-244095975634@gcf-admin-robot.iam.gserviceaccount.com"]},{"role":"roles/containerregistry.ServiceAgent","members":["serviceAccount:service-244095975634@containerregistry.iam.gserviceaccount.com"]},{"role":"roles/editor","members":["serviceAccount:244095975634-compute@developer.gserviceaccount.com","serviceAccount:rs-wordle-da8c4@appspot.gserviceaccount.com"]},{"role":"roles/firebase.managementServiceAgent","members":["serviceAccount:firebase-service-account@firebase-sa-management.iam.gserviceaccount.com","serviceAccount:service-244095975634@gcp-sa-firebase.iam.gserviceaccount.com"]},{"role":"roles/firebase.sdkAdminServiceAgent","members":["serviceAccount:firebase-adminsdk-s0r8g@rs-wordle-da8c4.iam.gserviceaccount.com"]},{"role":"roles/firebaserules.system","members":["serviceAccount:service-244095975634@firebase-rules.iam.gserviceaccount.com"]},{"role":"roles/firebasestorage.serviceAgent","members":["serviceAccount:service-244095975634@gcp-sa-firebasestorage.iam.gserviceaccount.com"]},{"role":"roles/firestore.serviceAgent","members":["serviceAccount:service-244095975634@gcp-sa-firestore.iam.gserviceaccount.com"]},{"role":"roles/iam.serviceAccountTokenCreator","members":["serviceAccount:firebase-adminsdk-s0r8g@rs-wordle-da8c4.iam.gserviceaccount.com"]},{"role":"roles/owner","members":["user:robinscharf@gmail.com"]},{"role":"roles/run.serviceAgent","members":["serviceAccount:service-244095975634@serverless-robot-prod.iam.gserviceaccount.com"]},{"role":"roles/storage.admin","members":["serviceAccount:firebase-adminsdk-s0r8g@rs-wordle-da8c4.iam.gserviceaccount.com"]}]}
+[debug] [2024-09-21T14:04:42.601Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/244095975634:setIamPolicy [none]
+[debug] [2024-09-21T14:04:42.602Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/244095975634:setIamPolicy {"policy":{"version":1,"etag":"BwYioaKODP4=","bindings":[{"role":"roles/cloudbuild.builds.builder","members":["serviceAccount:244095975634@cloudbuild.gserviceaccount.com"]},{"role":"roles/cloudbuild.serviceAgent","members":["serviceAccount:service-244095975634@gcp-sa-cloudbuild.iam.gserviceaccount.com"]},{"role":"roles/cloudfunctions.serviceAgent","members":["serviceAccount:service-244095975634@gcf-admin-robot.iam.gserviceaccount.com"]},{"role":"roles/containerregistry.ServiceAgent","members":["serviceAccount:service-244095975634@containerregistry.iam.gserviceaccount.com"]},{"role":"roles/editor","members":["serviceAccount:244095975634-compute@developer.gserviceaccount.com","serviceAccount:rs-wordle-da8c4@appspot.gserviceaccount.com"]},{"role":"roles/firebase.managementServiceAgent","members":["serviceAccount:firebase-service-account@firebase-sa-management.iam.gserviceaccount.com","serviceAccount:service-244095975634@gcp-sa-firebase.iam.gserviceaccount.com"]},{"role":"roles/firebase.sdkAdminServiceAgent","members":["serviceAccount:firebase-adminsdk-s0r8g@rs-wordle-da8c4.iam.gserviceaccount.com"]},{"role":"roles/firebaserules.system","members":["serviceAccount:service-244095975634@firebase-rules.iam.gserviceaccount.com"]},{"role":"roles/firebasestorage.serviceAgent","members":["serviceAccount:service-244095975634@gcp-sa-firebasestorage.iam.gserviceaccount.com"]},{"role":"roles/firestore.serviceAgent","members":["serviceAccount:service-244095975634@gcp-sa-firestore.iam.gserviceaccount.com"]},{"role":"roles/iam.serviceAccountTokenCreator","members":["serviceAccount:firebase-adminsdk-s0r8g@rs-wordle-da8c4.iam.gserviceaccount.com","serviceAccount:service-244095975634@gcp-sa-pubsub.iam.gserviceaccount.com"]},{"role":"roles/owner","members":["user:robinscharf@gmail.com"]},{"role":"roles/run.serviceAgent","members":["serviceAccount:service-244095975634@serverless-robot-prod.iam.gserviceaccount.com"]},{"role":"roles/storage.admin","members":["serviceAccount:firebase-adminsdk-s0r8g@rs-wordle-da8c4.iam.gserviceaccount.com"]},{"role":"roles/run.invoker","members":["serviceAccount:244095975634-compute@developer.gserviceaccount.com"]},{"role":"roles/eventarc.eventReceiver","members":["serviceAccount:244095975634-compute@developer.gserviceaccount.com"]}]},"updateMask":"bindings"}
+[debug] [2024-09-21T14:04:43.419Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/244095975634:setIamPolicy 200
+[debug] [2024-09-21T14:04:43.419Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/244095975634:setIamPolicy {"version":1,"etag":"BwYioaMxcIQ=","bindings":[{"role":"roles/cloudbuild.builds.builder","members":["serviceAccount:244095975634@cloudbuild.gserviceaccount.com"]},{"role":"roles/cloudbuild.serviceAgent","members":["serviceAccount:service-244095975634@gcp-sa-cloudbuild.iam.gserviceaccount.com"]},{"role":"roles/cloudfunctions.serviceAgent","members":["serviceAccount:service-244095975634@gcf-admin-robot.iam.gserviceaccount.com"]},{"role":"roles/containerregistry.ServiceAgent","members":["serviceAccount:service-244095975634@containerregistry.iam.gserviceaccount.com"]},{"role":"roles/editor","members":["serviceAccount:244095975634-compute@developer.gserviceaccount.com","serviceAccount:rs-wordle-da8c4@appspot.gserviceaccount.com"]},{"role":"roles/eventarc.eventReceiver","members":["serviceAccount:244095975634-compute@developer.gserviceaccount.com"]},{"role":"roles/firebase.managementServiceAgent","members":["serviceAccount:firebase-service-account@firebase-sa-management.iam.gserviceaccount.com","serviceAccount:service-244095975634@gcp-sa-firebase.iam.gserviceaccount.com"]},{"role":"roles/firebase.sdkAdminServiceAgent","members":["serviceAccount:firebase-adminsdk-s0r8g@rs-wordle-da8c4.iam.gserviceaccount.com"]},{"role":"roles/firebaserules.system","members":["serviceAccount:service-244095975634@firebase-rules.iam.gserviceaccount.com"]},{"role":"roles/firebasestorage.serviceAgent","members":["serviceAccount:service-244095975634@gcp-sa-firebasestorage.iam.gserviceaccount.com"]},{"role":"roles/firestore.serviceAgent","members":["serviceAccount:service-244095975634@gcp-sa-firestore.iam.gserviceaccount.com"]},{"role":"roles/iam.serviceAccountTokenCreator","members":["serviceAccount:firebase-adminsdk-s0r8g@rs-wordle-da8c4.iam.gserviceaccount.com","serviceAccount:service-244095975634@gcp-sa-pubsub.iam.gserviceaccount.com"]},{"role":"roles/owner","members":["user:robinscharf@gmail.com"]},{"role":"roles/run.invoker","members":["serviceAccount:244095975634-compute@developer.gserviceaccount.com"]},{"role":"roles/run.serviceAgent","members":["serviceAccount:service-244095975634@serverless-robot-prod.iam.gserviceaccount.com"]},{"role":"roles/storage.admin","members":["serviceAccount:firebase-adminsdk-s0r8g@rs-wordle-da8c4.iam.gserviceaccount.com"]}]}
+[debug] [2024-09-21T14:04:43.420Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/rs-wordle-da8c4 [none]
+[debug] [2024-09-21T14:04:43.681Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/rs-wordle-da8c4 200
+[debug] [2024-09-21T14:04:43.681Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/rs-wordle-da8c4 {"projectId":"rs-wordle-da8c4","projectNumber":"244095975634","displayName":"rs-wordle","name":"projects/rs-wordle-da8c4","resources":{"hostingSite":"rs-wordle-da8c4","storageBucket":"rs-wordle-da8c4.appspot.com","locationId":"europe-west"},"state":"ACTIVE","etag":"1_867b5372-a90d-4658-87bc-e688db48b27b"}
+[debug] [2024-09-21T14:04:43.682Z] [functions] found 1 new HTTP functions, testing setIamPolicy permission...
+[debug] [2024-09-21T14:04:43.682Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/rs-wordle-da8c4:testIamPermissions [none]
+[debug] [2024-09-21T14:04:43.682Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/rs-wordle-da8c4:testIamPermissions x-goog-quota-user=projects/rs-wordle-da8c4
+[debug] [2024-09-21T14:04:43.682Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/rs-wordle-da8c4:testIamPermissions {"permissions":["cloudfunctions.functions.setIamPolicy"]}
+[debug] [2024-09-21T14:04:43.802Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/rs-wordle-da8c4:testIamPermissions 200
+[debug] [2024-09-21T14:04:43.803Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/rs-wordle-da8c4:testIamPermissions {"permissions":["cloudfunctions.functions.setIamPolicy"]}
+[debug] [2024-09-21T14:04:43.803Z] [functions] found setIamPolicy permission, proceeding with deploy
+[debug] [2024-09-21T14:04:43.803Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/functions:generateUploadUrl [none]
+[debug] [2024-09-21T14:04:45.907Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/functions:generateUploadUrl 200
+[debug] [2024-09-21T14:04:45.907Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/functions:generateUploadUrl {"uploadUrl":"https://storage.googleapis.com/gcf-v2-uploads-244095975634-us-central1/8f11adcd-eee6-4409-889a-68ca27f14f38.zip?GoogleAccessId=service-244095975634@gcf-admin-robot.iam.gserviceaccount.com&Expires=1726929285&Signature=SubHjEI1j1gZ0XCMVKhRxHRQT135KLsml1gfGh4qaBZMZUywj9WPWGiI5YL75cVzG1KYgeYS%2B5JbDCPycS3yysghGNCkkoYzNqJLMiKcLTufbTzxNs51lZxV52dNyXFbnvWKFWC8DXKOZ7aAJss9qzksFCTfxYjnjqG82PoE%2FXCLRU%2BZzdqYk9LAxit8h2Ym5z8HI4uYdKL83cmCJcRHTlvecVuAV%2BlitoeUHLQeDmiF2Ym%2FT3R4MkVo2%2FNZvRJBTQkt7AjGZY0vlWzKmFh6REVKSqMW%2Fsk3XNXhDrIvGwvQQeSoZ7khUMR1n5rGITx1K%2F0eO8ERws%2B8dfbjaipcsw%3D%3D","storageSource":{"bucket":"gcf-v2-uploads-244095975634-us-central1","object":"8f11adcd-eee6-4409-889a-68ca27f14f38.zip"}}
+[debug] [2024-09-21T14:04:45.908Z] >>> [apiv2][query] PUT https://storage.googleapis.com/gcf-v2-uploads-244095975634-us-central1/8f11adcd-eee6-4409-889a-68ca27f14f38.zip GoogleAccessId=service-244095975634%40gcf-admin-robot.iam.gserviceaccount.com&Expires=1726929285&Signature=SubHjEI1j1gZ0XCMVKhRxHRQT135KLsml1gfGh4qaBZMZUywj9WPWGiI5YL75cVzG1KYgeYS%2B5JbDCPycS3yysghGNCkkoYzNqJLMiKcLTufbTzxNs51lZxV52dNyXFbnvWKFWC8DXKOZ7aAJss9qzksFCTfxYjnjqG82PoE%2FXCLRU%2BZzdqYk9LAxit8h2Ym5z8HI4uYdKL83cmCJcRHTlvecVuAV%2BlitoeUHLQeDmiF2Ym%2FT3R4MkVo2%2FNZvRJBTQkt7AjGZY0vlWzKmFh6REVKSqMW%2Fsk3XNXhDrIvGwvQQeSoZ7khUMR1n5rGITx1K%2F0eO8ERws%2B8dfbjaipcsw%3D%3D
+[debug] [2024-09-21T14:04:45.908Z] >>> [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-244095975634-us-central1/8f11adcd-eee6-4409-889a-68ca27f14f38.zip [stream]
+[debug] [2024-09-21T14:04:46.491Z] <<< [apiv2][status] PUT https://storage.googleapis.com/gcf-v2-uploads-244095975634-us-central1/8f11adcd-eee6-4409-889a-68ca27f14f38.zip 200
+[debug] [2024-09-21T14:04:46.491Z] <<< [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-244095975634-us-central1/8f11adcd-eee6-4409-889a-68ca27f14f38.zip [omitted]
+[info] ✔  functions: functions folder uploaded successfully 
+[info] i  functions: creating Node.js 18 (2nd Gen) function helloWorld(us-central1)... 
+[info] i  functions: creating Node.js 18 (2nd Gen) function processWord(us-central1)... 
+[info] i  functions: creating Node.js 18 (2nd Gen) function processWordUpdate(us-central1)... 
+[debug] [2024-09-21T14:04:46.499Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/functions functionId=helloWorld
+[debug] [2024-09-21T14:04:46.499Z] >>> [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/functions {"name":"projects/rs-wordle-da8c4/locations/us-central1/functions/helloWorld","buildConfig":{"runtime":"nodejs18","entryPoint":"helloWorld","source":{"storageSource":{"bucket":"gcf-v2-uploads-244095975634-us-central1","object":"8f11adcd-eee6-4409-889a-68ca27f14f38.zip"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""}},"serviceConfig":{"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"rs-wordle-da8c4\",\"storageBucket\":\"rs-wordle-da8c4.appspot.com\",\"locationId\":\"europe-west\"}","GCLOUD_PROJECT":"rs-wordle-da8c4","EVENTARC_CLOUD_EVENT_SOURCE":"projects/rs-wordle-da8c4/locations/us-central1/services/helloWorld","FUNCTION_TARGET":"helloWorld"},"ingressSettings":null,"timeoutSeconds":null,"serviceAccountEmail":null,"availableMemory":"256Mi","minInstanceCount":null,"maxInstanceCount":null,"maxInstanceRequestConcurrency":80,"availableCpu":"1","vpcConnector":null,"vpcConnectorEgressSettings":null},"labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"d0aaddb0be55df13c1c1fb85f79f567e39cd33bf"}}
+[debug] [2024-09-21T14:04:48.285Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/functions 200
+[debug] [2024-09-21T14:04:48.285Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/functions {"name":"projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2024-09-21T14:04:48.188708697Z","target":"projects/rs-wordle-da8c4/locations/us-central1/functions/helloWorld","verb":"create","cancelRequested":false,"apiVersion":"v2"},"done":false}
+[debug] [2024-09-21T14:04:48.286Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 [none]
+[debug] [2024-09-21T14:04:48.986Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 200
+[debug] [2024-09-21T14:04:48.986Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 {"name":"projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2024-09-21T14:04:48.188708697Z","target":"projects/rs-wordle-da8c4/locations/us-central1/functions/helloWorld","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/rs-wordle-da8c4/locations/us-central1/functions/helloWorld","buildConfig":{"runtime":"nodejs18","entryPoint":"helloWorld","source":{"storageSource":{"bucket":"gcf-v2-sources-244095975634-us-central1","object":"helloWorld/function-source.zip","generation":"1726927487894306"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/rs-wordle-da8c4/serviceAccounts/244095975634-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/rs-wordle-da8c4/locations/us-central1/services/helloworld","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"rs-wordle-da8c4\",\"storageBucket\":\"rs-wordle-da8c4.appspot.com\",\"locationId\":\"europe-west\"}","GCLOUD_PROJECT":"rs-wordle-da8c4","EVENTARC_CLOUD_EVENT_SOURCE":"projects/rs-wordle-da8c4/locations/us-central1/services/helloWorld","FUNCTION_TARGET":"helloWorld","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"244095975634-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"d0aaddb0be55df13c1c1fb85f79f567e39cd33bf"},"environment":"GEN_2"},"stages":[{"name":"BUILD","state":"NOT_STARTED"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"CREATE_FUNCTION"},"done":false}
+[debug] [2024-09-21T14:04:49.487Z] [create-default-us-central1-helloWorld] Retrying task index 0
+[debug] [2024-09-21T14:04:49.487Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 [none]
+[debug] [2024-09-21T14:04:50.190Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 200
+[debug] [2024-09-21T14:04:50.191Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 {"name":"projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2024-09-21T14:04:48.188708697Z","target":"projects/rs-wordle-da8c4/locations/us-central1/functions/helloWorld","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/rs-wordle-da8c4/locations/us-central1/functions/helloWorld","buildConfig":{"runtime":"nodejs18","entryPoint":"helloWorld","source":{"storageSource":{"bucket":"gcf-v2-sources-244095975634-us-central1","object":"helloWorld/function-source.zip","generation":"1726927487894306"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/rs-wordle-da8c4/serviceAccounts/244095975634-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/rs-wordle-da8c4/locations/us-central1/services/helloworld","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"rs-wordle-da8c4\",\"storageBucket\":\"rs-wordle-da8c4.appspot.com\",\"locationId\":\"europe-west\"}","GCLOUD_PROJECT":"rs-wordle-da8c4","EVENTARC_CLOUD_EVENT_SOURCE":"projects/rs-wordle-da8c4/locations/us-central1/services/helloWorld","FUNCTION_TARGET":"helloWorld","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"244095975634-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"d0aaddb0be55df13c1c1fb85f79f567e39cd33bf"},"environment":"GEN_2"},"stages":[{"name":"BUILD","state":"NOT_STARTED"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"CREATE_FUNCTION"},"done":false}
+[debug] [2024-09-21T14:04:51.192Z] [create-default-us-central1-helloWorld] Retrying task index 0
+[debug] [2024-09-21T14:04:51.192Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 [none]
+[debug] [2024-09-21T14:04:51.860Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 200
+[debug] [2024-09-21T14:04:51.861Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 {"name":"projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2024-09-21T14:04:48.188708697Z","target":"projects/rs-wordle-da8c4/locations/us-central1/functions/helloWorld","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/rs-wordle-da8c4/locations/us-central1/functions/helloWorld","buildConfig":{"runtime":"nodejs18","entryPoint":"helloWorld","source":{"storageSource":{"bucket":"gcf-v2-sources-244095975634-us-central1","object":"helloWorld/function-source.zip","generation":"1726927487894306"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/rs-wordle-da8c4/serviceAccounts/244095975634-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/rs-wordle-da8c4/locations/us-central1/services/helloworld","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"rs-wordle-da8c4\",\"storageBucket\":\"rs-wordle-da8c4.appspot.com\",\"locationId\":\"europe-west\"}","GCLOUD_PROJECT":"rs-wordle-da8c4","EVENTARC_CLOUD_EVENT_SOURCE":"projects/rs-wordle-da8c4/locations/us-central1/services/helloWorld","FUNCTION_TARGET":"helloWorld","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"244095975634-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"d0aaddb0be55df13c1c1fb85f79f567e39cd33bf"},"environment":"GEN_2"},"stages":[{"name":"BUILD","state":"NOT_STARTED"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"CREATE_FUNCTION"},"done":false}
+[debug] [2024-09-21T14:04:53.861Z] [create-default-us-central1-helloWorld] Retrying task index 0
+[debug] [2024-09-21T14:04:53.862Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 [none]
+[debug] [2024-09-21T14:04:54.581Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 200
+[debug] [2024-09-21T14:04:54.581Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 {"name":"projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2024-09-21T14:04:48.188708697Z","target":"projects/rs-wordle-da8c4/locations/us-central1/functions/helloWorld","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/rs-wordle-da8c4/locations/us-central1/functions/helloWorld","buildConfig":{"runtime":"nodejs18","entryPoint":"helloWorld","source":{"storageSource":{"bucket":"gcf-v2-sources-244095975634-us-central1","object":"helloWorld/function-source.zip","generation":"1726927487894306"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/rs-wordle-da8c4/serviceAccounts/244095975634-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/rs-wordle-da8c4/locations/us-central1/services/helloworld","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"rs-wordle-da8c4\",\"storageBucket\":\"rs-wordle-da8c4.appspot.com\",\"locationId\":\"europe-west\"}","GCLOUD_PROJECT":"rs-wordle-da8c4","EVENTARC_CLOUD_EVENT_SOURCE":"projects/rs-wordle-da8c4/locations/us-central1/services/helloWorld","FUNCTION_TARGET":"helloWorld","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"244095975634-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"d0aaddb0be55df13c1c1fb85f79f567e39cd33bf"},"environment":"GEN_2"},"stages":[{"name":"BUILD","state":"NOT_STARTED"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"CREATE_FUNCTION"},"done":false}
+[debug] [2024-09-21T14:04:58.588Z] [create-default-us-central1-helloWorld] Retrying task index 0
+[debug] [2024-09-21T14:04:58.589Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 [none]
+[debug] [2024-09-21T14:04:59.297Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 200
+[debug] [2024-09-21T14:04:59.298Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 {"name":"projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2024-09-21T14:04:48.188708697Z","target":"projects/rs-wordle-da8c4/locations/us-central1/functions/helloWorld","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/rs-wordle-da8c4/locations/us-central1/functions/helloWorld","buildConfig":{"runtime":"nodejs18","entryPoint":"helloWorld","source":{"storageSource":{"bucket":"gcf-v2-sources-244095975634-us-central1","object":"helloWorld/function-source.zip","generation":"1726927487894306"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/rs-wordle-da8c4/serviceAccounts/244095975634-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/rs-wordle-da8c4/locations/us-central1/services/helloworld","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"rs-wordle-da8c4\",\"storageBucket\":\"rs-wordle-da8c4.appspot.com\",\"locationId\":\"europe-west\"}","GCLOUD_PROJECT":"rs-wordle-da8c4","EVENTARC_CLOUD_EVENT_SOURCE":"projects/rs-wordle-da8c4/locations/us-central1/services/helloWorld","FUNCTION_TARGET":"helloWorld","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"244095975634-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"d0aaddb0be55df13c1c1fb85f79f567e39cd33bf"},"environment":"GEN_2"},"stages":[{"name":"BUILD","state":"NOT_STARTED"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"CREATE_FUNCTION"},"done":false}
+[debug] [2024-09-21T14:05:07.300Z] [create-default-us-central1-helloWorld] Retrying task index 0
+[debug] [2024-09-21T14:05:07.301Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 [none]
+[debug] [2024-09-21T14:05:08.132Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 200
+[debug] [2024-09-21T14:05:08.132Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78 {"name":"projects/rs-wordle-da8c4/locations/us-central1/operations/operation-1726927487166-622a1a36cea0a-7710c762-ad5cbe78","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2024-09-21T14:04:48.188708697Z","endTime":"2024-09-21T14:05:02.237603023Z","target":"projects/rs-wordle-da8c4/locations/us-central1/functions/helloWorld","verb":"create","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/rs-wordle-da8c4/locations/us-central1/functions/helloWorld","buildConfig":{"runtime":"nodejs18","entryPoint":"helloWorld","source":{"storageSource":{"bucket":"gcf-v2-sources-244095975634-us-central1","object":"helloWorld/function-source.zip","generation":"1726927487894306"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"serviceAccount":"projects/rs-wordle-da8c4/serviceAccounts/244095975634-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/rs-wordle-da8c4/locations/us-central1/services/helloworld","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"rs-wordle-da8c4\",\"storageBucket\":\"rs-wordle-da8c4.appspot.com\",\"locationId\":\"europe-west\"}","GCLOUD_PROJECT":"rs-wordle-da8c4","EVENTARC_CLOUD_EVENT_SOURCE":"projects/rs-wordle-da8c4/locations/us-central1/services/helloWorld","FUNCTION_TARGET":"helloWorld","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","serviceAccountEmail":"244095975634-compute@developer.gserviceaccount.com","availableMemory":"256Mi","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"d0aaddb0be55df13c1c1fb85f79f567e39cd33bf"},"environment":"GEN_2"},"stages":[{"name":"ARTIFACT_REGISTRY","message":"Deleting function artifacts in Artifact Registry","state":"COMPLETE"},{"name":"SERVICE","message":"Deleting Cloud Run service","state":"COMPLETE","resource":"projects/rs-wordle-da8c4/locations/us-central1/services/helloworld"}],"operationType":"CREATE_FUNCTION"},"done":true,"error":{"code":13,"message":"Build failed with status: INTERNAL_ERROR and message: An unexpected error occurred. Refer to build logs: https://console.cloud.google.com/cloud-build/builds;region=us-central1/6d7dd334-5f1b-4f53-a547-5e0e62cf5cd3?project=244095975634. For more details see the logs at https://console.cloud.google.com/cloud-build/builds;region=us-central1/6d7dd334-5f1b-4f53-a547-5e0e62cf5cd3?project=244095975634."}}
+[debug] [2024-09-21T14:05:08.132Z] Got source token undefined for region us-central1
+[debug] [2024-09-21T14:05:08.133Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/functions functionId=processWord
+[debug] [2024-09-21T14:05:08.133Z] >>> [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/functions {"name":"projects/rs-wordle-da8c4/locations/us-central1/functions/processWord","buildConfig":{"runtime":"nodejs18","entryPoint":"processWord","source":{"storageSource":{"bucket":"gcf-v2-uploads-244095975634-us-central1","object":"8f11adcd-eee6-4409-889a-68ca27f14f38.zip"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""}},"serviceConfig":{"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"rs-wordle-da8c4\",\"storageBucket\":\"rs-wordle-da8c4.appspot.com\",\"locationId\":\"europe-west\"}","GCLOUD_PROJECT":"rs-wordle-da8c4","EVENTARC_CLOUD_EVENT_SOURCE":"projects/rs-wordle-da8c4/locations/us-central1/services/processWord","FUNCTION_SIGNATURE_TYPE":"cloudevent","FUNCTION_TARGET":"processWord"},"ingressSettings":null,"timeoutSeconds":null,"serviceAccountEmail":null,"availableMemory":"256Mi","minInstanceCount":null,"maxInstanceCount":null,"maxInstanceRequestConcurrency":80,"availableCpu":"1","vpcConnector":null,"vpcConnectorEgressSettings":null},"labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"d0aaddb0be55df13c1c1fb85f79f567e39cd33bf"},"eventTrigger":{"eventType":"google.cloud.firestore.document.v1.created","retryPolicy":"RETRY_POLICY_DO_NOT_RETRY","eventFilters":[{"attribute":"database","value":"(default)"},{"attribute":"namespace","value":"(default)"},{"attribute":"document","value":"scores/{documentId}","operator":"match-path-pattern"}],"triggerRegion":"eur3"}}
+[debug] [2024-09-21T14:05:08.133Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/functions functionId=processWordUpdate
+[debug] [2024-09-21T14:05:08.134Z] >>> [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/functions {"name":"projects/rs-wordle-da8c4/locations/us-central1/functions/processWordUpdate","buildConfig":{"runtime":"nodejs18","entryPoint":"processWordUpdate","source":{"storageSource":{"bucket":"gcf-v2-uploads-244095975634-us-central1","object":"8f11adcd-eee6-4409-889a-68ca27f14f38.zip"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""}},"serviceConfig":{"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"rs-wordle-da8c4\",\"storageBucket\":\"rs-wordle-da8c4.appspot.com\",\"locationId\":\"europe-west\"}","GCLOUD_PROJECT":"rs-wordle-da8c4","EVENTARC_CLOUD_EVENT_SOURCE":"projects/rs-wordle-da8c4/locations/us-central1/services/processWordUpdate","FUNCTION_SIGNATURE_TYPE":"cloudevent","FUNCTION_TARGET":"processWordUpdate"},"ingressSettings":null,"timeoutSeconds":null,"serviceAccountEmail":null,"availableMemory":"256Mi","minInstanceCount":null,"maxInstanceCount":null,"maxInstanceRequestConcurrency":80,"availableCpu":"1","vpcConnector":null,"vpcConnectorEgressSettings":null},"labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"d0aaddb0be55df13c1c1fb85f79f567e39cd33bf"},"eventTrigger":{"eventType":"google.cloud.firestore.document.v1.updated","retryPolicy":"RETRY_POLICY_DO_NOT_RETRY","eventFilters":[{"attribute":"database","value":"(default)"},{"attribute":"namespace","value":"(default)"},{"attribute":"document","value":"scores/{documentId}","operator":"match-path-pattern"}],"triggerRegion":"eur3"}}
+[error] Build failed with status: INTERNAL_ERROR and message: An unexpected error occurred. Refer to build logs: https://console.cloud.google.com/cloud-build/builds;region=us-central1/6d7dd334-5f1b-4f53-a547-5e0e62cf5cd3?project=244095975634. For more details see the logs at https://console.cloud.google.com/cloud-build/builds;region=us-central1/6d7dd334-5f1b-4f53-a547-5e0e62cf5cd3?project=244095975634.
+[debug] [2024-09-21T14:05:25.710Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/functions 400
+[debug] [2024-09-21T14:05:25.710Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/functions {"error":{"code":400,"message":"Validation failed for trigger projects/rs-wordle-da8c4/locations/eur3/triggers/processword-956308: Invalid resource state for \"\": Permission denied while using the Eventarc Service Agent. If you recently started to use Eventarc, it may take a few minutes before all necessary permissions are propagated to the Service Agent. Otherwise, verify that it has Eventarc Service Agent role.","status":"FAILED_PRECONDITION"}}
+[warn] ⚠  functions: HTTP Error: 400, Validation failed for trigger projects/rs-wordle-da8c4/locations/eur3/triggers/processword-956308: Invalid resource state for "": Permission denied while using the Eventarc Service Agent. If you recently started to use Eventarc, it may take a few minutes before all necessary permissions are propagated to the Service Agent. Otherwise, verify that it has Eventarc Service Agent role. 
+[warn] ⚠  functions: Since this is your first time using 2nd gen functions, we need a little bit longer to finish setting everything up. Retry the deployment in a few minutes. 
+[warn] ⚠  functions:  failed to create function projects/rs-wordle-da8c4/locations/us-central1/functions/processWord 
+[error] Failed to create function projects/rs-wordle-da8c4/locations/us-central1/functions/processWord
+[debug] [2024-09-21T14:05:26.940Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/functions 400
+[debug] [2024-09-21T14:05:26.940Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/rs-wordle-da8c4/locations/us-central1/functions {"error":{"code":400,"message":"Validation failed for trigger projects/rs-wordle-da8c4/locations/eur3/triggers/processwordupdate-055093: Invalid resource state for \"\": Permission denied while using the Eventarc Service Agent. If you recently started to use Eventarc, it may take a few minutes before all necessary permissions are propagated to the Service Agent. Otherwise, verify that it has Eventarc Service Agent role.","status":"FAILED_PRECONDITION"}}
+[warn] ⚠  functions: HTTP Error: 400, Validation failed for trigger projects/rs-wordle-da8c4/locations/eur3/triggers/processwordupdate-055093: Invalid resource state for "": Permission denied while using the Eventarc Service Agent. If you recently started to use Eventarc, it may take a few minutes before all necessary permissions are propagated to the Service Agent. Otherwise, verify that it has Eventarc Service Agent role. 
+[warn] ⚠  functions: Since this is your first time using 2nd gen functions, we need a little bit longer to finish setting everything up. Retry the deployment in a few minutes. 
+[warn] ⚠  functions:  failed to create function projects/rs-wordle-da8c4/locations/us-central1/functions/processWordUpdate 
+[error] Failed to create function projects/rs-wordle-da8c4/locations/us-central1/functions/processWordUpdate
+[debug] [2024-09-21T14:05:26.943Z] Total Function Deployment time: 40447
+[debug] [2024-09-21T14:05:26.943Z] 3 Functions Deployed
+[debug] [2024-09-21T14:05:26.943Z] 3 Functions Errored
+[debug] [2024-09-21T14:05:26.943Z] 0 Function Deployments Aborted
+[debug] [2024-09-21T14:05:26.943Z] Average Function Deployment time: 33766.666666666664
+[info] 
+[info] Functions deploy had errors with the following functions:
+	helloWorld(us-central1)
+	processWord(us-central1)
+	processWordUpdate(us-central1)
+[debug] [2024-09-21T14:05:26.944Z] Not printing URL for HTTPS function. Typically this means it didn't match a filter or we failed deployment
+[info] i  functions: cleaning up build files... 
+[debug] [2024-09-21T14:05:26.946Z] >>> [apiv2][query] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/rs-wordle-da8c4/locations/us-central1/repositories/gcf-artifacts/packages/hello_world [none]
+[debug] [2024-09-21T14:05:26.948Z] >>> [apiv2][query] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/rs-wordle-da8c4/locations/us-central1/repositories/gcf-artifacts/packages/process_word [none]
+[debug] [2024-09-21T14:05:26.950Z] >>> [apiv2][query] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/rs-wordle-da8c4/locations/us-central1/repositories/gcf-artifacts/packages/process_word_update [none]
+[debug] [2024-09-21T14:05:26.951Z] >>> [apiv2][query] GET https://us.gcr.io/v2/rs-wordle-da8c4/gcf/us-central1/tags/list [none]
+[debug] [2024-09-21T14:05:27.761Z] <<< [apiv2][status] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/rs-wordle-da8c4/locations/us-central1/repositories/gcf-artifacts/packages/hello_world 404
+[debug] [2024-09-21T14:05:27.761Z] <<< [apiv2][body] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/rs-wordle-da8c4/locations/us-central1/repositories/gcf-artifacts/packages/hello_world {"error":{"code":404,"message":"Package \"projects/rs-wordle-da8c4/locations/us-central1/repositories/gcf-artifacts/packages/hello_world\" was not found.","status":"NOT_FOUND"}}
+[debug] [2024-09-21T14:05:27.762Z] <<< [apiv2][status] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/rs-wordle-da8c4/locations/us-central1/repositories/gcf-artifacts/packages/process_word 404
+[debug] [2024-09-21T14:05:27.762Z] <<< [apiv2][body] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/rs-wordle-da8c4/locations/us-central1/repositories/gcf-artifacts/packages/process_word {"error":{"code":404,"message":"Package \"projects/rs-wordle-da8c4/locations/us-central1/repositories/gcf-artifacts/packages/process_word\" was not found.","status":"NOT_FOUND"}}
+[debug] [2024-09-21T14:05:27.762Z] <<< [apiv2][status] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/rs-wordle-da8c4/locations/us-central1/repositories/gcf-artifacts/packages/process_word_update 404
+[debug] [2024-09-21T14:05:27.762Z] <<< [apiv2][body] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/rs-wordle-da8c4/locations/us-central1/repositories/gcf-artifacts/packages/process_word_update {"error":{"code":404,"message":"Package \"projects/rs-wordle-da8c4/locations/us-central1/repositories/gcf-artifacts/packages/process_word_update\" was not found.","status":"NOT_FOUND"}}
+[debug] [2024-09-21T14:05:27.957Z] <<< [apiv2][status] GET https://us.gcr.io/v2/rs-wordle-da8c4/gcf/us-central1/tags/list 404
+[debug] [2024-09-21T14:05:27.957Z] <<< [apiv2][body] GET https://us.gcr.io/v2/rs-wordle-da8c4/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
+[debug] [2024-09-21T14:05:27.958Z] Failed docker command with error  HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"HTTP Error: 404, Not Found","status":404}
+[debug] [2024-09-21T14:05:27.960Z] >>> [apiv2][query] GET https://us.gcr.io/v2/rs-wordle-da8c4/gcf/us-central1/tags/list [none]
+[debug] [2024-09-21T14:05:28.204Z] <<< [apiv2][status] GET https://us.gcr.io/v2/rs-wordle-da8c4/gcf/us-central1/tags/list 404
+[debug] [2024-09-21T14:05:28.204Z] <<< [apiv2][body] GET https://us.gcr.io/v2/rs-wordle-da8c4/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
+[debug] [2024-09-21T14:05:28.204Z] Failed docker command with error  HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"HTTP Error: 404, Not Found","status":404}
+[debug] [2024-09-21T14:05:28.306Z] >>> [apiv2][query] GET https://us.gcr.io/v2/rs-wordle-da8c4/gcf/us-central1/tags/list [none]
+[debug] [2024-09-21T14:05:28.581Z] <<< [apiv2][status] GET https://us.gcr.io/v2/rs-wordle-da8c4/gcf/us-central1/tags/list 404
+[debug] [2024-09-21T14:05:28.581Z] <<< [apiv2][body] GET https://us.gcr.io/v2/rs-wordle-da8c4/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
+[debug] [2024-09-21T14:05:28.581Z] Failed docker command with error  HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"HTTP Error: 404, Not Found","status":404}
+[warn] ⚠  functions: Unhandled error cleaning up build images. This could result in a small monthly bill if not corrected. You can attempt to delete these images by redeploying or you can delete them manually at https://console.cloud.google.com/gcr/images/rs-wordle-da8c4/us/gcf 
+[debug] [2024-09-21T14:05:28.582Z] Functions deploy failed.
+[debug] [2024-09-21T14:05:28.582Z] {
+  "endpoint": {
+    "id": "helloWorld",
+    "project": "rs-wordle-da8c4",
+    "region": "us-central1",
+    "entryPoint": "helloWorld",
+    "platform": "gcfv2",
+    "runtime": "nodejs18",
+    "httpsTrigger": {},
+    "labels": {
+      "deployment-tool": "cli-firebase"
+    },
+    "ingressSettings": null,
+    "availableMemoryMb": null,
+    "serviceAccount": null,
+    "timeoutSeconds": null,
+    "maxInstances": null,
+    "minInstances": null,
+    "concurrency": 80,
+    "vpc": null,
+    "environmentVariables": {
+      "FIREBASE_CONFIG": "{\"projectId\":\"rs-wordle-da8c4\",\"storageBucket\":\"rs-wordle-da8c4.appspot.com\",\"locationId\":\"europe-west\"}",
+      "GCLOUD_PROJECT": "rs-wordle-da8c4",
+      "EVENTARC_CLOUD_EVENT_SOURCE": "projects/rs-wordle-da8c4/locations/us-central1/services/helloWorld"
+    },
+    "codebase": "default",
+    "cpu": 1,
+    "targetedByOnly": false,
+    "hash": "d0aaddb0be55df13c1c1fb85f79f567e39cd33bf"
+  },
+  "op": "create",
+  "original": {
+    "name": "FirebaseError",
+    "children": [],
+    "exit": 1,
+    "message": "Build failed with status: INTERNAL_ERROR and message: An unexpected error occurred. Refer to build logs: https://console.cloud.google.com/cloud-build/builds;region=us-central1/6d7dd334-5f1b-4f53-a547-5e0e62cf5cd3?project=244095975634. For more details see the logs at https://console.cloud.google.com/cloud-build/builds;region=us-central1/6d7dd334-5f1b-4f53-a547-5e0e62cf5cd3?project=244095975634.",
+    "original": {
+      "code": 13,
+      "message": "Build failed with status: INTERNAL_ERROR and message: An unexpected error occurred. Refer to build logs: https://console.cloud.google.com/cloud-build/builds;region=us-central1/6d7dd334-5f1b-4f53-a547-5e0e62cf5cd3?project=244095975634. For more details see the logs at https://console.cloud.google.com/cloud-build/builds;region=us-central1/6d7dd334-5f1b-4f53-a547-5e0e62cf5cd3?project=244095975634."
+    },
+    "status": 13,
+    "code": 13
+  }
+}
+[debug] [2024-09-21T14:05:28.582Z] {
+  "endpoint": {
+    "id": "processWord",
+    "project": "rs-wordle-da8c4",
+    "region": "us-central1",
+    "entryPoint": "processWord",
+    "platform": "gcfv2",
+    "runtime": "nodejs18",
+    "eventTrigger": {
+      "eventType": "google.cloud.firestore.document.v1.created",
+      "retry": false,
+      "eventFilters": {
+        "database": "(default)",
+        "namespace": "(default)"
+      },
+      "eventFilterPathPatterns": {
+        "document": "scores/{documentId}"
+      },
+      "region": "eur3"
+    },
+    "labels": {
+      "deployment-tool": "cli-firebase"
+    },
+    "ingressSettings": null,
+    "availableMemoryMb": null,
+    "serviceAccount": null,
+    "timeoutSeconds": null,
+    "maxInstances": null,
+    "minInstances": null,
+    "concurrency": 80,
+    "vpc": null,
+    "environmentVariables": {
+      "FIREBASE_CONFIG": "{\"projectId\":\"rs-wordle-da8c4\",\"storageBucket\":\"rs-wordle-da8c4.appspot.com\",\"locationId\":\"europe-west\"}",
+      "GCLOUD_PROJECT": "rs-wordle-da8c4",
+      "EVENTARC_CLOUD_EVENT_SOURCE": "projects/rs-wordle-da8c4/locations/us-central1/services/processWord"
+    },
+    "codebase": "default",
+    "cpu": 1,
+    "targetedByOnly": false,
+    "hash": "d0aaddb0be55df13c1c1fb85f79f567e39cd33bf"
+  },
+  "op": "create",
+  "original": {
+    "name": "FirebaseError",
+    "children": [],
+    "context": {
+      "function": "projects/rs-wordle-da8c4/locations/us-central1/functions/processWord"
+    },
+    "exit": 1,
+    "message": "Failed to create function projects/rs-wordle-da8c4/locations/us-central1/functions/processWord",
+    "original": {
+      "name": "FirebaseError",
+      "children": [],
+      "context": {
+        "body": {
+          "error": {
+            "code": 400,
+            "message": "Validation failed for trigger projects/rs-wordle-da8c4/locations/eur3/triggers/processword-956308: Invalid resource state for \"\": Permission denied while using the Eventarc Service Agent. If you recently started to use Eventarc, it may take a few minutes before all necessary permissions are propagated to the Service Agent. Otherwise, verify that it has Eventarc Service Agent role.",
+            "status": "FAILED_PRECONDITION"
+          }
+        },
+        "response": {
+          "statusCode": 400
+        }
+      },
+      "exit": 1,
+      "message": "HTTP Error: 400, Validation failed for trigger projects/rs-wordle-da8c4/locations/eur3/triggers/processword-956308: Invalid resource state for \"\": Permission denied while using the Eventarc Service Agent. If you recently started to use Eventarc, it may take a few minutes before all necessary permissions are propagated to the Service Agent. Otherwise, verify that it has Eventarc Service Agent role.",
+      "status": 400
+    },
+    "status": 400,
+    "code": 400
+  }
+}
+[debug] [2024-09-21T14:05:28.582Z] {
+  "endpoint": {
+    "id": "processWordUpdate",
+    "project": "rs-wordle-da8c4",
+    "region": "us-central1",
+    "entryPoint": "processWordUpdate",
+    "platform": "gcfv2",
+    "runtime": "nodejs18",
+    "eventTrigger": {
+      "eventType": "google.cloud.firestore.document.v1.updated",
+      "retry": false,
+      "eventFilters": {
+        "database": "(default)",
+        "namespace": "(default)"
+      },
+      "eventFilterPathPatterns": {
+        "document": "scores/{documentId}"
+      },
+      "region": "eur3"
+    },
+    "labels": {
+      "deployment-tool": "cli-firebase"
+    },
+    "ingressSettings": null,
+    "availableMemoryMb": null,
+    "serviceAccount": null,
+    "timeoutSeconds": null,
+    "maxInstances": null,
+    "minInstances": null,
+    "concurrency": 80,
+    "vpc": null,
+    "environmentVariables": {
+      "FIREBASE_CONFIG": "{\"projectId\":\"rs-wordle-da8c4\",\"storageBucket\":\"rs-wordle-da8c4.appspot.com\",\"locationId\":\"europe-west\"}",
+      "GCLOUD_PROJECT": "rs-wordle-da8c4",
+      "EVENTARC_CLOUD_EVENT_SOURCE": "projects/rs-wordle-da8c4/locations/us-central1/services/processWordUpdate"
+    },
+    "codebase": "default",
+    "cpu": 1,
+    "targetedByOnly": false,
+    "hash": "d0aaddb0be55df13c1c1fb85f79f567e39cd33bf"
+  },
+  "op": "create",
+  "original": {
+    "name": "FirebaseError",
+    "children": [],
+    "context": {
+      "function": "projects/rs-wordle-da8c4/locations/us-central1/functions/processWordUpdate"
+    },
+    "exit": 1,
+    "message": "Failed to create function projects/rs-wordle-da8c4/locations/us-central1/functions/processWordUpdate",
+    "original": {
+      "name": "FirebaseError",
+      "children": [],
+      "context": {
+        "body": {
+          "error": {
+            "code": 400,
+            "message": "Validation failed for trigger projects/rs-wordle-da8c4/locations/eur3/triggers/processwordupdate-055093: Invalid resource state for \"\": Permission denied while using the Eventarc Service Agent. If you recently started to use Eventarc, it may take a few minutes before all necessary permissions are propagated to the Service Agent. Otherwise, verify that it has Eventarc Service Agent role.",
+            "status": "FAILED_PRECONDITION"
+          }
+        },
+        "response": {
+          "statusCode": 400
+        }
+      },
+      "exit": 1,
+      "message": "HTTP Error: 400, Validation failed for trigger projects/rs-wordle-da8c4/locations/eur3/triggers/processwordupdate-055093: Invalid resource state for \"\": Permission denied while using the Eventarc Service Agent. If you recently started to use Eventarc, it may take a few minutes before all necessary permissions are propagated to the Service Agent. Otherwise, verify that it has Eventarc Service Agent role.",
+      "status": 400
+    },
+    "status": 400,
+    "code": 400
+  }
+}
+[error] Error: There was an error deploying functions:
+[error] - Error Failed to create function helloWorld in region us-central1
+[error] - Error Failed to create function processWord in region us-central1
+[error] - Error Failed to create function processWordUpdate in region us-central1
