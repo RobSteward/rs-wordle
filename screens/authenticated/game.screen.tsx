@@ -1,13 +1,13 @@
-import ThemedKeyboard from '@/components/ThemedComponents/ThemedKeyboard'
+import ThemedKeyboard, {
+  BACKSPACE,
+  ENTER,
+} from '@/components/ThemedComponents/ThemedKeyboard'
 import SettingsModal from '@/components/Modals/SettingsModal'
 import { Colors } from '@/constants/Colors'
-import { SignedIn, SignedOut, useAuth, useUser } from '@clerk/clerk-expo'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { useRouter, useLocalSearchParams, Link, Stack } from 'expo-router'
 import { useEffect, useRef, useState } from 'react'
 import { StyleSheet, useColorScheme, View, Text, Platform } from 'react-native'
-import { IconButton } from 'react-native-paper'
-import { Toast } from 'react-native-toast-notifications'
-import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -17,20 +17,28 @@ import Animated, {
   withTiming,
   ZoomIn,
 } from 'react-native-reanimated'
+import { SignedIn, SignedOut, useAuth, useUser } from '@clerk/clerk-expo'
+import { Toast } from 'react-native-toast-notifications'
+import { IconButton } from 'react-native-paper'
+import checkIsValidWord from '@/api/checkIsValidWord'
+import getRandomWord from '@/api/getRandomWord'
 
 const ROWS = 6
+const MAX_WORD_ATTEMPTS = 10
 
-const GameScreen = () => {
+interface GameScreenProps {
+  newGame?: boolean
+}
+
+const GameScreen: React.FC<GameScreenProps> = ({ newGame = false }) => {
+  const [targetWord, setTargetWord] = useState('')
+  const targetLetters = targetWord.split('')
   const colorScheme = useColorScheme()
   const router = useRouter()
-  const { restart } = useLocalSearchParams()
   const { user } = useUser()
   const { signOut } = useAuth()
-
-  const [targetWord, setTargetWord] = useState('ROBIN')
-  const targetLetters = targetWord.split('')
-  console.log('🚀 ~ Page ~ targetWord:', targetWord, targetLetters)
-
+  const [counter, setCounter] = useState(0)
+  const [isNewGame, setIsNewGame] = useState<boolean>(newGame)
   const [rows, setRows] = useState<string[][]>(
     new Array(ROWS).fill(new Array(5).fill(''))
   )
@@ -38,8 +46,8 @@ const GameScreen = () => {
   const [currentColumn, _setCurrentColumn] = useState(0)
 
   const [correctLetters, setCorrectLetters] = useState<string[]>([''])
-  const [notPresentLetters, setWrongLetters] = useState<string[]>([''])
   const [presentLetters, setPresentLetters] = useState<string[]>([''])
+  const [notPresentLetters, setNotPresentLetters] = useState<string[]>([''])
 
   const settingsModalRef = useRef<BottomSheetModal>(null)
 
@@ -50,8 +58,6 @@ const GameScreen = () => {
   }
 
   const processKey = (key: string) => {
-    console.log('CURRENT: ', columnStateRef.current)
-
     const newRows = [...rows.map((row) => [...row])]
 
     if (key === 'ENTER') {
@@ -64,12 +70,14 @@ const GameScreen = () => {
       }
 
       newRows[currentRow][columnStateRef.current - 1] = ''
+
       setCurrentColumn(columnStateRef.current - 1)
       setRows(newRows)
       return
     } else if (columnStateRef.current >= newRows[currentRow].length) {
+      shakeRow()
+      return
     } else {
-      console.log('🚀 ~ addKey ~ curCol', columnStateRef.current)
       newRows[currentRow][columnStateRef.current] = key
       setRows(newRows)
       setCurrentColumn(columnStateRef.current + 1)
@@ -80,7 +88,6 @@ const GameScreen = () => {
     const currentWord = rows[currentRow].join('')
 
     if (currentWord.length < targetWord.length) {
-      console.log('Word not long enough')
       const toastId = Toast.show('Not enough letters', {
         type: 'danger',
         placement: 'top',
@@ -108,7 +115,7 @@ const GameScreen = () => {
 
     setCorrectLetters([...correctLetters, ...newCorrectLetters])
     setPresentLetters([...presentLetters, ...newPresentLetters])
-    setWrongLetters([...notPresentLetters, ...newNotPresentLetters])
+    setNotPresentLetters([...notPresentLetters, ...newNotPresentLetters])
 
     setTimeout(() => {
       if (currentWord === targetWord) {
@@ -122,7 +129,7 @@ const GameScreen = () => {
           `/end?win=false&word=${currentWord}&gameField=${JSON.stringify(rows)}`
         )
       }
-    }, 1500)
+    }, 750)
 
     setCurrentRow(currentRow + 1)
     setCurrentColumn(0)
@@ -262,23 +269,36 @@ const GameScreen = () => {
   }
 
   const resetGame = async () => {
+    if (counter >= MAX_WORD_ATTEMPTS) {
+      Toast.show('Could not retrieve a valid word, try again later', {
+        type: 'danger',
+        placement: 'top',
+        duration: 3000,
+      })
+      return router.navigate('/')
+    }
     const newWord = await getRandomWord()
+    const isValidWord = await checkIsValidWord(newWord)
+    if (isValidWord) {
+      console.log('new word is ', newWord.toUpperCase())
+      setTargetWord(newWord.toUpperCase())
+      setCounter(0)
+    } else {
+      setCounter(counter + 1)
+      return resetGame()
+    }
     setRows(new Array(ROWS).fill(new Array(5).fill('')))
     setCurrentRow(0)
     setCurrentColumn(0)
     setCorrectLetters([''])
-    setWrongLetters([''])
     setPresentLetters([''])
-    setTargetWord(newWord)
+    setNotPresentLetters([''])
+    setIsNewGame(false)
   }
 
-  const getRandomWord = async () => {
-    const response = await fetch(
-      'https://random-word-api.herokuapp.com/word?length=5'
-    )
-    const data = await response.json()
-    return data[0]
-  }
+  useEffect(() => {
+    resetGame()
+  }, [])
 
   const handlePresentSettingsModal = () => settingsModalRef.current?.present()
 
@@ -290,26 +310,6 @@ const GameScreen = () => {
       setBorderColor(cell, currentRow - 1, cellIndex)
     })
   }, [currentRow])
-
-  const getCellColor = (cell: string, row: number, cellIndex: number) => {
-    if (currentRow > row) {
-      console.log(cell, targetLetters[cellIndex])
-      if (cell === targetLetters[cellIndex]) {
-        return Colors[colorScheme ?? 'light'].correct
-      } else if (targetWord.includes(cell)) {
-        return Colors[colorScheme ?? 'light'].present
-      } else {
-        return Colors[colorScheme ?? 'light'].wrong
-      }
-    }
-    return 'transparent'
-  }
-
-  // const getBorderColor = (cell: string, row: number, column: number) => {
-  //   if (currentRow > row) {
-  //   }
-  //   return 'transparent'
-  // }
 
   return (
     <>
@@ -389,7 +389,6 @@ const GameScreen = () => {
             </Text>
           </View>
         </SignedOut>
-        <SignedIn></SignedIn>
         <View style={styles.gameField}>
           {rows.map((row, rowIndex) => (
             <Animated.View
@@ -399,24 +398,20 @@ const GameScreen = () => {
               {row.map((cell, cellIndex) => (
                 <Animated.View
                   key={`cell-${rowIndex}-${cellIndex}`}
-                  style={[
-                    styles.cell,
-                    {
-                      backgroundColor: getCellColor(cell, rowIndex, cellIndex),
-                      borderColor: Colors[colorScheme ?? 'light'].border,
-                    },
-                    tileStyles[rowIndex][cellIndex],
-                  ]}
                   entering={ZoomIn.delay(50 * cellIndex)}
                 >
-                  <Text
-                    style={[
-                      styles.cellText,
-                      { color: Colors[colorScheme ?? 'light'].text },
-                    ]}
+                  <Animated.View
+                    style={[styles.cell, tileStyles[rowIndex][cellIndex]]}
                   >
-                    {cell}
-                  </Text>
+                    <Animated.Text
+                      style={[
+                        styles.cellText,
+                        { color: Colors[colorScheme ?? 'light'].text },
+                      ]}
+                    >
+                      {cell}
+                    </Animated.Text>
+                  </Animated.View>
                 </Animated.View>
               ))}
             </Animated.View>

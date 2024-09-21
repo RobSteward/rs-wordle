@@ -40,6 +40,8 @@ const SocialAuthentication = () => {
     } catch (error) {
       Toast.show('Something went wrong, please try again later.', {
         type: 'danger',
+        placement: 'top',
+        duration: 3000,
       })
     }
   }

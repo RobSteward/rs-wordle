@@ -1,11 +1,4 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Appearance,
-  Platform,
-} from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import React, {
   forwardRef,
   useCallback,
@@ -28,6 +21,7 @@ import ThemedLinearGradient from '../ThemedComponents/ThemedLinearGradient'
 import { Switch } from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { storeData, getData } from '@/utils/storage'
+import { EventRegister } from 'react-native-event-listeners'
 
 export type Ref = BottomSheetModal
 
@@ -36,18 +30,12 @@ const SettingsModal = forwardRef<Ref>((props, ref) => {
   const { dismiss } = useBottomSheetModal()
   const { bottom } = useSafeAreaInsets()
   const colorScheme = useColorScheme()
-  const [darkMode, setDarkMode] = useState<boolean>(false)
-  const [hardMode, setHardMode] = useState<boolean>(false)
+  const [darkMode, setDarkMode] = useState<boolean | null>(null)
 
   const loadSettings = async () => {
-    console.log('Loading settings')
     try {
       const darkModeValue = await getData('dark-mode')
-      const hardModeValue = await getData('hard-mode')
-      console.log('Dark mode:', darkModeValue)
-      console.log('Hard mode:', hardModeValue)
       setDarkMode(darkModeValue)
-      setHardMode(hardModeValue)
     } catch (error) {
       console.error('Error loading settings:', error)
     }
@@ -59,24 +47,15 @@ const SettingsModal = forwardRef<Ref>((props, ref) => {
 
   useEffect(() => {
     if (darkMode !== null) {
-      if (Platform.OS !== 'web') {
-        Appearance.setColorScheme(darkMode ? 'dark' : 'light')
-      }
+      console.log('Dark mode change triggered with', darkMode)
+      EventRegister.emit('isDarkMode', darkMode)
     }
   }, [darkMode])
 
-  const toggleDarkMode = () => {
+  const toggleDarkMode = async () => {
     setDarkMode((prev) => {
       const newValue = !Boolean(prev)
       storeData('dark-mode', newValue.toString())
-      return newValue
-    })
-  }
-
-  const toggleHardMode = () => {
-    setHardMode((prev) => {
-      const newValue = !Boolean(prev)
-      storeData('hard-mode', newValue.toString())
       return newValue
     })
   }
@@ -152,33 +131,8 @@ const SettingsModal = forwardRef<Ref>((props, ref) => {
                 </Text>
               </View>
               <Switch
-                value={darkMode}
+                value={darkMode ?? false}
                 onValueChange={toggleDarkMode}
-                color={Colors[colorScheme ?? 'light'].correct}
-              />
-            </View>
-            <View style={styles.row}>
-              <View style={styles.rowText}>
-                <Text
-                  style={[
-                    styles.rowTitle,
-                    { color: Colors[colorScheme ?? 'light'].text },
-                  ]}
-                >
-                  Hard mode
-                </Text>
-                <Text
-                  style={[
-                    styles.rowSubtitle,
-                    { color: Colors[colorScheme ?? 'light'].text },
-                  ]}
-                >
-                  Toggle game to hard mode
-                </Text>
-              </View>
-              <Switch
-                value={hardMode}
-                onValueChange={toggleHardMode}
                 color={Colors[colorScheme ?? 'light'].correct}
               />
             </View>

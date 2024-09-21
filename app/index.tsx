@@ -48,7 +48,7 @@ export default function Index() {
         )}
         <ThemedText style={[styles.title]}>The Selection Lab wordle</ThemedText>
         <ThemedText style={styles.text}>
-          Wordle clone based on words from the {'\n'}randomword api
+          Wordle clone based on words from the {'\n'}random-word-api
         </ThemedText>
       </Animated.View>
 

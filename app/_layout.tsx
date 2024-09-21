@@ -14,6 +14,7 @@ import {
   Image,
   StyleSheet,
   Appearance,
+  Platform,
 } from 'react-native'
 import {
   ThemeProvider,
@@ -29,8 +30,9 @@ import * as React from 'react'
 import { ToastProvider } from 'react-native-toast-notifications'
 import LottieView from 'lottie-react-native'
 import ThemedLinearGradient from '@/components/ThemedComponents/ThemedLinearGradient'
-import { Platform } from 'react-native'
 import { getData } from '@/utils/storage'
+import { EventRegister } from 'react-native-event-listeners'
+import { LogBox } from 'react-native'
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
 
@@ -42,6 +44,22 @@ if (!publishableKey) {
 
 SplashScreen.preventAutoHideAsync()
 
+if (__DEV__) {
+  const ignoreWarns = ['Clerk: ']
+
+  const warn = console.warn
+  console.warn = (...arg) => {
+    for (const warning of ignoreWarns) {
+      if (arg[0].startsWith(warning)) {
+        return
+      }
+    }
+    warn(...arg)
+  }
+
+  LogBox.ignoreLogs(ignoreWarns)
+}
+
 export default function RootLayout() {
   const colorScheme = useColorScheme()
   const [fontsLoaded, fontsLoadedError] = useFonts({
@@ -50,15 +68,18 @@ export default function RootLayout() {
     FrankRuhlLibre_900Black,
   })
   const router = useRouter()
-  const [darkMode, setDarkMode] = useState<boolean | null>(null)
 
   const fetchTheme = async () => {
+    console.log('Fetching theme')
     try {
       const darkModeValue = await getData('dark-mode')
-      if (darkModeValue !== null) {
-        setDarkMode(darkModeValue)
-      } else {
-        setDarkMode(false)
+      if (
+        Platform.OS !== 'web' &&
+        darkModeValue !== null &&
+        darkModeValue !== undefined
+      ) {
+        console.log('Setting theme to ', darkModeValue)
+        Appearance.setColorScheme(darkModeValue === 'false' ? 'light' : 'dark')
       }
     } catch (error) {
       console.error('Error loading settings:', error)
@@ -67,15 +88,22 @@ export default function RootLayout() {
 
   useEffect(() => {
     fetchTheme()
-  }, [])
 
-  useEffect(() => {
-    if (darkMode !== null) {
-      if (Platform.OS !== 'web') {
-        Appearance.setColorScheme(darkMode ? 'dark' : 'light')
+    const eventListener = EventRegister.addEventListener(
+      'isDarkMode',
+      (darkModeValue) => {
+        console.log('darkmode value from event is ', darkModeValue)
+        console.log('darkmode value type is ', typeof darkModeValue)
+        if (Platform.OS !== 'web') {
+          Appearance.setColorScheme(darkModeValue === false ? 'light' : 'dark')
+        }
       }
+    )
+
+    return () => {
+      EventRegister.removeEventListener(eventListener as string)
     }
-  }, [darkMode])
+  }, [])
 
   useEffect(() => {
     if (fontsLoaded || fontsLoadedError) {
