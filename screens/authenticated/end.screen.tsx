@@ -121,7 +121,7 @@ const EndScreen = ({
 
   const startNewGame = () => {
     router.dismissAll()
-    router.navigate(`/(authenticated)/(tabs)/?restart=true`)
+    router.navigate(`/(authenticated)/(tabs)/?newGame=true`)
   }
 
   useEffect(() => {

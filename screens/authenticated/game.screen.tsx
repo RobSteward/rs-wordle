@@ -22,6 +22,9 @@ import { Toast } from 'react-native-toast-notifications'
 import { IconButton } from 'react-native-paper'
 import checkIsValidWord from '@/api/checkIsValidWord'
 import getRandomWord from '@/api/getRandomWord'
+import { set } from 'date-fns'
+import ThemedLinearGradient from '@/components/ThemedComponents/ThemedLinearGradient'
+import LottieView from 'lottie-react-native'
 
 const ROWS = 6
 const MAX_WORD_ATTEMPTS = 10
@@ -39,6 +42,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ newGame = false }) => {
   const { signOut } = useAuth()
   const [counter, setCounter] = useState(0)
   const [isNewGame, setIsNewGame] = useState<boolean>(newGame)
+  const [isLoading, setIsLoading] = useState(false)
   const [rows, setRows] = useState<string[][]>(
     new Array(ROWS).fill(new Array(5).fill(''))
   )
@@ -91,7 +95,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ newGame = false }) => {
       const toastId = Toast.show('Not enough letters', {
         type: 'danger',
         placement: 'top',
-        duration: 750,
+        duration: 1000,
       })
       shakeRow()
       return
@@ -129,7 +133,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ newGame = false }) => {
           `/end?win=false&word=${currentWord}&gameField=${JSON.stringify(rows)}`
         )
       }
-    }, 750)
+    }, 1000)
 
     setCurrentRow(currentRow + 1)
     setCurrentColumn(0)
@@ -269,36 +273,51 @@ const GameScreen: React.FC<GameScreenProps> = ({ newGame = false }) => {
   }
 
   const resetGame = async () => {
+    setIsLoading(true)
     if (counter >= MAX_WORD_ATTEMPTS) {
-      Toast.show('Could not retrieve a valid word, try again later', {
-        type: 'danger',
-        placement: 'top',
-        duration: 3000,
+      throw new Error('Could not retrieve a valid word, try again later')
+    }
+    try {
+      const newWord = await getRandomWord()
+      const isValidWord = await checkIsValidWord(newWord)
+      if (isValidWord) {
+        console.log('New word', newWord.toUpperCase())
+        setTargetWord(newWord.toUpperCase())
+        setCounter(0)
+      } else {
+        setCounter(counter + 1)
+        return resetGame()
+      }
+      setCurrentRow(0)
+      setCurrentColumn(0)
+      setCorrectLetters([''])
+      setPresentLetters([''])
+      setNotPresentLetters([''])
+      setRows(new Array(ROWS).fill(new Array(5).fill('')))
+      rows.forEach((row, rowIndex) => {
+        row.forEach((_, cellIndex) => {
+          cellBackgrounds[rowIndex][cellIndex].value = 'transparent'
+          cellBorders[rowIndex][cellIndex].value = Colors.light.gray
+        })
       })
-      return router.navigate('/')
+    } catch (error) {
+      throw new Error('Could not retrieve a valid word, try again later')
+    } finally {
+      setIsLoading(false)
+      newGame = false
     }
-    const newWord = await getRandomWord()
-    const isValidWord = await checkIsValidWord(newWord)
-    if (isValidWord) {
-      console.log('New word is ', newWord.toUpperCase())
-      setTargetWord(newWord.toUpperCase())
-      setCounter(0)
-    } else {
-      setCounter(counter + 1)
-      return resetGame()
-    }
-    setRows(new Array(ROWS).fill(new Array(5).fill('')))
-    setCurrentRow(0)
-    setCurrentColumn(0)
-    setCorrectLetters([''])
-    setPresentLetters([''])
-    setNotPresentLetters([''])
-    setIsNewGame(false)
   }
 
   useEffect(() => {
     resetGame()
   }, [])
+
+  useEffect(() => {
+    console.log('newGame', isNewGame)
+    if (isNewGame) {
+      resetGame()
+    }
+  }, [isNewGame])
 
   const handlePresentSettingsModal = () => settingsModalRef.current?.present()
 
@@ -310,6 +329,25 @@ const GameScreen: React.FC<GameScreenProps> = ({ newGame = false }) => {
       setBorderColor(cell, currentRow - 1, cellIndex)
     })
   }, [currentRow])
+
+  if (isLoading) {
+    return (
+      <ThemedLinearGradient>
+        <View style={styles.loadingContainer}>
+          <Text style={styles.text}>Loading...</Text>
+          <LottieView
+            source={require('@/assets/animations/LoaderAnimation.json')}
+            style={{
+              width: '20%',
+              height: '20%',
+            }}
+            autoPlay
+            loop
+          />
+        </View>
+      </ThemedLinearGradient>
+    )
+  }
 
   return (
     <>
@@ -461,5 +499,16 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontStyle: 'italic',
     marginBottom: 10,
+  },
+  loadingContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  text: {
+    fontFamily: 'FrankRuhlLibre_800ExtraBold',
+    fontSize: 30,
+    color: '#fff',
   },
 })

@@ -122,7 +122,7 @@ const RequestResetPasswordScreen: React.FC<RequestResetPasswordScreenProps> = ({
         }
       )
     } catch (e) {
-      throw new Error(e)
+      throw new Error(e as string)
     } finally {
       setTimeout(() => {
         setResetPasswordEmailSentAgain(false)
