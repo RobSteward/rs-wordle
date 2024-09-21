@@ -1,4 +1,4 @@
-import { StyleSheet, useColorScheme, View } from 'react-native'
+import { ScrollView, StyleSheet, useColorScheme, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import React, { ReactNode } from 'react'
 
@@ -37,5 +37,7 @@ export default ThemedLinearGradient
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: '100%',
+    height: '100%',
   },
 })

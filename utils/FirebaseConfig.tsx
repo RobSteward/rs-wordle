@@ -27,13 +27,14 @@ export const firebaseAuthActionCodeSettings = {
 }
 
 const isRunningOnLocalhost = () => {
-  return process.env.EXPO_PUBLIC_IS_DEVELOPMENT
+  return process.env.EXPO_PUBLIC_IS_DEVELOPMENT === 'true'
 }
 
 export const FIREBASE_APP = initializeApp(firebaseConfig)
 export const FIREBASE_DB = getFirestore(FIREBASE_APP)
 
 if (isRunningOnLocalhost()) {
+  console.log('Connecting to Firestore emulator')
   const emulatorHost = Platform.OS === 'android' ? '10.0.2.2' : 'localhost'
   connectFirestoreEmulator(FIREBASE_DB, emulatorHost, 8080)
 }

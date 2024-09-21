@@ -29,8 +29,8 @@ interface SignInFormProps {
 }
 
 const initialValues: SignInFormProps = {
-  email: 'robinscharf@gmail.com',
-  password: 'Aererert1!',
+  email: '',
+  password: '',
 }
 
 const SignInValidationSchema = Yup.object().shape({

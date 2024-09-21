@@ -26,8 +26,10 @@ import { set } from 'date-fns'
 import ThemedLinearGradient from '@/components/ThemedComponents/ThemedLinearGradient'
 import LottieView from 'lottie-react-native'
 
-const ROWS = 6
-const MAX_WORD_ATTEMPTS = 10
+const ROWS = parseInt(process.env.EXPO_PUBLIC_ROWS ?? '6')
+const MAX_WORD_ATTEMPTS = parseInt(
+  process.env.EXPO_PUBLIC_MAX_WORD_ATTEMPTS ?? '10'
+)
 
 interface GameScreenProps {
   newGame?: boolean
@@ -496,6 +498,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     paddingVertical: 10,
+    gap: 10,
   },
   gameField: {
     alignItems: 'center',

@@ -6,6 +6,7 @@ import {
   Image,
   Keyboard,
   useColorScheme,
+  ScrollView,
 } from 'react-native'
 import { Button } from 'react-native-paper'
 import ThemedLinearGradient from '@/components/ThemedComponents/ThemedLinearGradient'
@@ -54,45 +55,48 @@ const AuthenticationScreen: React.FC<AuthenticationScreenProps> = () => {
   }, [])
 
   return (
-    <ThemedLinearGradient>
-      <View style={styles.headerContainer}>
-        {colorScheme === 'dark' ? (
-          <IconDark
-            width={50}
-            height={50}
-            style={styles.logo}
-          />
-        ) : (
-          <IconLight
-            width={50}
-            height={50}
-            style={styles.logo}
-          />
-        )}
-        <ThemedText style={styles.title}>The Selection Lab wordle</ThemedText>
-      </View>
-
-      <View style={styles.container}>
-        <View style={styles.authenticationContainer}>
-          {isSignUp ? <SignUpScreen /> : <SignInScreen />}
+    <ScrollView>
+      <ThemedLinearGradient>
+        <View style={styles.headerContainer}>
+          {colorScheme === 'dark' ? (
+            <IconDark
+              width={50}
+              height={50}
+              style={styles.logo}
+            />
+          ) : (
+            <IconLight
+              width={50}
+              height={50}
+              style={styles.logo}
+            />
+          )}
+          <ThemedText style={styles.title}>The Selection Lab wordle</ThemedText>
         </View>
-        <SocialAuthentication />
-        <View style={styles.authenticationToggleContainer}>
-          <Text style={{ color: Colors[colorScheme ?? 'light'].text }}>
-            {isSignUp ? 'Existing' : 'No'} account?
-          </Text>
-          <Button
-            mode='text'
-            onPress={() => {
-              toggleAuthenticationMode()
-            }}
-            textColor={Colors[colorScheme ?? 'light'].text}
-          >
-            {isSignUp ? 'Sign in' : 'Sign up'}
-          </Button>
+        <View style={styles.container}>
+          <View style={styles.authenticationContainer}>
+            {isSignUp ? <SignUpScreen /> : <SignInScreen />}
+          </View>
+          {!keyboardVisible && <SocialAuthentication />}
+          {!keyboardVisible && (
+            <View style={styles.authenticationToggleContainer}>
+              <Text style={{ color: Colors[colorScheme ?? 'light'].text }}>
+                {isSignUp ? 'Existing' : 'No'} account?
+              </Text>
+              <Button
+                mode='text'
+                onPress={() => {
+                  toggleAuthenticationMode()
+                }}
+                textColor={Colors[colorScheme ?? 'light'].text}
+              >
+                {isSignUp ? 'Sign in' : 'Sign up'}
+              </Button>
+            </View>
+          )}
         </View>
-      </View>
-    </ThemedLinearGradient>
+      </ThemedLinearGradient>
+    </ScrollView>
   )
 }
 

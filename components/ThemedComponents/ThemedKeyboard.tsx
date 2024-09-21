@@ -109,13 +109,12 @@ const ThemedKeyboard = ({
   )
 }
 export default ThemedKeyboard
+
 const styles = StyleSheet.create({
   container: {
-    marginTop: 50,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    flex: 1,
-    paddingVertical: 50,
+    paddingVertical: 10,
   },
   row: {
     flexDirection: 'row',

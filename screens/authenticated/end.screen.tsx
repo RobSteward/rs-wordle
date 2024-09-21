@@ -39,12 +39,7 @@ const EndScreen = ({
   const { user } = useUser()
 
   const router = useRouter()
-  const [userScores, setUserScores] = useState<any>({
-    gameCount: 42,
-    winCount: 5,
-    currentStreak: 2,
-    highestStreak: 10,
-  })
+  const [userScores, setUserScores] = useState<any>()
 
   const shareResults = () => {
     const game = JSON.parse(gameField!)
@@ -144,49 +139,47 @@ const EndScreen = ({
       throw new Error('User is not defined. Cannot update user data.')
     }
 
+    let newScore = {
+      GAME_COUNT: 1,
+      WIN_COUNT: win === 'true' ? 1 : 0,
+      LAST_GAME_STATUS: win === 'true' ? 'win' : 'loss',
+      LAST_GAME_DATE: new Date(),
+      CURRENT_STREAK: win === 'true' ? 1 : 0,
+      HIGHEST_STREAK: win === 'true' ? 1 : 0,
+    }
+
     const documentRef = doc(FIREBASE_DB, `scores/${userId}`)
-    const documentSnapshot = await getDoc(documentRef)
-    if (documentSnapshot.exists()) {
-      const data = documentSnapshot.data()
-      const res = await setDoc(
-        documentRef,
-        {
-          LAST_GAME_STATUS: win === 'true' ? 'win' : 'lose',
-          LAST_GAME_DATE: new Date().toISOString(),
-          GAME_COUNT: increment(1),
-          WIN_COUNT: increment(win === 'true' ? 1 : 0),
-          CURRENT_STREAK:
-            win === 'true' && data.LAST_GAME_STATUS === 'win'
-              ? data.CURRENT_STREAK + 1
-              : win === 'true'
-              ? 1
-              : 0,
-          HIGHEST_STREAK:
-            data.CURRENT_STREAK > data.highestStreak
-              ? data.CURRENT_STREAK
-              : data.HIGHEST_STREAK,
-        },
-        {
-          merge: true,
-          mergeFields: [
-            'GAME_COUNT',
-            'WIN_COUNT',
-            'CURRENT_STREAK',
-            'HIGHEST_STREAK',
-            'LAST_GAME_STATUS',
-            'LAST_GAME_DATE',
-          ],
-        }
-      )
-    } else {
-      const res = await setDoc(documentRef, {
-        LAST_GAME_STATUS: win === 'true' ? 'win' : 'lose',
-        LAST_GAME_DATE: new Date().toISOString(),
-        GAME_COUNT: increment(1),
-        WIN_COUNT: increment(win === 'true' ? 1 : 0),
-        CURRENT_STREAK: increment(win === 'true' ? 1 : 0),
-        HIGHEST_STREAK: win === 'true' ? increment(1) : increment(0),
+    const userScores = await getDoc(documentRef)
+    if (userScores.exists()) {
+      const data = userScores.data()
+      const newScore = {
+        GAME_COUNT: data.GAME_COUNT + 1,
+        WIN_COUNT: data.WIN_COUNT + (win === 'true' ? 1 : 0),
+        LAST_GAME_STATUS: win === 'true' ? 'win' : 'loss',
+        LAST_GAME_DATE: new Date(),
+        CURRENT_STREAK:
+          win === 'true' && data.LAST_GAME_STATUS === 'win'
+            ? data.CURRENT_STREAK + 1
+            : win === 'true'
+            ? 1
+            : 0,
+        HIGHEST_STREAK:
+          data.CURRENT_STREAK >= data.HIGHEST_STREAK
+            ? data.CURRENT_STREAK + 1
+            : data.HIGHEST_STREAK,
+      }
+      const res = await setDoc(documentRef, newScore, {
+        merge: true,
+        mergeFields: [
+          'GAME_COUNT',
+          'WIN_COUNT',
+          'CURRENT_STREAK',
+          'HIGHEST_STREAK',
+          'LAST_GAME_STATUS',
+          'LAST_GAME_DATE',
+        ],
       })
+      setUserScores(newScore)
     }
   }
 
@@ -304,7 +297,7 @@ const EndScreen = ({
                         { color: Colors[colorScheme ?? 'light'].text },
                       ]}
                     >
-                      {userScores.gameCount}
+                      {userScores?.GAME_COUNT}
                     </Text>
                     <Text
                       style={[{ color: Colors[colorScheme ?? 'light'].text }]}
@@ -319,7 +312,7 @@ const EndScreen = ({
                         { color: Colors[colorScheme ?? 'light'].text },
                       ]}
                     >
-                      {userScores.winCount}
+                      {userScores?.WIN_COUNT}
                     </Text>
                     <Text
                       style={[{ color: Colors[colorScheme ?? 'light'].text }]}
@@ -336,7 +329,7 @@ const EndScreen = ({
                         { color: Colors[colorScheme ?? 'light'].text },
                       ]}
                     >
-                      {userScores.currentStreak}
+                      {userScores?.CURRENT_STREAK}
                     </Text>
                     <Text
                       style={[{ color: Colors[colorScheme ?? 'light'].text }]}
@@ -351,7 +344,7 @@ const EndScreen = ({
                         { color: Colors[colorScheme ?? 'light'].text },
                       ]}
                     >
-                      {userScores.highestStreak}
+                      {userScores?.HIGHEST_STREAK}
                     </Text>
                     <Text
                       style={[{ color: Colors[colorScheme ?? 'light'].text }]}

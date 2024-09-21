@@ -28,9 +28,9 @@ interface SignUpFormProps {
 }
 
 const initialValues: SignUpFormProps = {
-  email: 'robinscharf@gmail.com',
-  password: 'Aererert1!',
-  confirmPassword: 'Aererert1!',
+  email: '',
+  password: '',
+  confirmPassword: '',
 }
 
 const signUpValidationSchema = Yup.object().shape({
@@ -172,6 +172,7 @@ export default function SignUpScreen() {
                   enablesReturnKeyAutomatically={true}
                   keyboardType='email-address'
                   enterKeyHint='next'
+                  returnKeyType='next'
                   left={<TextInput.Icon icon='email' />}
                   right={
                     <TextInput.Icon
@@ -194,7 +195,8 @@ export default function SignUpScreen() {
                   enablesReturnKeyAutomatically={true}
                   keyboardType='default'
                   textContentType='password'
-                  enterKeyHint='send'
+                  enterKeyHint='next'
+                  returnKeyType='next'
                   left={<TextInput.Icon icon='lock' />}
                   right={
                     <TextInput.Icon
@@ -218,6 +220,7 @@ export default function SignUpScreen() {
                   keyboardType='default'
                   textContentType='password'
                   enterKeyHint='send'
+                  returnKeyType='send'
                   left={<TextInput.Icon icon='lock' />}
                   right={
                     <TextInput.Icon
