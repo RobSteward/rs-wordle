@@ -141,7 +141,7 @@ export default function RootLayout() {
             <GestureHandlerRootView>
               <BottomSheetModalProvider>
                 <Stack
-                  initialRouteName={'/index'}
+                  initialRouteName={'(index'}
                   screenOptions={{
                     headerShown: false,
                   }}

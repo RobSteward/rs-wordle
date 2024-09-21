@@ -1,4 +1,4 @@
-import { StatusBar } from 'react-native'
+import { StatusBar, useColorScheme } from 'react-native'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6'
@@ -10,6 +10,7 @@ import { useRouter } from 'expo-router'
 
 const TabsLayout = () => {
   const router = useRouter()
+  const colorScheme = useColorScheme()
 
   return (
     <>
@@ -17,15 +18,23 @@ const TabsLayout = () => {
       <Tabs
         screenOptions={{
           tabBarStyle: {
-            borderTopWidth: 0,
-            height: 60,
+            borderTopWidth: 2,
+            height: 75,
             paddingBottom: 5,
+            backgroundColor: Colors[colorScheme ?? 'light'].background,
+            shadowOffset: {
+              width: 0,
+              height: 12,
+            },
+            shadowOpacity: 0.58,
+            shadowRadius: 16.0,
+            elevation: 24,
           },
-          tabBarActiveTintColor: Colors.light.tint,
-          tabBarInactiveTintColor: Colors.light.gray,
+          tabBarActiveTintColor: Colors[colorScheme ?? 'light'].text,
+          tabBarInactiveTintColor: Colors[colorScheme ?? 'light'].iconInactive,
           tabBarLabelStyle: {
             fontSize: 12,
-            marginBottom: 5,
+            marginBottom: 10,
           },
           tabBarIconStyle: {
             marginTop: 5,
@@ -37,15 +46,17 @@ const TabsLayout = () => {
         <Tabs.Screen
           name='index'
           options={{
-            tabBarIcon: ({ focused, color, size }) => (
-              <MaterialCommunityIcons
-                name='dice-3'
-                size={size}
-                color={color}
-              />
-            ),
-            tabBarLabel: 'Play',
-            title: 'Play',
+            tabBarIcon: ({ focused, size }) => {
+              return (
+                <MaterialCommunityIcons
+                  name={focused ? 'dice-3' : 'dice-3-outline'}
+                  size={size}
+                  color={Colors[colorScheme ?? 'light'].buttonText}
+                />
+              )
+            },
+            tabBarLabel: 'Wordle',
+            title: 'Wordle',
           }}
         />
       </Tabs>

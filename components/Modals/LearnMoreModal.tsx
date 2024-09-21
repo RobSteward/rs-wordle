@@ -5,8 +5,15 @@ import {
   Image,
   TouchableOpacity,
   Linking,
+  useColorScheme,
 } from 'react-native'
-import React, { forwardRef, useCallback, useMemo, useState } from 'react'
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import ThemedButton from '@/components/ThemedComponents/ThemedButton'
 import {
   BottomSheetBackdrop,
@@ -18,35 +25,24 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons'
 import * as WebBrowser from 'expo-web-browser'
 import { WebBrowserResult } from 'expo-web-browser'
-export type Ref = BottomSheetModal
+import { Toast } from 'react-native-toast-notifications'
+import { Colors } from '@/constants/Colors'
+
+import { getDoc, collection, doc } from 'firebase/firestore'
+import { FIREBASE_DB } from '@/utils/FirebaseConfig'
 
 import disc from '@jsamr/counter-style/presets/disc'
 import MarkedList from '@jsamr/react-native-li'
 import { Link } from 'expo-router'
-import { Colors } from '@/constants/Colors'
+import { set } from 'date-fns'
+import LottieView from 'lottie-react-native'
 
-const TECH_STACK = [
-  'MacOs',
-  'Visual Studio Code',
-  'Cody',
-  'GitHub Copilot',
-  'GitHub',
-  'React Native',
-  'Expo',
-  'Firebase Hosting ',
-  'Firestore',
-  'Clerk',
-  'Typescript',
-  'Formik/Yup',
-  'validator',
-  'React Native Toast Notification',
-  'Jest',
-  'Google Fonts',
-  'Date FNS',
-  'Affinity Designer',
-]
+export type Ref = BottomSheetModal
 
 const learnMoreModal = forwardRef<Ref>((props, ref) => {
+  const [techStack, setTechStack] = useState<string[]>([])
+  const colorScheme = useColorScheme()
+
   const snapPoints = useMemo(() => ['90%'], [])
   const { dismiss } = useBottomSheetModal()
   const { bottom } = useSafeAreaInsets()
@@ -73,12 +69,36 @@ const learnMoreModal = forwardRef<Ref>((props, ref) => {
     []
   )
 
+  const fetchTechStack = async () => {
+    try {
+      const documentRef = doc(FIREBASE_DB, `system/LEARN_MORE_DATA`)
+      const documentSnapshot = await getDoc(documentRef)
+      const TECH_STACK = documentSnapshot.data()?.technologies || []
+      if (TECH_STACK.length > 0) {
+        setTechStack(TECH_STACK)
+      } else {
+        throw new Error('Could not load data')
+      }
+    } catch (error) {
+      Toast.show(`${error}`, {
+        type: 'danger',
+        placement: 'top',
+        duration: 3000,
+      })
+    }
+  }
+
   return (
     <BottomSheetModal
       ref={ref}
       index={0}
       backdropComponent={renderBackdrop}
       snapPoints={snapPoints}
+      onChange={(index) => {
+        if (index >= 0) {
+          fetchTechStack()
+        }
+      }}
     >
       <View style={styles.contentContainer}>
         <View style={styles.modalBtns}>
@@ -116,19 +136,45 @@ const learnMoreModal = forwardRef<Ref>((props, ref) => {
 
           <View>
             <Text style={styles.header}>Tech Stack</Text>
-            <MarkedList
-              counterRenderer={disc}
-              lineStyle={{ paddingHorizontal: 40, gap: 10, marginVertical: 10 }}
-            >
-              {TECH_STACK.map((value, index) => (
+            {techStack.length ? (
+              <MarkedList
+                counterRenderer={disc}
+                lineStyle={{
+                  paddingHorizontal: 40,
+                  gap: 10,
+                  marginVertical: 10,
+                }}
+              >
+                {techStack.map((value, index) => (
+                  <Text
+                    key={index}
+                    style={styles.listText}
+                  >
+                    {value}
+                  </Text>
+                ))}
+              </MarkedList>
+            ) : (
+              <View style={styles.loadingContainer}>
                 <Text
-                  key={index}
-                  style={styles.listText}
+                  style={[
+                    styles.text,
+                    { color: Colors[colorScheme ?? 'light'].text },
+                  ]}
                 >
-                  {value}
+                  Loading...
                 </Text>
-              ))}
-            </MarkedList>
+                <LottieView
+                  source={require('@/assets/animations/LoaderAnimation.json')}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                  }}
+                  autoPlay
+                  loop
+                />
+              </View>
+            )}
           </View>
           <Text style={styles.header}>Disclaimer</Text>
           <Text style={styles.disclaimer}>
@@ -250,6 +296,15 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: 'bold',
     textDecorationLine: 'underline',
+  },
+  loadingContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  text: {
+    fontSize: 15,
   },
 })
 

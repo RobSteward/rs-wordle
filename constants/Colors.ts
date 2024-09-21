@@ -5,14 +5,11 @@
 
 import { MD3Colors } from 'react-native-paper'
 
-const tintColorLight = '#0a7ea4'
-const tintColorDark = '#ECEDEE'
-
 export const Colors = {
   light: {
     correct: '#6AAC64',
     present: '#FFD700',
-    wrong: '#687076',
+    notPresent: '#687076',
     default: '#F7F7F7',
     primary: '#1180FF',
     secondary: '#212547',
@@ -23,7 +20,6 @@ export const Colors = {
     border: '#1180FF',
     backgroundGradientStart: '#F7F7F7',
     backgroundGradientEnd: '#1180FF',
-    tint: tintColorLight,
     gray: '#A0A5A9',
     iconActive: '#1180FF',
     iconInactive: '#687076',
@@ -31,7 +27,6 @@ export const Colors = {
     iconButtonIcon: '#1180FF',
     iconButtonBackground: '#F7F7F7',
     tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
     gameBackground: '#F7F7F7',
     accent: '##f9c632',
     headerBackground: '#F7F7F7',
@@ -39,7 +34,7 @@ export const Colors = {
   dark: {
     correct: '#6AAA64',
     present: '#C9B458',
-    wrong: MD3Colors.error30,
+    notPresent: MD3Colors.error30,
     default: '#687076',
     primary: '#1180FF',
     secondary: '#212547',
@@ -50,7 +45,6 @@ export const Colors = {
     border: '#F7F7F7',
     backgroundGradientStart: '#212547',
     backgroundGradientEnd: '#1180FF',
-    tint: tintColorDark,
     gray: '#484848',
     iconActive: '#212547',
     iconInactive: '#9BA1A6',
@@ -58,7 +52,6 @@ export const Colors = {
     iconButtonIcon: '#F7F7F7',
     iconButtonBackground: '#212547',
     tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
     gameBackground: '#212547',
     accent: '##f9c632',
     headerBackground: '#212547',

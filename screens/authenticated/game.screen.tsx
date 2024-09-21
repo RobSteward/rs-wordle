@@ -176,7 +176,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ newGame = false }) => {
       } else {
         cellBackgrounds[rowIndex][cellIndex].value = withDelay(
           cellIndex * 200,
-          withTiming(Colors.light.wrong)
+          withTiming(Colors.light.notPresent)
         )
       }
     } else {
@@ -265,7 +265,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ newGame = false }) => {
       } else {
         cellBorders[rowIndex][cellIndex].value = withDelay(
           cellIndex * 200,
-          withTiming(Colors.light.wrong)
+          withTiming(Colors.light.notPresent)
         )
       }
     }
@@ -313,7 +313,6 @@ const GameScreen: React.FC<GameScreenProps> = ({ newGame = false }) => {
   }, [])
 
   useEffect(() => {
-    console.log('newGame', isNewGame)
     if (isNewGame) {
       resetGame()
     }
@@ -367,6 +366,15 @@ const GameScreen: React.FC<GameScreenProps> = ({ newGame = false }) => {
               fontSize: 25,
               fontFamily: 'FrankRuhlLibre_800ExtraBold',
             },
+            headerLeft: () => (
+              <IconButton
+                icon='arrow-left'
+                onPress={() => {
+                  router.navigate('../')
+                }}
+                iconColor={Colors[colorScheme ?? 'light'].icon}
+              />
+            ),
             headerRight: () => (
               <View
                 style={{
